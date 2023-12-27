@@ -1,4 +1,4 @@
-import { Accessories, Balcony, Client } from "@/@types/pedidoJson";
+import { Accessories, Balcony, Client } from "@/dtos/ITypeOrderJSON";
 import { Schema, model, Document } from "mongoose";
 
 export interface IOrdersModel extends Document {
