@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://fastify.dev/" target="blank"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Fastify_logo.svg" width="400" alt="Fastify Logo" /></a>
+  <a href="https://fastify.dev/" target="blank"><img src="https://media.licdn.com/dms/image/C4E12AQGa1N45NpqnvA/article-cover_image-shrink_720_1280/0/1644036872415?e=2147483647&v=beta&t=6I0cfyAsNubtihxCHjbEyfYvHEljQWx_TEAbOf8DwZk" width="400" alt="Fastify Logo" /></a>
 </p>
 
 ## Description
