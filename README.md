@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://fastify.dev/" target="blank"><img src="https://blog.geekhunter.com.br/wp-content/uploads/2021/02/1_mp91A9RzagntGGjBnwu4Yw.png.webp" width="400" alt="Fastify Logo" /></a>
+  <a href="https://fastify.dev/" target="blank"><img src="https://i.imgur.com/ODqFcVZ.png" width="400" alt="Fastify Logo" /></a>
 </p>
 
 <h1 align="center"> API Soluções Sacada </h1>
