@@ -1,7 +1,3 @@
-import { IFileProvider } from "@/providers/StorageProvider/file-provider.interface"
-import { IStorageProvider } from "@/providers/StorageProvider/storage-provider.interface"
-import { IImagesRepository } from "@/repositories/interface-images-repository"
-import { AppError } from "@/usecases/errors/app-error"
 
 interface IRequestDeleteImages{
     id: string

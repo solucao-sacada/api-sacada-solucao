@@ -1,10 +1,7 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { hash } from "bcrypt";
 import { AccessAdminUsersUseCase } from "./access-admin-users-usecases";
-import { InMemoryKeysRepository } from "@/repositories/in-memory/in-memory-keys-repository";
 import { randomUUID } from "crypto";
-import { AppError } from "@/usecases/errors/app-error";
 
 let usersRepositoryInMemory: InMemoryUsersRepository;
 let keysRepositoryInMemory: InMemoryKeysRepository

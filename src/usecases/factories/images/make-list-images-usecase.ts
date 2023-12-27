@@ -1,4 +1,3 @@
-import { PrismaImageRepository } from "@/repositories/prisma/prisma-images-repository";
 import { ListImageUseCase } from "@/usecases/images/list/list-images-usecase";
 
 export async function makeListImage(): Promise<ListImageUseCase> {

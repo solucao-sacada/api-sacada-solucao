@@ -1,10 +1,7 @@
 import { IUsersRepository } from "@/repositories/interface-users-repository";
 import 'dotenv/config'
-import { ITokensRepository } from "@/repositories/interface-tokens-repository";
 import { IDateProvider } from "@/providers/DateProvider/interface-date-provider";
 import { hash } from "bcrypt";
-import { User } from "@prisma/client";
-import { AppError } from "@/usecases/errors/app-error";
 
 interface IRequestResetPassword {
     token: string

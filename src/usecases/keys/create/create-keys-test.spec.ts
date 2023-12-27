@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { InMemoryKeysRepository } from "@/repositories/in-memory/in-memory-keys-repository";
 import { CreateKeyUseCase } from "./create-keys-usecases";
 
 let keysInMemoryRepository: InMemoryKeysRepository;

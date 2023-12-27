@@ -1,7 +1,3 @@
-import { IImagesRepository } from "@/repositories/interface-images-repository"
-import { IUsersRepository } from "@/repositories/interface-users-repository"
-import { AppError } from "@/usecases/errors/app-error"
-import { Image } from "@prisma/client"
 
 interface IRequestListImages{
     idUser: string

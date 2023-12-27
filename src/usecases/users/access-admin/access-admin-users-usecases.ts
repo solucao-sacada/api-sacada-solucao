@@ -1,8 +1,4 @@
-import { IUsersRepository } from "@/repositories/interface-users-repository";
-import { User } from "@prisma/client";
 import 'dotenv/config'
-import { IKeysRepository } from "@/repositories/interface-keys-repository";
-import { AppError } from "@/usecases/errors/app-error";
 
 interface IRequestAccessAdmin {
    key: string

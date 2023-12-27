@@ -1,7 +1,4 @@
-import { Key } from "@prisma/client";
 import 'dotenv/config'
-import { IKeysRepository } from "@/repositories/interface-keys-repository";
-import { generatoRandomKey } from "@/utils/generator-random-key";
 
 
 interface IResponseCreateKey {

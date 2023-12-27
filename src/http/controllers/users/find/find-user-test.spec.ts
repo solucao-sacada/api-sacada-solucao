@@ -1,6 +1,4 @@
 import { afterAll, beforeAll, describe, expect, test } from "vitest";
-import request from 'supertest'
-import { fastifyApp } from "@/app";
 import { randomUUID } from "crypto";
 
 describe('Find User (e2e)', ()=>{

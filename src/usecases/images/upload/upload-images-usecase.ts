@@ -1,11 +1,5 @@
 import { env } from "@/env"
 import { IStorageProvider } from "@/providers/StorageProvider/storage-provider.interface"
-import { IBoxRepository } from "@/repositories/interface-boxes-repository"
-import { ICampingsRepository } from "@/repositories/interface-campings-repository"
-import { IImagesRepository } from "@/repositories/interface-images-repository"
-import { IUsersRepository } from "@/repositories/interface-users-repository"
-import { AppError } from "@/usecases/errors/app-error"
-import { Image } from "@prisma/client"
 
 interface IRequestUploadImage{
     idUser: string

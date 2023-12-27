@@ -1,11 +1,8 @@
-import { IUsersRepository } from "@/repositories/interface-users-repository";
 import 'dotenv/config'
-import { ITokensRepository } from "@/repositories/interface-tokens-repository";
 import { IDateProvider } from "@/providers/DateProvider/interface-date-provider";
 import { randomUUID } from "crypto";
 import { env } from "@/env";
 import { IMailProvider } from "@/providers/MailProvider/interface-mail-provider";
-import { AppError } from "@/usecases/errors/app-error";
 
 interface IRequestForgotPasswordEmail {
     email: string

@@ -1,7 +1,5 @@
 import { IStorageProvider } from '../storage-provider.interface';
 import 'dotenv/config';
-import {firebaseApp} from '@/config/firebase-storage-connection';
-import { Bucket } from '@google-cloud/storage';
 
 export class FirebaseStorageProvider implements IStorageProvider {
     private readonly storage: Bucket;

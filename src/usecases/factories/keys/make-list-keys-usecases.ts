@@ -1,4 +1,3 @@
-import { PrismaKeysRepository } from "@/repositories/prisma/prisma-keys-repository";
 import { ListKeyUseCase } from "@/usecases/keys/list/list-keys-usecase";
 
 export async function makeListKey(): Promise<ListKeyUseCase> {

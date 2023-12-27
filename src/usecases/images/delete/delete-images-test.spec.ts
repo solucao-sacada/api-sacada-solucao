@@ -1,14 +1,7 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { InMemoryCampingRepository } from "@/repositories/in-memory/in-memory-camping-repository";
-import { InMemoryImagesRepository } from "@/repositories/in-memory/in-memory-images-repository";
-import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { hash } from "bcrypt";
-import { InMemoryAddressesRepository } from "@/repositories/in-memory/in-memory-addresses-repository";
-import { Prisma } from "@prisma/client";
 import { DeleteImageUseCase } from "./delete-images-usecase";
 import { InMemoryStorageProvider } from "@/providers/StorageProvider/in-memory/in-memory-storage-provider";
-import { FileTMPProvider } from "@/providers/StorageProvider/implementations/file-tmp.provider";
-import { AppError } from "@/usecases/errors/app-error";
 
 let campingRepositoryInMemory: InMemoryCampingRepository
 let addressRepositoryInMemory: InMemoryAddressesRepository

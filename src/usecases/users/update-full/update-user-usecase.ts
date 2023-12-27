@@ -1,7 +1,4 @@
-import { IUsersRepository } from "@/repositories/interface-users-repository";
 import 'dotenv/config'
-import { User } from "@prisma/client";
-import { AppError } from "@/usecases/errors/app-error";
 
 interface IRequestUpdateUser {
     id: string,

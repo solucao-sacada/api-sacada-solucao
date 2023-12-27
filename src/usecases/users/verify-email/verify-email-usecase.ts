@@ -1,8 +1,4 @@
-import { IUsersRepository } from "@/repositories/interface-users-repository";
 import 'dotenv/config'
-import { ITokensRepository } from "@/repositories/interface-tokens-repository";
-import { IDateProvider } from "@/providers/DateProvider/interface-date-provider";
-import { AppError } from "@/usecases/errors/app-error";
 
 interface IRequestVerifyEmail {
     token: string

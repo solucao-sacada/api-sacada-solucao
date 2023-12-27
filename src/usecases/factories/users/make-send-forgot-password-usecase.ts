@@ -1,6 +1,4 @@
 import { DayjsDateProvider } from "@/providers/DateProvider/implementations/provider-dayjs";
-import { PrismaUsersRepository } from "@/repositories/prisma/prisma-users-repository";
-import { PrismaTokensRepository } from "@/repositories/prisma/prisma-tokens-repository";
 import { MailProvider } from "@/providers/MailProvider/implementations/provider-sendgrid";
 import { SendForgotPasswordUseCase } from "@/usecases/users/send-forgot-password/send-forgot-password-usecase";
 

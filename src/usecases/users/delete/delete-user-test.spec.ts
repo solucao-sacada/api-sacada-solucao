@@ -1,9 +1,6 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { hash } from "bcrypt";
 import { DeleteUserUseCase } from "./delete-user-usecase";
-import { User } from "@prisma/client";
-import { AppError } from "@/usecases/errors/app-error";
 
 let usersRepositoryInMemory: InMemoryUsersRepository;
 let stu: DeleteUserUseCase;

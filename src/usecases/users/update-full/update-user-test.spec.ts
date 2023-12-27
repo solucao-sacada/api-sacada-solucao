@@ -1,8 +1,6 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { hash } from "bcrypt";
 import { UpdateUserUseCase } from "./update-user-usecase";
-import { AppError } from "@/usecases/errors/app-error";
 
 let usersRepositoryInMemory: InMemoryUsersRepository;
 let stu: UpdateUserUseCase;

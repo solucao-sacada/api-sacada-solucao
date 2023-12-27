@@ -1,6 +1,4 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { InMemoryKeysRepository } from "@/repositories/in-memory/in-memory-keys-repository";
-import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { hash } from "bcrypt";
 import { CreateKeyUseCase } from "../create/create-keys-usecases";
 import { ListKeyUseCase } from "./list-keys-usecase";

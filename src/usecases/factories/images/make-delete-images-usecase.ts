@@ -1,6 +1,3 @@
-import { FileTMPProvider } from "@/providers/StorageProvider/implementations/file-tmp.provider";
-import { FirebaseStorageProvider } from "@/providers/StorageProvider/implementations/firebase-storage.provider";
-import { PrismaImageRepository } from "@/repositories/prisma/prisma-images-repository";
 import { DeleteImageUseCase } from "@/usecases/images/delete/delete-images-usecase";
 
 export async function makeDeleteImage(): Promise<DeleteImageUseCase> {

@@ -1,13 +1,10 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
-import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { hash } from "bcrypt";
 import { DayjsDateProvider } from "@/providers/DateProvider/implementations/provider-dayjs";
-import { InMemoryTokensRepository } from "@/repositories/in-memory/in-memory-tokens-repository";
 import { InMemoryMailProvider } from "@/providers/MailProvider/in-memory/in-memory-mail-provider";
 import { LoginUseCase } from "../login/login-usecase";
 import { LogoutUseCase } from "./logout-usecase";
 import { InMemoryCacheProvider } from "@/providers/CacheProvider/in-memory/in-memory-cache-provider";
-import { AppError } from "@/usecases/errors/app-error";
 
 let usersRepositoryInMemory: InMemoryUsersRepository;
 let usersTokensRepositoryInMemory: InMemoryTokensRepository;

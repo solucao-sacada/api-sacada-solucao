@@ -1,10 +1,5 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { InMemoryCampingRepository } from "@/repositories/in-memory/in-memory-camping-repository";
-import { InMemoryImagesRepository } from "@/repositories/in-memory/in-memory-images-repository";
-import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { hash } from "bcrypt";
-import { InMemoryAddressesRepository } from "@/repositories/in-memory/in-memory-addresses-repository";
-import { Prisma } from "@prisma/client";
 import { ListImageUseCase } from "./list-images-usecase";
 
 let campingRepositoryInMemory: InMemoryCampingRepository

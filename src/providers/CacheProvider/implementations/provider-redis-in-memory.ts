@@ -1,4 +1,3 @@
-import { redisClient } from "@/config/redis-cache-connection";
 import { ICacheProvider} from "../interface-cache";
 
 export class RedisInMemoryProvider implements ICacheProvider {

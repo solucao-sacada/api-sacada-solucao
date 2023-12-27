@@ -1,11 +1,7 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { LoginUseCase } from "./login-usecase";
 import { hash } from "bcrypt";
 import 'dotenv/config'
-import { InMemoryTokensRepository } from "@/repositories/in-memory/in-memory-tokens-repository";
-import { DayjsDateProvider } from "@/providers/DateProvider/implementations/provider-dayjs";
-import { AppError } from "@/usecases/errors/app-error";
 
 let usersRepositoryInMemory: InMemoryUsersRepository;
 let usersTokensRepositoryInMemory: InMemoryTokensRepository;

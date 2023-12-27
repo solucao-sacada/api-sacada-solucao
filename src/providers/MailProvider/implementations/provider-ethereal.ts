@@ -1,8 +1,6 @@
 import fs from "fs";
 import handlebars from "handlebars";
-import nodemailer, { Transporter } from "nodemailer";
 import { IEthrealProvider} from "../interface-ethreal-provider";
-import { IServiceExecuted } from "@/usecases/servicesExecuted/create/create-services-executeds-usecases";
 
 export class EtherealProvider implements IEthrealProvider {
   private client: Transporter;

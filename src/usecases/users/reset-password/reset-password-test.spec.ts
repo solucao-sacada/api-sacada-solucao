@@ -1,11 +1,8 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
-import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { hash } from "bcrypt";
 import { DayjsDateProvider } from "@/providers/DateProvider/implementations/provider-dayjs";
-import { InMemoryTokensRepository } from "@/repositories/in-memory/in-memory-tokens-repository";
 import { RegisterUseCase } from "../register/register-usecase";
 import { ResetPasswordUseCase } from "./reset-password-usecase";
-import { Token, User } from "@prisma/client";
 import { InMemoryMailProvider } from "@/providers/MailProvider/in-memory/in-memory-mail-provider";
 
 let usersRepositoryInMemory: InMemoryUsersRepository;

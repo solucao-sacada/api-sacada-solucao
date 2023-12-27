@@ -1,10 +1,7 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { RegisterUseCase } from "./register-usecase";
 import { DayjsDateProvider } from "@/providers/DateProvider/implementations/provider-dayjs";
-import { InMemoryTokensRepository } from "@/repositories/in-memory/in-memory-tokens-repository";
 import { InMemoryMailProvider, Message } from "@/providers/MailProvider/in-memory/in-memory-mail-provider";
-import { AppError } from "@/usecases/errors/app-error";
 
 let usersRepositoryInMemory: InMemoryUsersRepository;
 let usersTokensRepositoryInMemory: InMemoryTokensRepository;
