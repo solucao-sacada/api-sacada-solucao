@@ -39,7 +39,7 @@ export class CreateOrderController {
                             bz1003: z.boolean(),
                             mat: z.boolean(),
                             white: z.boolean(),
-                            other: z.string(),
+                            other: z.string().nullable().optional(),
                         })
                     }),
                     aperture: z.object({
@@ -71,7 +71,7 @@ export class CreateOrderController {
                             colorless:z.boolean(),
                             green:z.boolean(),
                             tinted:z.boolean(),
-                            other: z.string(),
+                            other: z.string().nullable().optional(),
                         }),
                         laminated: z.boolean(),
                         tempered: z.boolean(),
@@ -93,6 +93,10 @@ export class CreateOrderController {
                     lock: z.object({
                         fechadura_para_porta: z.boolean(),
                         fechadura_vidro_vidro: z.boolean(),
+                        pvc: z.boolean(),
+                        ferro: z.boolean(),
+                        '1520/1531': z.boolean(),
+                        '3210/3211': z.boolean(),
                     }),
                     plumb: z.object({
                         left_wall: z.object({
@@ -111,7 +115,7 @@ export class CreateOrderController {
                                     A: z.boolean(),
                                     B: z.boolean(),
                                     C: z.boolean(),
-                                    other:  z.string().or(z.boolean()),
+                                    other:  z.string().or(z.boolean()).nullable().optional(),
                                 })
                             }),
                             normal: z.object({
@@ -119,7 +123,7 @@ export class CreateOrderController {
                                     A: z.boolean(),
                                     B: z.boolean(),
                                     C: z.boolean(),
-                                    other:  z.string().or(z.boolean()),
+                                    other:  z.string().or(z.boolean()).nullable().optional(),
                                 })
                             }),
                             tab: z.object({
@@ -157,7 +161,7 @@ export class CreateOrderController {
                             isDefined: z.boolean(),
                         })
                     }),
-                    format: z.any(),
+                    format: z.number(),
 
                 }),
                 client: z.object({

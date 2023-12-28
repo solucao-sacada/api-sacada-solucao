@@ -22,7 +22,7 @@ export interface Balcony {
     plumb: Plumb;
     rails: Rails;
     tip: Tip6;
-    format: number;
+    format: any;
 }
 
 export interface Aluminium {
@@ -105,10 +105,6 @@ export interface Measures {
 export interface Lock {
     fechadura_para_porta: boolean;
     fechadura_vidro_vidro: boolean;
-    pvc: boolean;
-    ferro: boolean;
-    '1520/1531': boolean;
-    '3210/3211': boolean;
 }
 
 export interface Plumb {
