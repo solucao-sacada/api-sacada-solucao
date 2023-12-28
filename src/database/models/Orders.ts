@@ -8,6 +8,7 @@ export interface IOrdersModel extends Document {
     balcony: Balcony
     client: Client
     technician: string
+    observation?: string
 }
 
 export const OrdersSchema = new Schema<IOrdersModel>({
@@ -32,6 +33,10 @@ export const OrdersSchema = new Schema<IOrdersModel>({
     technician: {
         type: String,
         required: true
+    },
+    observation: {
+        type: String,
+        required: false,
     }
 },{timestamps: true});
 

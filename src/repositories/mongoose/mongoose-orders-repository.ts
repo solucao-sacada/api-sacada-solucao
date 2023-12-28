@@ -21,7 +21,8 @@ export class MongooseOrdersRepository implements IOrdersRepository {
         balcony,
         client,
         idUser,
-        technician
+        technician,
+        observation
     }: IOrderDTO){
         try {
             // contar quantos pedidos existem
@@ -32,7 +33,8 @@ export class MongooseOrdersRepository implements IOrdersRepository {
                 client,
                 code: Number(countOrders) + 1,
                 idUser,
-                technician
+                technician,
+                observation
             })
             return order
         } catch (error) {

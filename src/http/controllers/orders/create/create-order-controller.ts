@@ -10,6 +10,7 @@ interface IOrderJSON{
     balcony: Balcony,
     client: Client,
     technician: string,
+    observation?: string,
 }
 
 export class CreateOrderController {
@@ -175,11 +176,19 @@ export class CreateOrderController {
 
                 }),
                 technician: z.string().min(6).nullable().optional(),
+                observation: z.string().nullable().optional(),
             })
 
             const orderJSON = orderSchema.parse(request.body)
             
-            const { idUser, accessories, balcony, client, technician } = orderJSON as unknown as IOrderJSON
+            const { 
+                idUser, 
+                accessories, 
+                balcony, 
+                client, 
+                technician,
+                observation
+            } = orderJSON as unknown as IOrderJSON
 
             const createOrderUseCase = await makeCreateOrder()
             
@@ -188,7 +197,8 @@ export class CreateOrderController {
                 accessories,
                 balcony: balcony as unknown as Balcony,
                 client: client as unknown as Client,
-                technician
+                technician,
+                observation
             })
             
             return response.status(201).send(user)

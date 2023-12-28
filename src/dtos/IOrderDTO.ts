@@ -7,4 +7,5 @@ export interface IOrderDTO {
     balcony: Balcony
     client: Client
     technician: string
+    observation?: string
 }

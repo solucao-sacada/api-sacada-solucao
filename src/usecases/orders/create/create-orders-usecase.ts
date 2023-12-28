@@ -10,6 +10,7 @@ interface IRequestCreateOrder {
   balcony: Balcony
   client: Client
   technician: string
+  observation?: string
 }
 
 export class CreateOrdersUseCase {
@@ -23,7 +24,8 @@ export class CreateOrdersUseCase {
     accessories,
     balcony,
     client,
-    technician
+    technician,
+    observation
   }:IRequestCreateOrder): Promise<IOrdersModel> {
     // buscar o usuario pelo id
     const findUserExist = await this.userRepository.findById(idUser)
@@ -40,6 +42,7 @@ export class CreateOrdersUseCase {
       balcony,
       client,
       technician,
+      observation
     })
 
     // retornar o pedido
