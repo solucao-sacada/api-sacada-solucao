@@ -16,7 +16,7 @@ export class CreateOrderController {
   async handle(request: Request, response: Response): Promise<Response> {
         try {
             const orderSchema = z.object({
-                idUser: z.string().refine((value)=>{
+                idUser: z.string().nullable().optional().refine((value)=>{
                     try {
                         if(isValidObjectId(value)){
                             return true
@@ -39,18 +39,18 @@ export class CreateOrderController {
                             bz1003: z.boolean(),
                             mat: z.boolean(),
                             white: z.boolean(),
-                            other: z.string().nullable().optional(),
+                            other: z.string().nullable().optional().nullable().optional(),
                         })
                     }),
                     aperture: z.object({
                         inside: z.boolean(),
                         locations: z.array(z.object({
-                            distribution: z.string(),
-                            door_distance: z.string(),
-                            glasses: z.string(),
-                            piece: z.string(),
-                            stacking: z.string(),
-                            tip: z.string(),
+                            distribution: z.string().nullable().optional(),
+                            door_distance: z.string().nullable().optional(),
+                            glasses: z.string().nullable().optional(),
+                            piece: z.string().nullable().optional(),
+                            stacking: z.string().nullable().optional(),
+                            tip: z.string().nullable().optional(),
                         })),
                         outside: z.boolean(),
                     }),
@@ -62,8 +62,8 @@ export class CreateOrderController {
                         })
                     }),
                     dimensions: z.object({
-                        data: z.array(z.array(z.string())),
-                        total: z.string(),
+                        data: z.array(z.array(z.string().nullable().optional())),
+                        total: z.string().nullable().optional(),
                     }),
                     glass: z.object({
                         color: z.object({
@@ -71,7 +71,7 @@ export class CreateOrderController {
                             colorless:z.boolean(),
                             green:z.boolean(),
                             tinted:z.boolean(),
-                            other: z.string().nullable().optional(),
+                            other: z.string().nullable().optional().nullable().optional(),
                         }),
                         laminated: z.boolean(),
                         tempered: z.boolean(),
@@ -81,13 +81,13 @@ export class CreateOrderController {
                         })
                     }),
                     levels: z.object({
-                        full_aperture: z.string(),
+                        full_aperture: z.string().nullable().optional(),
                         measures: z.object({
-                            data: z.array(z.array(z.string())),
-                            highest_ceiling: z.string(),
-                            highest_floor: z.string(),
-                            lower_ceiling: z.string(),
-                            lower_floor: z.string(),
+                            data: z.array(z.array(z.string().nullable().optional())),
+                            highest_ceiling: z.string().nullable().optional(),
+                            highest_floor: z.string().nullable().optional(),
+                            lower_ceiling: z.string().nullable().optional(),
+                            lower_floor: z.string().nullable().optional(),
                         })
                     }),
                     lock: z.object({
@@ -100,12 +100,12 @@ export class CreateOrderController {
                     }),
                     plumb: z.object({
                         left_wall: z.object({
-                            bottom: z.string(),
-                            top: z.string(),
+                            bottom: z.string().nullable().optional(),
+                            top: z.string().nullable().optional(),
                         }),
                         right_wall: z.object({
-                            bottom: z.string(),
-                            top: z.string(),
+                            bottom: z.string().nullable().optional(),
+                            top: z.string().nullable().optional(),
                         }),
                     }),
                     rails: z.object({
@@ -157,7 +157,7 @@ export class CreateOrderController {
                     tip: z.object({
                         better_adjustment: z.boolean(),
                         defined: z.object({
-                            glass_quantity: z.string(),
+                            glass_quantity: z.string().nullable().optional(),
                             isDefined: z.boolean(),
                         })
                     }),
@@ -165,16 +165,16 @@ export class CreateOrderController {
 
                 }),
                 client: z.object({
-                        address: z.string(),
-                        apartment: z.string(),
-                        building: z.string(),
-                        city: z.string(),
-                        name: z.string(),
-                        neighborhood: z.string(),
-                        state: z.string(),
+                        address: z.string().nullable().optional(),
+                        apartment: z.string().nullable().optional(),
+                        building: z.string().nullable().optional(),
+                        city: z.string().nullable().optional(),
+                        name: z.string().nullable().optional(),
+                        neighborhood: z.string().nullable().optional(),
+                        state: z.string().nullable().optional(),
 
                 }),
-                technician: z.string().min(6),
+                technician: z.string().min(6).nullable().optional(),
             })
 
             const orderJSON = orderSchema.parse(request.body)
