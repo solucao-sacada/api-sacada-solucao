@@ -3,6 +3,7 @@ import { Schema, model, Document } from "mongoose";
 
 export interface IOrdersModel extends Document {
     idUser: Schema.Types.ObjectId;
+    code: number;
     accessories: Accessories
     balcony: Balcony
     client: Client
@@ -11,6 +12,11 @@ export interface IOrdersModel extends Document {
 
 export const OrdersSchema = new Schema<IOrdersModel>({
     idUser: { type: Schema.Types.ObjectId, ref: "Users", required: true },
+    code: {
+        type: Number,
+        unique: true,
+        required: false
+    },
     accessories: {
         type: Object,
         required: true
@@ -27,6 +33,6 @@ export const OrdersSchema = new Schema<IOrdersModel>({
         type: String,
         required: true
     }
-});
+},{timestamps: true});
 
 export default model<IOrdersModel>("OrdersSchema", OrdersSchema);

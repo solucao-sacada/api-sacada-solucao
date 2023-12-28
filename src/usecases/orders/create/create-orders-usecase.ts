@@ -1,5 +1,5 @@
-import { Accessories, Balcony, Client } from "@/@types/pedidoJson";
 import { IOrdersModel } from "@/database/models/Orders";
+import { Accessories, Balcony, Client } from "@/dtos/ITypeOrderJSON";
 import { IOrdersRepository } from "@/repositories/interfaces/interface-orders-repository";
 import { IUsersRepository } from "@/repositories/interfaces/interface-users-repository";
 import { AppError } from "@/usecases/errors/AppError";

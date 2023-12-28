@@ -16,9 +16,24 @@ export class MongooseOrdersRepository implements IOrdersRepository {
         }
     }
 
-    async create(date: IOrderDTO){
+    async create({
+        accessories,
+        balcony,
+        client,
+        idUser,
+        technician
+    }: IOrderDTO){
         try {
-            const order = await this.Orders.create(date)
+            // contar quantos pedidos existem
+            const countOrders = await this.Orders.countDocuments()
+            const order = await this.Orders.create({
+                accessories,
+                balcony,
+                client,
+                code: Number(countOrders) + 1,
+                idUser,
+                technician
+            })
             return order
         } catch (error) {
             console.error(error)
