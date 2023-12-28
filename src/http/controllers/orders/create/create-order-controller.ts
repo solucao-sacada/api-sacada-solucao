@@ -175,7 +175,7 @@ export class CreateOrderController {
                         state: z.string().nullable().optional(),
 
                 }),
-                technician: z.string().min(6).nullable().optional(),
+                technician: z.string().min(4).nullable().optional(),
                 observation: z.string().nullable().optional(),
             })
 
