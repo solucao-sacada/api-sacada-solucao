@@ -53,7 +53,7 @@ export class UploadImageToUserUseCase {
         url: imageUrl
         })
 
-        // deletar imagem não comprimida no tmp
+        // deletar imagem não comprimida na pasta tmp
         this.fileProvider.deleteFileTmp(imageInfo.hashName as string, 'tmp')
 
         // retornar array de imagens
