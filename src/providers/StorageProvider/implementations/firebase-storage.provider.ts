@@ -1,5 +1,8 @@
 import { IStorageProvider } from '../storage-provider.interface';
 import 'dotenv/config';
+import { Bucket } from '@google-cloud/storage';
+import { firebaseApp } from '@/config/firebase-connection';
+import { AppError } from '@/usecases/errors/AppError';
 
 export class FirebaseStorageProvider implements IStorageProvider {
     private readonly storage: Bucket;
@@ -8,15 +11,30 @@ export class FirebaseStorageProvider implements IStorageProvider {
         this.storage = firebaseApp as unknown as Bucket;
     }
 
+    async deleteFile(fileName: string, folderStorage: string){
+        try {
+            if(!fileName){
+               return
+            }
+
+            await this.storage.file(`${folderStorage}/${fileName}`).delete()
+
+        } catch (error) {
+            console.log('Error ao deletar a imagem');
+        }
+    }
+
     async uploadFile(fileName: string, pathFolder: string, folderStorage: string){
         try {
             const destination = `${folderStorage}/${fileName}`;
             const filePath = `${pathFolder}/${fileName}`;
+
             const uploadImage = await this.storage.upload(filePath, {
                 destination,
             });
+
             if(!uploadImage){
-                throw new Error('Error when uploading file');
+                throw new AppError('Error ao fazer upload da imagem', 400);
             }
           
             const fileNameUploaded = uploadImage[0].metadata.name as string;
@@ -30,8 +48,7 @@ export class FirebaseStorageProvider implements IStorageProvider {
             return URL
     
         } catch (error) {
-            console.log(error);
-            console.log('Error when uploading file');
+            console.log('Error ao fazer upload da imagem');
         }
     }
 }

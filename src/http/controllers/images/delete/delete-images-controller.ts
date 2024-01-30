@@ -1,11 +1,12 @@
-import { makeDeleteImage } from '@/usecases/factories/images/make-delete-images-usecase'
-import { FastifyReply, FastifyRequest } from 'fastify'
+import { makeDeleteImage } from '@/usecases/factories/images/make-delete-images-usecase';
+import { Request, Response } from 'express';
 import { z } from 'zod'
 
-export async function DeleteImage (request: FastifyRequest, reply:FastifyReply){
+export class DeleteImageController{
+    async handle(request: Request, response: Response): Promise<Response> {
         try {
             const imageSchemaParms = z.object({
-                id: z.string().uuid(),
+                id: z.string(),
             })
 
             const { id } = imageSchemaParms.parse(request.params)
@@ -16,9 +17,11 @@ export async function DeleteImage (request: FastifyRequest, reply:FastifyReply){
                id
             })
 
-            return reply.status(200).send({message: "Image deleted successfully"})
+            return response.status(200).send({message: "Imagem deletada com sucesso"})
           } catch (error) {
             throw error
           }
+    }
+       
 }
     

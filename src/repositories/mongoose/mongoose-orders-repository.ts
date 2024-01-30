@@ -7,6 +7,16 @@ export class MongooseOrdersRepository implements IOrdersRepository {
     private Orders: Model<IOrdersModel> = Orders;
 
     constructor(){}
+    async findById(id: string){
+        try {
+            const order = await this.Orders.findById(id)
+
+            return order
+        } catch (error) {
+            console.error(error)
+            throw new Error("Error find order by id")
+        }
+    }
     async listByUser(idUser: string){
         try {
             return await this.Orders.find({idUser})
