@@ -5,7 +5,6 @@ import { makeUploadImagesToUser } from '@/usecases/factories/images/make-upload-
 export class UploadImageToUserController{
     async handle(request: Request, response: Response): Promise<Response> {
         try {
-            console.log(request.file)
             const ImageSchemaFile = z.object({
                 filename: z.string(),
                 originalname: z.string()

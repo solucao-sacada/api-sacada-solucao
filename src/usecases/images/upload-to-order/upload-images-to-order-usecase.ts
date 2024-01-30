@@ -27,32 +27,33 @@ export class UploadImageToOrderUseCase {
         idOrder,
         imageInfo
     }: IRequestUploadImage): Promise<IImageModel[]>{
+        const pathFolder = env.NODE_ENV === "production" ? `${env.FOLDER_TMP_PRODUCTION}` : `${env.FOLDER_TMP_DEVELOPMENT}`
+
+        // comprimir a imagem com o sharp antes de fazer upload no firebase
+        for(let image of imageInfo){
+            makeCompressionImage(image.hashName, pathFolder, 'orders')
+        }
+
         const findOrderExists = await this.ordersRepository.findById(idOrder)
         
         if(!findOrderExists){
             throw new AppError('Pedido não encontrado', 404)
         }
 
-        // criar constante com o caminho da pasta de imagens
-        const pathFolder = env.NODE_ENV === "production" ? `${env.FOLDER_TMP_PRODUCTION}` : `${env.FOLDER_TMP_DEVELOPMENT}`
-
         // lista de imagens
         let arrayImagesUploaded: IImageModel[] = []
         // criar for para fazer upload de mais de uma imagem no firebase storage
         // e salvar cada url na tabela de imagens
         for(let image of imageInfo){
-            // comprimir a imagem antes de fazer upload usando o sharp
-            // para diminuir a qualidade da imagem
-            await makeCompressionImage(image.hashName, pathFolder, 'orders')
+            const formatName = `${image.hashName.replace(/\..+$/, ".jpg")}`
 
             // fazer upload do exame dentro firebase através do nome do arquivo
-            let imageUrl = await this.storageProvider.uploadFile(image.hashName, `${pathFolder}/orders`, 'orders') as string
-
+            let imageUrl = await this.storageProvider.uploadFile(formatName, `${pathFolder}/orders`, 'orders') as string
             // criar imagem no banco de dados
             const createImage = await this.imageRepository.upload({
                idOrder,
                name: image.name,
-               hashName: image.hashName,
+               hashName: formatName,
                url: imageUrl
             })
 
@@ -62,8 +63,6 @@ export class UploadImageToOrderUseCase {
             // deletar imagem não comprimida no tmp
             this.fileProvider.deleteFileTmp(image.hashName as string, 'tmp')
         }
-        
-        
 
         // retornar array de imagens
         return arrayImagesUploaded

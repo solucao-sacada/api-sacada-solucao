@@ -27,34 +27,35 @@ export class UploadImageToUserUseCase {
         idUser,
         imageInfo
     }: IRequestUploadImage): Promise<IImageModel>{
-        const findUserExists = await this.usersRepository.findById(idUser)
-        
-        if(!findUserExists){
-            throw new AppError('Usuário não encontrado', 404)
-        }
-
         // criar constante com o caminho da pasta de imagens
         const pathFolder = env.NODE_ENV === "production" ? `${env.FOLDER_TMP_PRODUCTION}` : `${env.FOLDER_TMP_DEVELOPMENT}`
 
         // comprimir a imagem antes de fazer upload usando o sharp
         // para diminuir a qualidade da imagem
-        await makeCompressionImage(imageInfo.hashName, pathFolder, 'users')
+        makeCompressionImage(imageInfo.hashName, pathFolder, 'users')
+
+        const findUserExists = await this.usersRepository.findById(idUser)
+        
+        if(!findUserExists){
+            throw new AppError('Usuário não encontrado', 404)
+        }
+        const formatName = `${imageInfo.hashName.replace(/\..+$/, ".jpg")}`
 
         // criar for para fazer upload de mais de uma imagem no firebase storage
         // e salvar cada url na tabela de imagens
         // fazer upload do exame dentro firebase através do nome do arquivo
-        let imageUrl = await this.storageProvider.uploadFile(imageInfo.hashName, `${pathFolder}/users`, 'users') as string
+        let imageUrl = await this.storageProvider.uploadFile(formatName, `${pathFolder}/users`, 'users') as string
 
         // criar imagem no banco de dados
         const createImage = await this.imageRepository.upload({
         idUser,
-        name: imageInfo.name,
-        hashName: imageInfo.hashName,
+        name: imageInfo.name.replace(/\..+$/, ".jpg"),
+        hashName: formatName,
         url: imageUrl
         })
 
-        // deletar imagem não comprimida na tmp
-        this.fileProvider.deleteFileTmp(imageInfo.hashName as string, 'tmp')
+         // deletar imagem não comprimida na tmp
+         this.fileProvider.deleteFileTmp(imageInfo.hashName as string, 'tmp')
 
         // retornar array de imagens
         return createImage

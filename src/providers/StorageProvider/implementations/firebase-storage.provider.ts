@@ -28,7 +28,6 @@ export class FirebaseStorageProvider implements IStorageProvider {
         try {
             const destination = `${folderStorage}/${fileName}`;
             const filePath = `${pathFolder}/${fileName}`;
-
             const uploadImage = await this.storage.upload(filePath, {
                 destination,
             });
