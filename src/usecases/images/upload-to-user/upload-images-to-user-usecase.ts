@@ -39,7 +39,7 @@ export class UploadImageToUserUseCase {
         if(!findUserExists){
             throw new AppError('Usuário não encontrado', 404)
         }
-        const formatName = `${imageInfo.hashName.replace(/\..+$/, ".jpg")}`
+        const formatName = `${imageInfo.hashName.replace(/\..+$/, ".webp")}`
 
         // criar for para fazer upload de mais de uma imagem no firebase storage
         // e salvar cada url na tabela de imagens
@@ -49,7 +49,7 @@ export class UploadImageToUserUseCase {
         // criar imagem no banco de dados
         const createImage = await this.imageRepository.upload({
         idUser,
-        name: imageInfo.name.replace(/\..+$/, ".jpg"),
+        name: imageInfo.name.replace(/\..+$/, ".webp"),
         hashName: formatName,
         url: imageUrl
         })

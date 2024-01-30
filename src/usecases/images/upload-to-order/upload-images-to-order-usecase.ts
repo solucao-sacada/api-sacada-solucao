@@ -45,14 +45,14 @@ export class UploadImageToOrderUseCase {
         // criar for para fazer upload de mais de uma imagem no firebase storage
         // e salvar cada url na tabela de imagens
         for(let image of imageInfo){
-            const formatName = `${image.hashName.replace(/\..+$/, ".jpg")}`
+            const formatName = `${image.hashName.replace(/\..+$/, ".webp")}`
 
             // fazer upload do exame dentro firebase através do nome do arquivo
             let imageUrl = await this.storageProvider.uploadFile(formatName, `${pathFolder}/orders`, 'orders') as string
             // criar imagem no banco de dados
             const createImage = await this.imageRepository.upload({
                idOrder,
-               name: image.name,
+               name: image.name.replace(/\..+$/, ".webp"),
                hashName: formatName,
                url: imageUrl
             })
