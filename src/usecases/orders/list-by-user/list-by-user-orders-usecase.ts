@@ -12,7 +12,7 @@ interface IRequestListOrder {
 }
 
 interface IResponseListOrder {
-    id: string;
+    _id: string;
     idUser: ObjectId;
     code: number;
     accessories: Accessories
@@ -49,7 +49,7 @@ export class ListOrdersByUserUseCase {
     for(let order of orders){
       const images = await this.imagesRepository.listByOrder(order.id)
       listOrderFormatted.push({
-        id: order._id,
+        _id: order._id,
         code: order.code,
         idUser: order.idUser,
         accessories: order.accessories,
