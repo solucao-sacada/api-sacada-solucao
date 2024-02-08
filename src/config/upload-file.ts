@@ -14,7 +14,6 @@ const getDirectories = (source: string): string[] =>
 // const tmpFolder = resolve(__dirname, "..", "..", "src");
 const envTmpFolder = env.NODE_ENV === "development" ? "src" : "build";
 const tmpFolder = resolve(__dirname, "..", "..", envTmpFolder);
-console.log(tmpFolder);
 
 // Cria array de string vazia com
 const tempDirectories: string[] = getDirectories(tmpFolder);
