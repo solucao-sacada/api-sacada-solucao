@@ -15,7 +15,8 @@ export const BudGetSchema = new Schema<IBudGetModel>({
     },
     emailClient: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     price: {
         type: Number,

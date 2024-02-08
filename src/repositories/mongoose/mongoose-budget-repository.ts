@@ -8,7 +8,6 @@ export class MongooseBudgetRepository implements IBudgetRepository{
     private Budget: Model<IBudGetModel> = Budgets;
 
     constructor(){}
-
     async create({
         idUser,
         client,
@@ -36,7 +35,7 @@ export class MongooseBudgetRepository implements IBudgetRepository{
             return newBudget
         } catch (error) {
             console.error(error);
-            throw new AppError("Error update user");
+            return null
         }
     }
     async delete(id: string) {
@@ -44,7 +43,6 @@ export class MongooseBudgetRepository implements IBudgetRepository{
             await this.Budget.findByIdAndDelete(id)
         } catch (error) {
             console.error(error);
-            throw new AppError("Error delete user");
         }
     }
     async list() {
@@ -54,7 +52,7 @@ export class MongooseBudgetRepository implements IBudgetRepository{
         return list
        } catch (error) {
             console.error(error);
-            throw new AppError("Error list user");
+            return []
        }
     }
     async findById(id: string){
@@ -64,7 +62,7 @@ export class MongooseBudgetRepository implements IBudgetRepository{
             return budget
         } catch (error) {
             console.error(error);
-            throw new AppError("Error find user");
+            return null
         }
     }
 }
