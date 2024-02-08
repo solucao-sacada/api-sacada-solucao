@@ -7,6 +7,15 @@ export class MongooseImagesRepository implements IImageRepository{
     private Image: Model<IImageModel> = Images;
 
     constructor(){}
+    async listByOrder(idOrder: string): Promise<IImageModel[]> {
+        try {
+            const images = await this.Image.find({idOrder})
+            return images
+        } catch (error) {
+            console.error(error)
+            throw new Error("Error list images by order")
+        }
+    }
     
     async upload(data: IImageDTO) {
         try {

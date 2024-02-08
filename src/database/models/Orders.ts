@@ -1,5 +1,6 @@
 import { Accessories, Balcony, Client } from "@/dtos/ITypeOrderJSON";
 import { Schema, model, Document } from "mongoose";
+import { IImageModel } from "./Images";
 
 export interface IOrdersModel extends Document {
     idUser: Schema.Types.ObjectId;
@@ -9,6 +10,7 @@ export interface IOrdersModel extends Document {
     client: Client
     technician: string
     observation?: string
+    images?: IImageModel[]
 }
 
 export const OrdersSchema = new Schema<IOrdersModel>({
@@ -37,7 +39,12 @@ export const OrdersSchema = new Schema<IOrdersModel>({
     observation: {
         type: String,
         required: false,
-    }
+    },
+    images: [{
+        type: Schema.Types.ObjectId,
+        ref: "Images",
+        required: false
+    }]
 },{timestamps: true});
 
 export default model<IOrdersModel>("OrdersSchema", OrdersSchema);
