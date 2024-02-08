@@ -34,7 +34,7 @@ export class UploadImageToOrderUseCase {
         if(!findOrderExists){
             throw new AppError('Pedido não encontrado', 404)
         }
-
+console.log(JSON.stringify(imageInfo, null, 2))
         console.log('fazer upload da imagem')
         // lista de imagens
         let arrayImagesUploaded: IImageModel[] = []
@@ -59,7 +59,7 @@ export class UploadImageToOrderUseCase {
             console.log('criar imagem info no banco')
             const createImage = await this.imageRepository.upload({
                idOrder,
-               name: image.name.replace(/\..+$/, ".webp"),
+               name: image.name,
                hashName: image.hashName,
                url: imageUrl
             })
