@@ -50,7 +50,7 @@ export class UploadImageToOrderUseCase {
             console.log('formatar nome da imagem')
             const formatName = `${image.hashName.replace(/\..+$/, ".webp")}`
 
-            const x = fs.existsSync(formatName)
+            const x = fs.existsSync(`${image.destination}/orders/${formatName}`)
             console.log(x)
 
             // if(fs.existsSync(formatName)){}
