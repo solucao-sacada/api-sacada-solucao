@@ -2,7 +2,7 @@ import { IBudGetModel } from "@/database/models/Budgets"
 import { IBudgetDTO } from "@/dtos/IBudget"
 
 export interface IBudgetRepository{
-    create(budget: IBudgetDTO): Promise<IBudGetModel>
+    create(budget: IBudgetDTO): Promise<IBudGetModel | null>
     update(budget: IBudgetDTO): Promise<IBudGetModel | null>
     delete(id: string): Promise<void>
     list(): Promise<IBudGetModel[] | []>

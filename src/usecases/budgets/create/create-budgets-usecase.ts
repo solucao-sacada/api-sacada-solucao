@@ -36,7 +36,7 @@ export class CreateBudgetsUseCase {
       client,
       emailClient,
       price  
-    })
+    }) as IBudGetModel
 
     // retornar o pedido
     return budget

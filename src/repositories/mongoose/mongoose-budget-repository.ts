@@ -25,7 +25,7 @@ export class MongooseBudgetRepository implements IBudgetRepository{
             return newBudget 
         } catch (error) {
             console.error(error);
-            throw new AppError("Error creating user");
+            return null
         }
     }
     async update(budget: IBudgetDTO) {
