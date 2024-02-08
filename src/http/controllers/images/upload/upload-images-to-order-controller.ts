@@ -8,7 +8,8 @@ export class UploadImageToOrderController{
             console.log(request.files)
             const ImageSchemaFile = z.object({
                 filename: z.string(),
-                originalname: z.string()
+                originalname: z.string(),
+                destination: z.string(),
             })
     
             const multipartformUploadSchema = z.array(ImageSchemaFile)
@@ -32,7 +33,8 @@ export class UploadImageToOrderController{
                 imageInfo: images.map(image => {
                     return {
                         name: image.originalname,
-                        hashName: image.filename
+                        hashName: image.filename,
+                        destination: image.destination
                     }
                 })
             })

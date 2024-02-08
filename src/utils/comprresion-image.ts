@@ -1,9 +1,6 @@
-import { env } from "@/env";
 import sharp from "sharp";
 
 export function makeCompressionImage(fileName: string, pathFolder:string, mainFolder: string){
-    // const pathFolder = env.NODE_ENV === "production" ? `${env.FOLDER_TMP_PRODUCTION}` : `${env.FOLDER_TMP_DEVELOPMENT}`
-
     const inputFile = `${pathFolder}/${fileName}`
     const outputFile = `${pathFolder}/${mainFolder}/${fileName}`
     const outputFilePng = `${pathFolder}/${mainFolder}/${fileName.replace('.png', '.webp')}`

@@ -1,5 +1,4 @@
 import { IImageModel } from "@/database/models/Images"
-import { env } from "@/env"
 import { IFileProvider } from "@/providers/StorageProvider/file-provider.interface"
 import { IStorageProvider } from "@/providers/StorageProvider/storage-provider.interface"
 import { IImageRepository } from "@/repositories/interfaces/interface-images-repository"
@@ -12,6 +11,7 @@ interface IRequestUploadImage{
     imageInfo: {
         name: string
         hashName: string
+        destination: string
     }[]
 }
 
@@ -27,11 +27,9 @@ export class UploadImageToOrderUseCase {
         idOrder,
         imageInfo
     }: IRequestUploadImage): Promise<IImageModel[]>{
-        const pathFolder = env.NODE_ENV === "production" ? `${env.FOLDER_TMP_PRODUCTION}` : `${env.FOLDER_TMP_DEVELOPMENT}`
-        console.log('pathFolder', pathFolder)
         // comprimir a imagem com o sharp antes de fazer upload no firebase
         for(let image of imageInfo){
-            makeCompressionImage(image.hashName, pathFolder, 'orders')
+            makeCompressionImage(image.hashName, image.destination, 'orders')
         }
 
         const findOrderExists = await this.ordersRepository.findById(idOrder)
@@ -48,7 +46,7 @@ export class UploadImageToOrderUseCase {
             const formatName = `${image.hashName.replace(/\..+$/, ".webp")}`
 
             // fazer upload do exame dentro firebase através do nome do arquivo
-            let imageUrl = await this.storageProvider.uploadFile(formatName, `${pathFolder}/orders`, 'orders') as string
+            let imageUrl = await this.storageProvider.uploadFile(formatName, `${image.destination}/orders`, 'orders') as string
             // criar imagem no banco de dados
             const createImage = await this.imageRepository.upload({
                idOrder,
