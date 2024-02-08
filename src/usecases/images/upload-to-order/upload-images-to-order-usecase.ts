@@ -5,6 +5,7 @@ import { IImageRepository } from "@/repositories/interfaces/interface-images-rep
 import { IOrdersRepository } from "@/repositories/interfaces/interface-orders-repository"
 import { AppError } from "@/usecases/errors/AppError"
 import { makeCompressionImage } from "@/utils/comprresion-image"
+import * as fs from 'fs'
 
 interface IRequestUploadImage{
     idOrder: string
@@ -48,6 +49,12 @@ export class UploadImageToOrderUseCase {
         for(let image of imageInfo){
             console.log('formatar nome da imagem')
             const formatName = `${image.hashName.replace(/\..+$/, ".webp")}`
+
+            const x = fs.existsSync(formatName)
+            console.log(x)
+
+            // if(fs.existsSync(formatName)){}
+
             console.log(formatName)
 
             console.log('fazer upload da imagem storage')
