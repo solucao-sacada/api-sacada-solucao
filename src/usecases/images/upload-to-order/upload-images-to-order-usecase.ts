@@ -42,25 +42,25 @@ export class UploadImageToOrderUseCase {
         // e salvar cada url na tabela de imagens
         for(let image of imageInfo){
             console.log('formatar nome da imagem')
-            const formatName = `${image.hashName.replace(/\..+$/, ".webp")}`
+            // const formatName = `${image.hashName.replace(/\..+$/, ".webp")}`
 
-            const x = fs.existsSync(`${image.destination}/orders/${formatName}`)
+            const x = fs.existsSync(`${image.destination}/orders/${image.hashName}`)
             console.log(x)
 
-            // if(fs.existsSync(formatName)){}
+            // if(fs.existsSync(image.hashName)){}
 
-            console.log(formatName)
+            console.log(image.hashName)
 
             console.log('fazer upload da imagem storage')
             // fazer upload do exame dentro firebase através do nome do arquivo
-            let imageUrl = await this.storageProvider.uploadFile(formatName, `${image.destination}/orders`, 'orders') as string
+            let imageUrl = await this.storageProvider.uploadFile(image.hashName, `${image.destination}/orders`, 'orders') as string
             // criar imagem no banco de dados
 
             console.log('criar imagem info no banco')
             const createImage = await this.imageRepository.upload({
                idOrder,
                name: image.name.replace(/\..+$/, ".webp"),
-               hashName: formatName,
+               hashName: image.hashName,
                url: imageUrl
             })
 
