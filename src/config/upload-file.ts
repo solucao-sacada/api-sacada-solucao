@@ -27,7 +27,7 @@ const tmpDirectoriesUploadConfig = tempDirectories
           filename(request, file, callback) {
             const fileHash = randomUUID();
             const fileName = `${fileHash}-${file.originalname}`;
-            console.log(fileName);
+
             return callback(null, fileName);
           },
         }),
