@@ -4,7 +4,7 @@ export function makeCompressionImage(fileName: string, pathFolder:string, mainFo
     const inputFile = `${pathFolder}/${fileName}`
     const outputFile = `${pathFolder}/${mainFolder}/${fileName}`
     const outputFilePng = `${pathFolder}/${mainFolder}/${fileName.replace('.png', '.webp')}`
-    console.log('outputFile', outputFile)
+    console.log('outputFile', outputFilePng)
     if(fileName.includes('.png')){
         return sharp(inputFile).webp().toFile(outputFilePng, (err, info)=>{
             if(err){
