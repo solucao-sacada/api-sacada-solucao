@@ -5,6 +5,7 @@ import { makeUploadImagesToOrder } from '@/usecases/factories/images/make-upload
 export class UploadImageToOrderController{
     async handle(request: Request, response: Response): Promise<Response> {
         try {
+            console.log(request.files)
             const ImageSchemaFile = z.object({
                 filename: z.string(),
                 originalname: z.string()
