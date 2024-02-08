@@ -28,7 +28,7 @@ export class UploadImageToOrderUseCase {
         imageInfo
     }: IRequestUploadImage): Promise<IImageModel[]>{
         const pathFolder = env.NODE_ENV === "production" ? `${env.FOLDER_TMP_PRODUCTION}` : `${env.FOLDER_TMP_DEVELOPMENT}`
-
+        console.log('pathFolder', pathFolder)
         // comprimir a imagem com o sharp antes de fazer upload no firebase
         for(let image of imageInfo){
             makeCompressionImage(image.hashName, pathFolder, 'orders')
