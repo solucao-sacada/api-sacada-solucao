@@ -1,3 +1,4 @@
+import { env } from "@/env";
 import multer from "multer";
 import { randomUUID } from "node:crypto";
 import { readdirSync } from "node:fs";
@@ -10,7 +11,9 @@ const getDirectories = (source: string): string[] =>
     .map((dirent) => dirent.name);
 
 // Variável tmpFolder recebe o caminho da pasta tmp
-const tmpFolder = resolve(__dirname, "..", "..", "src");
+// const tmpFolder = resolve(__dirname, "..", "..", "src");
+const envTmpFolder = env.NODE_ENV === "development" ? "./src" : "./build";
+const tmpFolder = resolve(envTmpFolder);
 
 // Cria array de string vazia com
 const tempDirectories: string[] = getDirectories(tmpFolder);
