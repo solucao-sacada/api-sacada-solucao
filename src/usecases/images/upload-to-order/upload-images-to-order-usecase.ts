@@ -44,7 +44,7 @@ export class UploadImageToOrderUseCase {
             console.log('formatar nome da imagem')
             // const formatName = `${image.hashName.replace(/\..+$/, ".webp")}`
 
-            const x = fs.existsSync(`${image.destination}/orders/${image.hashName}`)
+            const x = fs.existsSync(`${image.destination}/${image.hashName}`)
             console.log(x)
 
             // if(fs.existsSync(image.hashName)){}
@@ -53,7 +53,7 @@ export class UploadImageToOrderUseCase {
 
             console.log('fazer upload da imagem storage')
             // fazer upload do exame dentro firebase através do nome do arquivo
-            let imageUrl = await this.storageProvider.uploadFile(image.hashName, `${image.destination}/orders`, 'orders') as string
+            let imageUrl = await this.storageProvider.uploadFile(image.hashName, `${image.destination}`, 'orders') as string
             // criar imagem no banco de dados
 
             console.log('criar imagem info no banco')
