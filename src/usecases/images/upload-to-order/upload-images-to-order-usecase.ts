@@ -29,12 +29,6 @@ export class UploadImageToOrderUseCase {
         imageInfo
     }: IRequestUploadImage): Promise<IImageModel[]>{
         // comprimir a imagem com o sharp antes de fazer upload no firebase
-        for(let image of imageInfo){
-            console.log('comprimir imagem')
-            makeCompressionImage(image.hashName, image.destination, 'orders')
-        }
-
-        console.log('buscar pedido no banco de dados')
         const findOrderExists = await this.ordersRepository.findById(idOrder)
         
         if(!findOrderExists){

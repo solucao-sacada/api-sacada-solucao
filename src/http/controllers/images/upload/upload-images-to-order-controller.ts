@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { Request, Response } from 'express'
 import { makeUploadImagesToOrder } from '@/usecases/factories/images/make-upload-images-to-order-usecase'
+import { makeCompressionImage } from '@/utils/comprresion-image'
 
 export class UploadImageToOrderController{
     async handle(request: Request, response: Response): Promise<Response> {
@@ -31,6 +32,7 @@ export class UploadImageToOrderController{
             const arrayImagesUploaded = await uploadImageUseCase.execute({
                 idOrder,
                 imageInfo: images.map(image => {
+                    makeCompressionImage(image.filename, image.destination, 'orders')
                     return {
                         name: image.originalname,
                         hashName: image.filename,
