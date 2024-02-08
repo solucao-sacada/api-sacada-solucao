@@ -34,7 +34,7 @@ export class UploadImageToOrderUseCase {
         if(!findOrderExists){
             throw new AppError('Pedido não encontrado', 404)
         }
-        
+
         console.log(JSON.stringify(imageInfo, null, 2))
 
         console.log('fazer upload da imagem')
@@ -58,6 +58,7 @@ export class UploadImageToOrderUseCase {
             let imageUrl = await this.storageProvider.uploadFile(image.hashName, `${image.destination}`, 'orders') as string
             // criar imagem no banco de dados
             console.log(imageUrl)
+            
             // console.log('criar imagem info no banco')
             // const createImage = await this.imageRepository.upload({
             //    idOrder,
