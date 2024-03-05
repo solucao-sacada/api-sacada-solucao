@@ -6,7 +6,7 @@ const envSchema = z.object({
     PORT: z.coerce.number().default(3333),
     HOST: z.string().default('0.0.0.0'),
     DATABASE_DEV: z.string(),
-    DATABASE_TEST: z.string(),
+    DATABASE_TEST: z.string().optional(),
     JWT_SECRET_ACCESS_TOKEN: z.string(),
     JWT_SECRET_REFRESH_TOKEN: z.string(),
     JWT_EXPIRES_IN_REFRESH_TOKEN: z.string(),
