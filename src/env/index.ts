@@ -22,7 +22,6 @@ const envSchema = z.object({
     FIREBASE_BUCKET: z.string().optional(),
     FOLDER_TMP_DEVELOPMENT: z.string(),
     FOLDER_TMP_PRODUCTION: z.string(),
-    SENTRY_DSN: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)
