@@ -27,7 +27,6 @@ async function seedSuper(){
     findUserExist = await connection.collection('users').findOne({
         _id: admin.insertedId._id
     })
-    console.log(findUserExist)
     process.exit(0)
    } catch (error) {
         console.error('User Super already exists!')
