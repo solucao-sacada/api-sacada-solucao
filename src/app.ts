@@ -26,4 +26,5 @@ app.use(
 
 app.use(express.urlencoded({ extended: true }));
 app.use(router);
+
 app.use(errorHandler);
