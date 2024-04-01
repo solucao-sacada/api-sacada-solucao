@@ -12,8 +12,8 @@ const getDirectories = (source: string): string[] =>
 
 // Variável tmpFolder recebe o caminho da pasta tmp
 // const tmpFolder = resolve(__dirname, "..", "..", "src");
-// const envTmpFolder = env.NODE_ENV === "development" ? "src" : "";
-const tmpFolder = resolve(__dirname, "..", "..", "tmp");
+const envTmpFolder = env.NODE_ENV === "development" ? "src" : "build";
+const tmpFolder = resolve(__dirname, "..", envTmpFolder);
 
 // Cria array de string vazia com
 const tempDirectories: string[] = getDirectories(tmpFolder);
@@ -21,7 +21,7 @@ const tempDirectories: string[] = getDirectories(tmpFolder);
 // Filtra o diretorio recebido retornando em um Objeto.assign
 const tmpDirectoriesUploadConfig = tempDirectories
   .map((directory) => {
-    const tmpFolder = resolve(__dirname, "tmp");
+    const tmpFolder = resolve(__dirname, "..", directory);
     console.log(tmpFolder);
     return {
       [directory]: {
