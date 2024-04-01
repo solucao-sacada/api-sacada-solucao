@@ -27,32 +27,25 @@ export class FirebaseStorageProvider implements IStorageProvider {
     async uploadFile(fileName: string, pathFolder: string, folderStorage: string){
         try {
             const destination = `${folderStorage}/${fileName}`;
-            const filePath = `${pathFolder}/${fileName}`;
-            console.log('filePath', filePath)
-            console.log('destination', destination)
-            const uploadImage = await this.storage.upload(filePath);
+            const filePath = `${pathFolder}/${folderStorage}/${fileName}`;
+            const uploadImage = await this.storage.upload(filePath, {
+                destination,
+            });
 
             if(!uploadImage){
                 throw new AppError('Error ao fazer upload da imagem', 400);
             }
           
-            // console.log('uploadImage', uploadImage)
-            // console.log('uploadImage[0].metadata.name', uploadImage[0].metadata.name)
-            // const fileNameUploaded = uploadImage[0].metadata.name as string;
-            const file = await this.storage.file(filePath).download({
-                destination
-            });
-
-            const x = file
-
-            // console.log('file', file)
-            // const fileRef = await file.getSignedUrl({
-            //     action: 'read',
-            //     expires: '03-09-2491',
-            // })
-            // console.log('fileRef', fileRef)
+            const fileNameUploaded = uploadImage[0].metadata.name as string;
+            const file = this.storage.file(fileNameUploaded);
+            const fileRef = await file.getSignedUrl({
+                action: 'read',
+                expires: '03-09-2491',
+            })
             
-            const URL = 'fileRef[0]';
+            const URL = fileRef[0];
+
+            console.log('upload de imagem feito com sucesso')
             return URL
     
         } catch (error) {

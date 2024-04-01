@@ -35,44 +35,43 @@ export class UploadImageToOrderUseCase {
             throw new AppError('Pedido não encontrado', 404)
         }
 
-        console.log(JSON.stringify(imageInfo, null, 2))
-
-        console.log('fazer upload da imagem')
         // lista de imagens
         let arrayImagesUploaded: IImageModel[] = []
         // criar for para fazer upload de mais de uma imagem no firebase storage
         // e salvar cada url na tabela de imagens
         for(let image of imageInfo){
-            console.log('formatar nome da imagem')
-            // const formatName = `${image.hashName.replace(/\..+$/, ".webp")}`
-
-            // const x = fs.existsSync(`${image.destination}/${image.hashName}`)
-            // console.log(x)
-
-            // if(fs.existsSync(image.hashName)){}
-            console.log(image.destination)
-            console.log(image.hashName)
-
-            console.log('fazer upload da imagem storage')
-            // fazer upload do exame dentro firebase através do nome do arquivo
-            let imageUrl = await this.storageProvider.uploadFile(image.hashName, `${image.destination}`, 'orders') as string
-            // criar imagem no banco de dados
-            console.log(imageUrl)
+            if(!image.name.includes('.png') || !image.name.includes('.jpg') || !image.name.includes('.jpeg')){
+                throw new AppError('Formato de imagem inválido', 400)
+            }
             
-            // console.log('criar imagem info no banco')
-            // const createImage = await this.imageRepository.upload({
-            //    idOrder,
-            //    name: image.name,
-            //    hashName: image.hashName,
-            //    url: imageUrl
-            // })
+            let formatHashName = image.hashName
+            let formatName = image.name
+            
+            if(image.hashName.includes('.png')){
+                formatHashName = `${image.hashName.replace(/\..+$/, ".webp")}`
+                formatName = `${image.name.replace(/\..+$/, ".webp")}`
+            }else if(image.hashName.includes('.jpg') || image.hashName.includes('.jpeg')){
+                formatHashName = `${image.hashName.replace(/\..+$/, ".webp")}`
+                formatName = `${image.name.replace(/\..+$/, ".webp")}`
+            }
 
-            // // adicionar imagem no array de imagens
-            // arrayImagesUploaded.push(createImage)
+            // fazer upload do exame dentro firebase através do nome do arquivo
+            let imageUrl = await this.storageProvider.uploadFile(formatHashName, `${image.destination}`, 'orders') as string
+            // criar imagem no banco de dados
+            
+            const createImage = await this.imageRepository.upload({
+               idOrder,
+               name: formatName,
+               hashName: formatHashName,
+               url: imageUrl
+            })
 
-            // console.log('deleta imagem antiga no tmp')
-            // // deletar imagem não comprimida no tmp
-            // this.fileProvider.deleteFileTmp(image.hashName as string, 'tmp', image.destination)
+            // adicionar imagem no array de imagens
+            arrayImagesUploaded.push(createImage)
+
+            console.log('deleta imagem antiga no tmp')
+            // deletar imagem não comprimida no tmp
+            this.fileProvider.deleteFileTmp(image.hashName as string, 'tmp', image.destination)
         }
 
         // retornar array de imagens
