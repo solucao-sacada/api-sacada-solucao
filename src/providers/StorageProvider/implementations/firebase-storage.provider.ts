@@ -40,13 +40,14 @@ export class FirebaseStorageProvider implements IStorageProvider {
                 throw new AppError('Error ao fazer upload da imagem', 400);
             }
           
+            console.log('depois do upload image 2')
             const fileNameUploaded = uploadImage[0].metadata.name as string;
             const file = this.storage.file(fileNameUploaded);
             const fileRef = await file.getSignedUrl({
                 action: 'read',
                 expires: '03-09-2491',
             })
-            
+            console.log('depois do upload image 3')
             const URL = fileRef[0];
 
             console.log('upload de imagem feito com sucesso')
