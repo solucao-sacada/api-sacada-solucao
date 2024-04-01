@@ -41,20 +41,20 @@ export class UploadImageToOrderUseCase {
         // criar for para fazer upload de mais de uma imagem no firebase storage
         // e salvar cada url na tabela de imagens
         for(let image of imageInfo){
-            if(!image.name.includes('.png') && !image.name.includes('.jpg') && !image.name.includes('.jpeg')){
-                throw new AppError('Formato de imagem inválido', 400)
-            }
+            // if(!image.name.includes('.png') && !image.name.includes('.jpg') && !image.name.includes('.jpeg')){
+            //     throw new AppError('Formato de imagem inválido', 400)
+            // }
             
-            let formatHashName = image.hashName
-            let formatName = image.name
+            // let formatHashName = image.hashName
+            // let formatName = image.name
             
-            if(image.hashName.includes('.png')){
-                formatHashName = `${image.hashName.replace(/\..+$/, ".webp")}`
-                formatName = `${image.name.replace(/\..+$/, ".webp")}`
-            }else if(image.hashName.includes('.jpg') || image.hashName.includes('.jpeg')){
-                formatHashName = `${image.hashName.replace(/\..+$/, ".webp")}`
-                formatName = `${image.name.replace(/\..+$/, ".webp")}`
-            }
+            // if(image.hashName.includes('.png')){
+            //     formatHashName = `${image.hashName.replace(/\..+$/, ".webp")}`
+            //     formatName = `${image.name.replace(/\..+$/, ".webp")}`
+            // }else if(image.hashName.includes('.jpg') || image.hashName.includes('.jpeg')){
+            //     formatHashName = `${image.hashName.replace(/\..+$/, ".webp")}`
+            //     formatName = `${image.name.replace(/\..+$/, ".webp")}`
+            // }
 
             // criar constante com o caminho da pasta de imagens
             const pathFolder = env.NODE_ENV === "production" ? `${env.FOLDER_TMP_PRODUCTION}` : `${env.FOLDER_TMP_DEVELOPMENT}`

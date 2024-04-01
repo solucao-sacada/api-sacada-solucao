@@ -32,7 +32,7 @@ export class UploadImageToOrderController{
             const arrayImagesUploaded = await uploadImageUseCase.execute({
                 idOrder,
                 imageInfo: images.map(image => {
-                    makeCompressionImage(image.filename, image.destination, 'orders')
+                    // makeCompressionImage(image.filename, image.destination, 'orders')
                     return {
                         name: image.originalname,
                         hashName: image.filename,
