@@ -26,15 +26,17 @@ export class FirebaseStorageProvider implements IStorageProvider {
 
     async uploadFile(fileName: string, pathFolder: string, folderStorage: string){
         try {
-            console.log(pathFolder)
+
             console.log(fileName)
+            console.log(pathFolder)
             console.log(folderStorage)
+            
             const destination = `${fileName}`;
-            const filePath = `${pathFolder}/${fileName}`;
+            const filePath = `${pathFolder}/${folderStorage}/${fileName}`;
+            
             const uploadImage = await this.storage.upload(filePath, {
                 destination,
             });
-
 
             if(!uploadImage){
                 throw new AppError('Error ao fazer upload da imagem', 400);
