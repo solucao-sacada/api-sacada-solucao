@@ -30,7 +30,6 @@ export class FirebaseStorageProvider implements IStorageProvider {
             console.log(fileName)
             console.log(pathFolder)
             console.log(folderStorage)
-
             const destination = `${fileName}`;
             const filePath = `${pathFolder}`;
             
