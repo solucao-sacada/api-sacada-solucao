@@ -26,15 +26,12 @@ export class FirebaseStorageProvider implements IStorageProvider {
 
     async uploadFile(fileName: string, pathFolder: string, folderStorage: string):Promise<string> {
         try {
-            console.log(fileName)
-            console.log(pathFolder)
-            console.log(folderStorage)
-            const destination = `${fileName}`;
-            const filePath = `${pathFolder}`;
+            const destination = `${folderStorage}/${fileName}`;
+            const filePath = `${pathFolder}/${folderStorage}/${fileName}`;
             
             // Inicia uma Promise
             return new Promise((resolve, reject) => {
-                const uploadImage = this.storage.upload(filePath, {
+                this.storage.upload(filePath, {
                     destination,
                 }, (err, file) => {
                     if (err) {
@@ -50,7 +47,6 @@ export class FirebaseStorageProvider implements IStorageProvider {
                             }
                             
                             const URL = file.publicUrl();
-                            console.log(URL);
                             
                             // Resolve a Promise com o URL
                             resolve(URL);
@@ -64,60 +60,4 @@ export class FirebaseStorageProvider implements IStorageProvider {
             throw error;
         }
     }
-    
-
-    // async uploadFile(fileName: string, pathFolder: string, folderStorage: string){
-    //     try {
-
-    //         console.log(fileName)
-    //         console.log(pathFolder)
-    //         console.log(folderStorage)
-    //         const destination = `${fileName}`;
-    //         const filePath = `${pathFolder}`;
-    //         let URL = ''
-            
-    //         const uploadImage = this.storage.upload(filePath, {
-    //             destination,
-    //         }, (err, file)=>{
-    //             if(file){
-    //                 file.makePublic(async () => {
-    //                     URL = file.publicUrl()
-    //                     console.log(URL)
-
-    //                     return URL
-    //                 });
-    //             }
-    //         });
-    //         return URL
-    //         // {
-    //         //     destination,
-    //         // },
-    //         // (err, file)=>{
-    //         //     if(file){
-    //         //         file.makePublic(async ()=> {
-    //         //             console.log(file.name)
-    //         //             console.log(file.publicUrl())
-    //         //             retru
-    //         //         });
-    //         //     }
-    //         // }
-    //         // if(!uploadImage){
-    //         //     throw new AppError('Error ao fazer upload da imagem', 400);
-    //         // }
-          
-    //         // const fileNameUploaded = uploadImage[0].metadata.name as string;
-    //         // const file = this.storage.file(fileNameUploaded);
-    //         // const fileRef = await file.getSignedUrl({
-    //         //     action: 'read',
-    //         //     expires: '03-09-2491',
-    //         // })
-    //         // const URL = fileRef[0];
-
-    //         // console.log('upload de imagem feito com sucesso')
-    
-    //     } catch (error) {
-    //         console.log('Error ao fazer upload da imagem');
-    //         console.log('error', error)
-    //     }
-    // }
 }

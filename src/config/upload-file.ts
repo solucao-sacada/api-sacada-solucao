@@ -22,7 +22,6 @@ const tempDirectories: string[] = getDirectories(tmpFolder);
 const tmpDirectoriesUploadConfig = tempDirectories
   .map((directory) => {
     const tmpFolder = resolve(__dirname, "..", directory);
-    console.log(tmpFolder);
     return {
       [directory]: {
         directory: tmpFolder,
