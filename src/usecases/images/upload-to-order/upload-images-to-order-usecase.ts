@@ -44,6 +44,10 @@ export class UploadImageToOrderUseCase {
             // if(!image.name.includes('.png') && !image.name.includes('.jpg') && !image.name.includes('.jpeg')){
             //     throw new AppError('Formato de imagem inválido', 400)
             // }
+
+            const verifyFileExist = fs.accessSync(`${image.destination}/${image.hashName}`)
+
+            console.log(verifyFileExist)
             
             // let formatHashName = image.hashName
             // let formatName = image.name
