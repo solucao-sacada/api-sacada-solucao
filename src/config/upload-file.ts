@@ -10,7 +10,7 @@ const getDirectories = (source: string): string[] =>
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => dirent.name);
 
-// Variável tmpFolder recebe o caminho da pasta tmp
+// Variável tmpFolder recebe o caminho da pasta tmp 
 // const tmpFolder = resolve(__dirname, "..", "..", "src");
 const envTmpFolder = env.NODE_ENV === "development" ? "src" : "build";
 const tmpFolder = resolve(__dirname, "..", "..", envTmpFolder);
