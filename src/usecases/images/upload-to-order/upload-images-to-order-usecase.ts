@@ -40,8 +40,8 @@ export class UploadImageToOrderUseCase {
         // criar for para fazer upload de mais de uma imagem no firebase storage
         // e salvar cada url na tabela de imagens
         for(let image of imageInfo){
+            console.log(image)
             if(!image.name.includes('.png') && !image.name.includes('.jpg') && !image.name.includes('.jpeg')){
-                console.log(image.name)
                 throw new AppError('Formato de imagem inválido', 400)
             }
             
