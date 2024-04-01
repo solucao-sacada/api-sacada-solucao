@@ -1,4 +1,5 @@
 import { IImageModel } from "@/database/models/Images"
+import { env } from "@/env"
 import { IFileProvider } from "@/providers/StorageProvider/file-provider.interface"
 import { IStorageProvider } from "@/providers/StorageProvider/storage-provider.interface"
 import { IImageRepository } from "@/repositories/interfaces/interface-images-repository"
@@ -55,14 +56,17 @@ export class UploadImageToOrderUseCase {
                 formatName = `${image.name.replace(/\..+$/, ".webp")}`
             }
 
+            // criar constante com o caminho da pasta de imagens
+            const pathFolder = env.NODE_ENV === "production" ? `${env.FOLDER_TMP_PRODUCTION}` : `${env.FOLDER_TMP_DEVELOPMENT}`
+
             // fazer upload do exame dentro firebase através do nome do arquivo
-            let imageUrl = await this.storageProvider.uploadFile(formatHashName, `${image.destination}`, 'orders') as string
+            let imageUrl = await this.storageProvider.uploadFile(image.hashName, pathFolder, 'orders') as string
             // criar imagem no banco de dados
             
             const createImage = await this.imageRepository.upload({
                idOrder,
-               name: formatName,
-               hashName: formatHashName,
+               name: image.name,
+               hashName: image.hashName,
                url: imageUrl
             })
 
