@@ -42,11 +42,14 @@ export class FirebaseStorageProvider implements IStorageProvider {
           
             console.log('depois do upload image 2')
             const fileNameUploaded = uploadImage[0].metadata.name as string;
+            console.log(fileNameUploaded)
             const file = this.storage.file(fileNameUploaded);
+            console.log(file)
             const fileRef = await file.getSignedUrl({
                 action: 'read',
                 expires: '03-09-2491',
             })
+            console.log(fileRef)
             console.log('depois do upload image 3')
             const URL = fileRef[0];
 
