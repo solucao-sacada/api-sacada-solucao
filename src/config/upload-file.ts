@@ -12,7 +12,7 @@ const getDirectories = (source: string): string[] =>
 
 // Variável tmpFolder recebe o caminho da pasta tmp
 // const tmpFolder = resolve(__dirname, "..", "..", "src");
-const envTmpFolder = env.NODE_ENV === "development" ? "src" : "app";
+const envTmpFolder = env.NODE_ENV === "development" ? "src" : "";
 const tmpFolder = resolve(__dirname, "..", envTmpFolder);
 
 // Cria array de string vazia com
