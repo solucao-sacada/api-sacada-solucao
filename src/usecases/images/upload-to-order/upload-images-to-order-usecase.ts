@@ -14,6 +14,7 @@ interface IRequestUploadImage{
         name: string
         hashName: string
         destination: string
+        path: string
     }[]
 }
 
@@ -45,7 +46,7 @@ export class UploadImageToOrderUseCase {
             //     throw new AppError('Formato de imagem inválido', 400)
             // }
 
-            const verifyFileExist = fs.accessSync(`${image.destination}/${image.hashName}`)
+            const verifyFileExist = fs.existsSync(image.path)
 
             console.log(verifyFileExist)
             

@@ -11,6 +11,7 @@ export class UploadImageToOrderController{
                 filename: z.string(),
                 originalname: z.string(),
                 destination: z.string(),
+                path: z.string(),
             })
     
             const multipartformUploadSchema = z.array(ImageSchemaFile)
@@ -36,7 +37,8 @@ export class UploadImageToOrderController{
                     return {
                         name: image.originalname,
                         hashName: image.filename,
-                        destination: image.destination
+                        destination: image.destination,
+                        path: image.path
                     }
                 })
             })
