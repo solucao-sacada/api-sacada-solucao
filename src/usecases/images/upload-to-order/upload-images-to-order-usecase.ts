@@ -56,7 +56,7 @@ export class UploadImageToOrderUseCase {
             }
 
             // fazer upload do exame dentro firebase através do nome do arquivo
-            let imageUrl = await this.storageProvider.uploadFile(`${image.destination}`, formatHashName, 'orders') as string
+            let imageUrl = await this.storageProvider.uploadFile(formatHashName, `${image.destination}`, 'orders') as string
             // criar imagem no banco de dados
             
             const createImage = await this.imageRepository.upload({
