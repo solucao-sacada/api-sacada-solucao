@@ -1,4 +1,5 @@
 import { IOrdersModel } from "@/database/models/Orders";
+import { IImageRepository } from "@/repositories/interfaces/interface-images-repository";
 import { IOrdersRepository } from "@/repositories/interfaces/interface-orders-repository";
 
 export class ListOrdersUseCase {
@@ -9,6 +10,7 @@ export class ListOrdersUseCase {
   async execute(): Promise<IOrdersModel[]> {
     // listar os pedidos
     const orders = await this.orderRepository.list()
+
 
     // retornar o pedido
     return orders

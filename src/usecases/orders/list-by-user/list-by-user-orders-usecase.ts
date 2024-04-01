@@ -20,7 +20,7 @@ interface IResponseListOrder {
     client: Client
     technician: string
     observation?: string
-    images: IImageModel[]
+    images: string[]
 }
 
 export class ListOrdersByUserUseCase {
@@ -57,7 +57,7 @@ export class ListOrdersByUserUseCase {
         client: order.client,
         technician: order.technician,
         observation: order.observation,
-        images,
+        images: images.map(image => image.url)
       })
       
     }
