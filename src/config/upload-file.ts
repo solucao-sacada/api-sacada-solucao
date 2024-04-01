@@ -21,7 +21,7 @@ const tempDirectories: string[] = getDirectories(tmpFolder);
 // Filtra o diretorio recebido retornando em um Objeto.assign
 const tmpDirectoriesUploadConfig = tempDirectories
   .map((directory) => {
-    const tmpFolder = resolve(__dirname, "..", "tmp");
+    const tmpFolder = resolve(__dirname, "tmp");
     console.log(tmpFolder);
     return {
       [directory]: {
