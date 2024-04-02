@@ -26,8 +26,8 @@ export class FirebaseStorageProvider implements IStorageProvider {
 
     async uploadFile(fileName: string, pathFolder: string, folderStorage: string):Promise<string> {
         try {
-            const destination = `${fileName}`;
-            const filePath = `${pathFolder}`.replace("/tmp", "/tmp/orders");
+            const destination = `${fileName}`.replace(/\..+$/, ".webp");
+            const filePath = `${pathFolder}`.replace("/tmp", "/tmp/orders").replace(/\..+$/, ".webp");
             
             // Inicia uma Promise
             return new Promise((resolve, reject) => {
