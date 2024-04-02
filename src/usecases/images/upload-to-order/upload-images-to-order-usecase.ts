@@ -55,11 +55,9 @@ export class UploadImageToOrderUseCase {
                 formatName = `${image.name.replace(/\..+$/, ".webp")}`
                 formatPath = `${image.path.replace(/\..+$/, ".webp")}`
                 formatPath = formatPath.replace("/tmp", "/tmp/orders");
-
             }else if(image.hashName.includes('.jpg') || image.hashName.includes('.jpeg')){
                 formatHashName = `${image.hashName.replace(/\..+$/, ".webp")}`
                 formatName = `${image.name.replace(/\..+$/, ".webp")}`
-
                 formatPath = `${image.path.replace(/\..+$/, ".webp")}`
                 formatPath = formatPath.replace("/tmp", "/tmp/orders");
             }
@@ -70,15 +68,14 @@ export class UploadImageToOrderUseCase {
             
             const createImage = await this.imageRepository.upload({
                idOrder,
-               name: image.name,
-               hashName: image.hashName,
+               name: formatName,
+               hashName: formatHashName,
                url: imageUrl
             })
 
             // adicionar imagem no array de imagens
             arrayImagesUploaded.push(createImage)
 
-            console.log('deleta imagem antiga no tmp')
             // deletar imagem não comprimida no tmp
             this.fileProvider.deleteFileTmp(image.hashName as string, 'tmp', image.destination)
         }
