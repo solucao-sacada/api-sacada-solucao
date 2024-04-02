@@ -34,10 +34,10 @@ export class UploadImageToOrderController{
                 imageInfo: images.map(image => {
                     makeCompressionImage(image.filename, image.destination, 'orders')
                     return {
-                        name: image.originalname.replace(/\..+$/, ".webp"),
-                        hashName: image.filename.replace(/\..+$/, ".webp"),
+                        name: image.originalname,
+                        hashName: image.filename,
                         destination: image.destination,
-                        path: image.path.replace("/tmp", "/tmp/orders").replace(/\..+$/, ".webp"),
+                        path: image.path,
                     }
                 })
             })

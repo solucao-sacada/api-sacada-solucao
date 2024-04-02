@@ -46,14 +46,18 @@ export class UploadImageToOrderUseCase {
                 throw new AppError('Formato de imagem inválido', 400)
             }
 
+            const formatName = `${image.hashName.replace(/\..+$/, ".webp")}`
+            const formatHashName = `${image.hashName.replace(/\..+$/, ".webp")}`
+            const formatPath = `${image.path}`.replace(/\..+$/, ".webp").replace("/tmp", "/tmp/orders")
+
             // fazer upload do exame dentro firebase através do nome do arquivo
-            let imageUrl = await this.storageProvider.uploadFile(image.hashName, image.path, 'orders') as string
+            let imageUrl = await this.storageProvider.uploadFile(formatHashName, formatPath, 'orders') as string
             // criar imagem no banco de dados
             
             const createImage = await this.imageRepository.upload({
                idOrder,
-               name: image.name,
-               hashName: image.hashName,
+               name: formatName,
+               hashName: formatHashName,
                url: imageUrl
             })
 
