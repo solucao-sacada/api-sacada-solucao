@@ -46,21 +46,21 @@ export class UploadImageToOrderUseCase {
                 throw new AppError('Formato de imagem inválido', 400)
             }
 
-            // let formatHashName = image.hashName
-            // let formatName = image.name
-            // let formatPath = image.path
+            let formatHashName = image.hashName
+            let formatName = image.name
+            let formatPath = image.path
             
-            // if(image.hashName.includes('.png')){
-            //     formatHashName = `${image.hashName.replace(/\..+$/, ".webp")}`
-            //     formatName = `${image.name.replace(/\..+$/, ".webp")}`
-            //     formatPath = `${image.path.replace(/\..+$/, ".webp")}`
-            //     formatPath = formatPath.replace("/tmp", "/tmp/orders");
-            // }else if(image.hashName.includes('.jpg') || image.hashName.includes('.jpeg')){
-            //     formatHashName = `${image.hashName.replace(/\..+$/, ".webp")}`
-            //     formatName = `${image.name.replace(/\..+$/, ".webp")}`
-            //     formatPath = `${image.path.replace(/\..+$/, ".webp")}`
-            //     formatPath = formatPath.replace("/tmp", "/tmp/orders");
-            // }
+            if(image.hashName.includes('.png')){
+                formatHashName = `${image.hashName.replace(/\..+$/, ".webp")}`
+                formatName = `${image.name.replace(/\..+$/, ".webp")}`
+                formatPath = `${image.path.replace(/\..+$/, ".webp")}`
+                formatPath = formatPath.replace("/tmp", "/tmp/orders");
+            }else if(image.hashName.includes('.jpg') || image.hashName.includes('.jpeg')){
+                formatHashName = `${image.hashName.replace(/\..+$/, ".webp")}`
+                formatName = `${image.name.replace(/\..+$/, ".webp")}`
+                formatPath = `${image.path.replace(/\..+$/, ".webp")}`
+                formatPath = formatPath.replace("/tmp", "/tmp/orders");
+            }
 
             // fazer upload do exame dentro firebase através do nome do arquivo
             let imageUrl = await this.storageProvider.uploadFile(image.hashName, image.path, 'orders') as string
