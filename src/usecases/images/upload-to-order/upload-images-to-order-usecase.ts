@@ -52,8 +52,8 @@ export class UploadImageToOrderUseCase {
             
             const createImage = await this.imageRepository.upload({
                idOrder,
-               name: image.name.replace(/\..+$/, ".webp"),
-               hashName: image.hashName.replace(/\..+$/, ".webp"),
+               name: image.name,
+               hashName: image.hashName,
                url: imageUrl
             })
 
