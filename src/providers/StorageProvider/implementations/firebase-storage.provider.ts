@@ -26,33 +26,35 @@ export class FirebaseStorageProvider implements IStorageProvider {
 
     async uploadFile(fileName: string, pathFolder: string, folderStorage: string):Promise<string> {
         try {
-            const destination = `${folderStorage}/${fileName}`;
-            const filePath = `${pathFolder}`
+            const destination = `${folderStorage}/${fileName}`.replace(/\..+$/, ".webp");
+            const filePath = `${pathFolder}`.replace("/tmp", "/tmp/orders").replace(/\..+$/, ".webp");
             
             // Inicia uma Promise
             return new Promise((resolve, reject) => {
-                this.storage.upload(filePath, {
-                    destination,
-                }, (err, file) => {
-                    if (err) {
-                        reject(err);
-                        return;
-                    }
-    
-                    if (file) {
-                        file.makePublic((err) => {
-                            if (err) {
-                                reject(err);
-                                return;
-                            }
-                            
-                            const URL = file.publicUrl();
-                            
-                            // Resolve a Promise com o URL
-                            resolve(URL);
-                        });
-                    }
-                });
+                setTimeout(() => {
+                    this.storage.upload(filePath, {
+                        destination,
+                    }, (err, file) => {
+                        if (err) {
+                            reject(err);
+                            return;
+                        }
+        
+                        if (file) {
+                            file.makePublic((err) => {
+                                if (err) {
+                                    reject(err);
+                                    return;
+                                }
+                                
+                                const URL = file.publicUrl();
+                                
+                                // Resolve a Promise com o URL
+                                resolve(URL);
+                            });
+                        }
+                    });
+                }, 1000)
             });
         } catch (error) {
             // Trate os erros aqui se necessário

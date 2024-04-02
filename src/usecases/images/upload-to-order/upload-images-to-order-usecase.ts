@@ -45,7 +45,19 @@ export class UploadImageToOrderUseCase {
             if(!image.name.includes('.png') && !image.name.includes('.jpg') && !image.name.includes('.jpeg')){
                 throw new AppError('Formato de imagem inválido', 400)
             }
+
+            // let formatHashName = image.hashName
+            // let formatName = image.name
+            // let formatPath = image.path
             
+            // if(image.hashName.includes('.png')){
+            //     formatHashName = `${image.hashName.replace(/\..+$/, ".webp")}`
+            //     formatName = `${image.name.replace(/\..+$/, ".webp")}`
+            // }else if(image.hashName.includes('.jpg') || image.hashName.includes('.jpeg')){
+            //     formatHashName = `${image.hashName.replace(/\..+$/, ".webp")}`
+            //     formatName = `${image.name.replace(/\..+$/, ".webp")}`
+            // }
+
             // fazer upload do exame dentro firebase através do nome do arquivo
             let imageUrl = await this.storageProvider.uploadFile(image.hashName, image.path, 'orders') as string
             // criar imagem no banco de dados
