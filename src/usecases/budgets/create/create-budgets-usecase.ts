@@ -12,8 +12,8 @@ interface IRequestCreateBudget {
   aparador?: boolean
   selante?: boolean
   prolongador?: boolean
-  chapaSuperior?: boolean
-  chapaInferior?: boolean
+  chapaSuperior: boolean 
+  chapaInferior: boolean
   qtdAparador: number
   qtdProlongador: number
   qtdSelante: number
@@ -35,7 +35,9 @@ export class CreateBudgetsUseCase {
     prolongador,
     qtdAparador,
     qtdProlongador,
-    qtdSelante
+    qtdSelante,
+    chapaInferior,
+    chapaSuperior
   }:IRequestCreateBudget): Promise<IBudGetModel> {
     // buscar o usuario pelo id
     const findUserExist = await this.userRepository.findById(idUser)
@@ -53,6 +55,8 @@ export class CreateBudgetsUseCase {
       price,
       aparador,
       selante,
+      chapaInferior,
+      chapaSuperior,
       prolongador,
       qtdAparador,
       qtdProlongador,

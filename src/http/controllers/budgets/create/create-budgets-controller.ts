@@ -16,6 +16,8 @@ export class CreateBudgetController {
               qtdAparador: z.number().positive().nonnegative(),
               qtdSelante: z.number().positive().nonnegative(),
               qtdProlongador: z.number().positive().nonnegative(),
+              chapaSuperior: z.boolean(),
+              chapaInferior: z.boolean(),
             })
 
             const {
@@ -28,7 +30,9 @@ export class CreateBudgetController {
                 prolongador,
                 qtdAparador,
                 qtdSelante,
-                qtdProlongador
+                qtdProlongador,
+                chapaSuperior,
+                chapaInferior
             } = budgetSchema.parse(request.body)
           
             const createBudgetUseCase = await makeCreateBudget()
@@ -43,7 +47,9 @@ export class CreateBudgetController {
                 prolongador,
                 qtdAparador,
                 qtdSelante,
-                qtdProlongador
+                qtdProlongador,
+                chapaSuperior,
+                chapaInferior
             })
             return response.status(201).send(budget)
             
