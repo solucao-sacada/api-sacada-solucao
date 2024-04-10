@@ -1,6 +1,7 @@
 import { IOrdersModel } from "@/database/models/Orders";
 import { IStatusDTO } from "@/dtos/IStatusDTO";
 import { Accessories, Balcony, Client } from "@/dtos/ITypeOrderJSON";
+import { env } from "@/env";
 import { IFileProvider } from "@/providers/StorageProvider/file-provider.interface";
 import { IStorageProvider } from "@/providers/StorageProvider/storage-provider.interface";
 import { IOrdersRepository } from "@/repositories/interfaces/interface-orders-repository";
@@ -53,7 +54,7 @@ export class CreateOrdersUseCase {
     })
 
     const jsonName = `${randomUUID()}-order.json`
-    const jsonPath = `./src/tmp`
+    const jsonPath = env.NODE_ENV === "development" ? env.APP_URL_DEVLOPMENT as string : env.APP_URL_PRODUCTION as string
 
     fs.writeFile(`${jsonPath}/json/${jsonName}`, JSON.stringify(order, null, 2), 'utf8', (err) => {
      if(err){
