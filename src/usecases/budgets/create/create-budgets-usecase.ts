@@ -9,6 +9,7 @@ interface IRequestCreateBudget {
   emailClient: string          
   price: number
 
+  aparador?: boolean
   selante?: boolean
   prolongador?: boolean
   chapaSuperior?: boolean
@@ -29,6 +30,7 @@ export class CreateBudgetsUseCase {
     client,
     emailClient,
     price,
+    aparador,
     selante,
     prolongador,
     qtdAparador,
@@ -49,6 +51,7 @@ export class CreateBudgetsUseCase {
       client,
       emailClient,
       price,
+      aparador,
       selante,
       prolongador,
       qtdAparador,

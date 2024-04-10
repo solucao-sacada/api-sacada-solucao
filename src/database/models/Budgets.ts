@@ -7,6 +7,7 @@ export interface IBudGetModel extends Document {
   emailClient: string          
   price: number
 
+  aparador?: boolean
   selante?: boolean
   prolongador?: boolean
   chapaSuperior?: boolean
@@ -35,7 +36,10 @@ export const BudGetSchema = new Schema<IBudGetModel>({
         type: Number,
         required: true
     },
-
+    aparador: {
+        type: Boolean,
+        required: false
+    },
     selante: {
         type: Boolean,
         required: false

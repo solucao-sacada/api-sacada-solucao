@@ -6,6 +6,7 @@ export interface IBudgetDTO{
   emailClient: string          
   price?: number
 
+  aparador?: boolean
   selante?: boolean
   prolongador?: boolean
   chapaSuperior?: boolean
