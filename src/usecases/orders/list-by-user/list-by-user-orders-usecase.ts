@@ -21,6 +21,8 @@ interface IResponseListOrder {
     technician: string
     observation?: string
     images: string[]
+    createdAt: Date
+    updatedAt: Date
 }
 
 export class ListOrdersByUserUseCase {
@@ -45,8 +47,8 @@ export class ListOrdersByUserUseCase {
 
     // listar os pedidos
     const orders = await this.orderRepository.listByUser(idUser)
-
     for(let order of orders){
+      console.log(order)
       const images = await this.imagesRepository.listByOrder(order.id)
       listOrderFormatted.push({
         _id: order._id,
@@ -57,11 +59,13 @@ export class ListOrdersByUserUseCase {
         client: order.client,
         technician: order.technician,
         observation: order.observation,
-        images: images.map(image => image.url)
+        images: images.map(image => image.url),
+        createdAt: order.createdAt,
+        updatedAt: order.updatedAt
       })
       
     }
-
+    console.log(listOrderFormatted[18])
     // retornar o pedido
     return listOrderFormatted
   }

@@ -11,6 +11,8 @@ export interface IOrdersModel extends Document {
     technician: string
     observation?: string
     images?: IImageModel[]
+    createdAt: Date
+    updatedAt: Date
 }
 
 export const OrdersSchema = new Schema<IOrdersModel>({
