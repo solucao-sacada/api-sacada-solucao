@@ -8,19 +8,9 @@ export class MongooseBudgetRepository implements IBudgetRepository{
     private Budget: Model<IBudGetModel> = Budgets;
 
     constructor(){}
-    async create({
-        idUser,
-        client,
-        emailClient,
-        price,
-    }: IBudgetDTO) {
+    async create(data: IBudgetDTO) {
         try {
-            const newBudget = await this.Budget.create({
-                idUser,
-                client,
-                emailClient,
-                price
-            })
+            const newBudget = await this.Budget.create(data)
             
             return newBudget 
         } catch (error) {
