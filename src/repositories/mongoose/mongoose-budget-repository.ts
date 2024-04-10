@@ -37,7 +37,7 @@ export class MongooseBudgetRepository implements IBudgetRepository{
     }
     async list() {
        try {
-        const list = await this.Budget.find()
+        const list = await this.Budget.find().sort({code: -1})
 
         return list
        } catch (error) {
