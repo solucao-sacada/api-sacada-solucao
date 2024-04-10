@@ -10,6 +10,11 @@ export class CreateBudgetController {
               client: z.string().min(4), 
               emailClient: z.string().email(), 
               price: z.number().positive().nonnegative(),
+              selante: z.boolean(),
+              prolongador: z.boolean(),
+              qtdAparador: z.number().positive().nonnegative(),
+              qtdSelante: z.number().positive().nonnegative(),
+              qtdProlongador: z.number().positive().nonnegative(),
             })
 
             const {
@@ -17,6 +22,11 @@ export class CreateBudgetController {
                 client,
                 emailClient,
                 price,
+                selante,
+                prolongador,
+                qtdAparador,
+                qtdSelante,
+                qtdProlongador
             } = budgetSchema.parse(request.body)
           
             const createBudgetUseCase = await makeCreateBudget()
@@ -26,6 +36,11 @@ export class CreateBudgetController {
                 client,
                 emailClient,
                 price,
+                selante,
+                prolongador,
+                qtdAparador,
+                qtdSelante,
+                qtdProlongador
             })
             return response.status(201).send(budget)
             

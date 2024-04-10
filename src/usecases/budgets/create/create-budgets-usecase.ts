@@ -8,6 +8,14 @@ interface IRequestCreateBudget {
   client: string
   emailClient: string          
   price: number
+
+  selante?: boolean
+  prolongador?: boolean
+  chapaSuperior?: boolean
+  chapaInferior?: boolean
+  qtdAparador: number
+  qtdProlongador: number
+  qtdSelante: number
 }
 
 export class CreateBudgetsUseCase {
@@ -20,7 +28,12 @@ export class CreateBudgetsUseCase {
     idUser,
     client,
     emailClient,
-    price    
+    price,
+    selante,
+    prolongador,
+    qtdAparador,
+    qtdProlongador,
+    qtdSelante
   }:IRequestCreateBudget): Promise<IBudGetModel> {
     // buscar o usuario pelo id
     const findUserExist = await this.userRepository.findById(idUser)
@@ -35,7 +48,12 @@ export class CreateBudgetsUseCase {
       idUser,
       client,
       emailClient,
-      price  
+      price,
+      selante,
+      prolongador,
+      qtdAparador,
+      qtdProlongador,
+      qtdSelante  
     }) as IBudGetModel
 
     // retornar o pedido
