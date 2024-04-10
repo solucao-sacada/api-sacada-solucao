@@ -30,7 +30,7 @@ export class DeleteImageUseCase {
             await this.storageProvider.deleteFile(findImageExists.hashName as string, 'users')
 
             // deletar imagen local no tmp
-            this.fileProvider.deleteFileTmp(findImageExists.hashName as string, 'users')
+            this.fileProvider.deleteFileTmp(findImageExists.hashName as string, 'users', './src/tmp/users' )
 
             // deletar image pelo id
             await this.imageRepository.deleteById(id)
@@ -41,7 +41,7 @@ export class DeleteImageUseCase {
             await this.storageProvider.deleteFile(findImageExists.hashName as string, 'orders')
 
             // deletar imagen local no tmp
-            this.fileProvider.deleteFileTmp(findImageExists.hashName as string, 'orders')
+            this.fileProvider.deleteFileTmp(findImageExists.hashName as string, 'orders', './src/tmp/orders' )
 
             // deletar image pelo id
             await this.imageRepository.deleteById(id)
