@@ -48,7 +48,6 @@ export class ListOrdersByUserUseCase {
     // listar os pedidos
     const orders = await this.orderRepository.listByUser(idUser)
     for(let order of orders){
-      console.log(order)
       const images = await this.imagesRepository.listByOrder(order.id)
       listOrderFormatted.push({
         _id: order._id,
@@ -65,7 +64,6 @@ export class ListOrdersByUserUseCase {
       })
       
     }
-    console.log(listOrderFormatted[18])
     // retornar o pedido
     return listOrderFormatted
   }
