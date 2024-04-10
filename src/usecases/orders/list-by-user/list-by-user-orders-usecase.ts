@@ -22,6 +22,7 @@ interface IResponseListOrder {
     technician: string
     observation?: string
     status?: IStatusDTO
+    urlJSON?: string
     images: string[]
     createdAt: Date
     updatedAt: Date
@@ -61,6 +62,7 @@ export class ListOrdersByUserUseCase {
         technician: order.technician,
         observation: order.observation,
         status: order.status,
+        urlJSON: order.urlJSON,
         images: images.map(image => image.url),
         createdAt: order.createdAt,
         updatedAt: order.updatedAt
