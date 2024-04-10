@@ -10,7 +10,12 @@ export class MongooseBudgetRepository implements IBudgetRepository{
     constructor(){}
     async create(data: IBudgetDTO) {
         try {
-            const newBudget = await this.Budget.create(data)
+             // contar quantos pedidos existem
+            const countOrders = await this.Budget.countDocuments()
+            const newBudget = await this.Budget.create({
+                ...data,
+                code: Number(countOrders) + 1
+            })
             
             return newBudget 
         } catch (error) {
