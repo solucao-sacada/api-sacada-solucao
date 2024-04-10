@@ -15,6 +15,7 @@ export interface IOrdersModel extends Document {
     createdAt: Date
     updatedAt: Date
     status: IStatusDTO
+    urlJSON?: string
 }
 
 export const OrdersSchema = new Schema<IOrdersModel>({
@@ -48,6 +49,10 @@ export const OrdersSchema = new Schema<IOrdersModel>({
         type: String,
         enum: Object.values(IStatusDTO), // Garantindo que apenas valores válidos do enum sejam aceitos
         default: IStatusDTO.CREATED // Definindo o valor padrão como 'pending'
+    },
+    urlJSON: {
+        type: String,
+        required: false
     },
     images: [{
         type: Schema.Types.ObjectId,

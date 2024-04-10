@@ -10,4 +10,5 @@ export interface IOrderDTO {
     technician: string
     observation?: string
     status?: IStatusDTO
+    urlJSON?: string
 }

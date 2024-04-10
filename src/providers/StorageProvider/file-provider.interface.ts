@@ -1,3 +1,3 @@
 export interface IFileProvider {
-    deleteFileTmp(fileName: string, folderPath: 'users' | 'orders' |'tmp', destination: string): void
+    deleteFileTmp(fileName: string, folderPath: 'users' | 'orders' |'tmp' | 'json', destination: string): void
 }

@@ -10,6 +10,7 @@ export class FileTMPProvider implements IFileProvider{
             if(env.NODE_ENV === 'test'){
                 destination = env.FOLDER_TMP_DEVELOPMENT
             }
+
             if(folderPath === 'tmp'){
                 // Verifique se o arquivo existe antes de tentar excluí-lo
                 // Verifique se o arquivo existe antes de tentar excluí-lo

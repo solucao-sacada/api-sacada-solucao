@@ -1,4 +1,4 @@
 export interface IStorageProvider {
-    uploadFile(fileName: string, pathFolder: string, folderStorage: 'users' | 'orders'): Promise<string | undefined>;
-    deleteFile(fileName: string, folderStorage:'users' | 'orders'): Promise<void>
+    uploadFile(fileName: string, pathFolder: string, folderStorage: 'users' | 'orders' | 'jsons'): Promise<string | undefined>;
+    deleteFile(fileName: string, folderStorage:'users' | 'orders' | 'jsons'): Promise<void>
 }
