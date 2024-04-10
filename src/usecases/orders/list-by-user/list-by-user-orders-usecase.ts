@@ -1,5 +1,6 @@
 import { IImageModel } from "@/database/models/Images";
 import { IOrdersModel } from "@/database/models/Orders";
+import { IStatusDTO } from "@/dtos/IStatusDTO";
 import { Accessories, Balcony, Client } from "@/dtos/ITypeOrderJSON";
 import { IImageRepository } from "@/repositories/interfaces/interface-images-repository";
 import { IOrdersRepository } from "@/repositories/interfaces/interface-orders-repository";
@@ -20,6 +21,7 @@ interface IResponseListOrder {
     client: Client
     technician: string
     observation?: string
+    status?: IStatusDTO
     images: string[]
     createdAt: Date
     updatedAt: Date
@@ -58,6 +60,7 @@ export class ListOrdersByUserUseCase {
         client: order.client,
         technician: order.technician,
         observation: order.observation,
+        status: order.status,
         images: images.map(image => image.url),
         createdAt: order.createdAt,
         updatedAt: order.updatedAt
