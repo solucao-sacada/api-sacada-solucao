@@ -1,4 +1,5 @@
 import { IOrdersModel } from "@/database/models/Orders";
+import { IStatusDTO } from "@/dtos/IStatusDTO";
 import { Accessories, Balcony, Client } from "@/dtos/ITypeOrderJSON";
 import { IOrdersRepository } from "@/repositories/interfaces/interface-orders-repository";
 import { IUsersRepository } from "@/repositories/interfaces/interface-users-repository";
@@ -42,7 +43,7 @@ export class CreateOrdersUseCase {
       balcony,
       client,
       technician,
-      observation
+      observation,
     })
 
     // retornar o pedido

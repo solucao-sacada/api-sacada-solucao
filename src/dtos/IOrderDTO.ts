@@ -1,3 +1,4 @@
+import { IStatusDTO } from "./IStatusDTO"
 import { Accessories, Balcony, Client } from "./ITypeOrderJSON"
 
 export interface IOrderDTO {
@@ -8,4 +9,5 @@ export interface IOrderDTO {
     client: Client
     technician: string
     observation?: string
+    status?: IStatusDTO
 }

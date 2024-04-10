@@ -1,6 +1,7 @@
 import { Accessories, Balcony, Client } from "@/dtos/ITypeOrderJSON";
 import { Schema, model, Document } from "mongoose";
 import { IImageModel } from "./Images";
+import { IStatusDTO } from "@/dtos/IStatusDTO";
 
 export interface IOrdersModel extends Document {
     idUser: Schema.Types.ObjectId;
@@ -13,6 +14,7 @@ export interface IOrdersModel extends Document {
     images?: IImageModel[]
     createdAt: Date
     updatedAt: Date
+    status: IStatusDTO
 }
 
 export const OrdersSchema = new Schema<IOrdersModel>({
@@ -41,6 +43,11 @@ export const OrdersSchema = new Schema<IOrdersModel>({
     observation: {
         type: String,
         required: false,
+    },
+    status: {
+        type: String,
+        enum: Object.values(IStatusDTO), // Garantindo que apenas valores válidos do enum sejam aceitos
+        default: IStatusDTO.CREATED // Definindo o valor padrão como 'pending'
     },
     images: [{
         type: Schema.Types.ObjectId,

@@ -1,0 +1,6 @@
+export enum IStatusDTO {
+    CREATED = 'CREATED',
+    PENDING = 'PENDING',
+    CANCELED = 'CANCELED',
+    CONFIRMED = 'CONFIRMED'
+}
