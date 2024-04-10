@@ -21,7 +21,9 @@ export class MongooseOrdersRepository implements IOrdersRepository {
         try {
             return await this.Orders.find({
                 idUser
-            }).sort({code: -1})
+            })
+            .sort({code: -1})
+            .select('-_id createdAt updatedAt idUser code accessories balcony client technician observation images');
         } catch (error) {
             console.error(error)
             throw new Error("Error list orders by user")
