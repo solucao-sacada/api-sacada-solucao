@@ -106,9 +106,10 @@ export class UploadImageToOrderUseCase {
         const urlJSON =await this.storageProvider.uploadFile(jsonName, `${jsonPath}/json/${jsonName}`, "jsons")
         
         order.urlJSON = urlJSON
+        order.nameJSON = jsonName
 
         // atualizar o pedido no banco de dados com a url do json
-        await this.ordersRepository.update(order.id, order)
+        await this.ordersRepository.update(order.id as string, order)
 
         // deletar o arquivo temporário
         this.fileProvider.deleteFileTmp(jsonName, `${jsonPath}/json`)

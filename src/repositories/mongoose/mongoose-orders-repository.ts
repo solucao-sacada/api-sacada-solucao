@@ -11,6 +11,7 @@ export class MongooseOrdersRepository implements IOrdersRepository {
         try {
             return await this.Orders.findByIdAndUpdate(id, {
                 urlJSON: data?.urlJSON,
+                nameJSON: data?.nameJSON,
                 status: data?.status,
             })
         } catch (error) {
@@ -35,7 +36,7 @@ export class MongooseOrdersRepository implements IOrdersRepository {
                 idUser
             })
             .sort({code: -1})
-            .select('_id createdAt updatedAt idUser code accessories balcony client technician observation status urlJSON');
+            .select('_id createdAt updatedAt idUser code accessories balcony client technician observation status urlJSON nameJSON');
         } catch (error) {
             console.error(error)
             throw new Error("Error list orders by user")

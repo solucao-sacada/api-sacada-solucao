@@ -3,12 +3,23 @@ import 'dotenv/config';
 import { Bucket } from '@google-cloud/storage';
 import { firebaseApp } from '@/config/firebase-connection';
 import { AppError } from '@/usecases/errors/AppError';
+import { env } from '@/env';
 
 export class FirebaseStorageProvider implements IStorageProvider {
     private readonly storage: Bucket;
 
     constructor() {
         this.storage = firebaseApp as unknown as Bucket;
+    }
+    async downloadFile(fileName: string){
+        try {
+            const file = this.storage.file(fileName);
+            const fileReponse = await file.download({destination: `${env.FIREBASE_BUCKET}/jsons/${fileName}`})
+
+            return fileReponse
+        } catch (error) {
+            console.log('Error ao baixar a imagem');
+        }
     }
 
     async deleteFile(fileName: string, folderStorage: string){

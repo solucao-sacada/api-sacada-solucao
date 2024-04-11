@@ -16,6 +16,7 @@ export interface IOrdersModel extends Document {
     updatedAt: Date
     status: IStatusDTO
     urlJSON?: string
+    nameJSON?: string
 }
 
 export const OrdersSchema = new Schema<IOrdersModel>({
@@ -51,6 +52,10 @@ export const OrdersSchema = new Schema<IOrdersModel>({
         default: IStatusDTO.CREATED // Definindo o valor padrão como 'pending'
     },
     urlJSON: {
+        type: String,
+        required: false
+    },
+    nameJSON: {
         type: String,
         required: false
     },

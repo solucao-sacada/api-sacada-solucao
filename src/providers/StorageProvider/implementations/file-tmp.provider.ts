@@ -9,8 +9,6 @@ export class FileTMPProvider implements IFileProvider{
             if(env.NODE_ENV === 'test'){
                 destination = env.FOLDER_TMP_DEVELOPMENT
             }
-            console.log(`${destination}/${fileName}`)
-
             // Verifique se o arquivo existe antes de tentar excluí-lo
             if (!fs.existsSync(`${destination}/${fileName}`)) {
                 return
