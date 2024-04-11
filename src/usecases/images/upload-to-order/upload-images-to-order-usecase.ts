@@ -1,4 +1,6 @@
 import { IImageModel } from "@/database/models/Images"
+import { IOrdersModel } from "@/database/models/Orders"
+import { IOrderDTO } from "@/dtos/IOrderDTO"
 import { env } from "@/env"
 import { IFileProvider } from "@/providers/StorageProvider/file-provider.interface"
 import { IStorageProvider } from "@/providers/StorageProvider/storage-provider.interface"
@@ -6,6 +8,7 @@ import { IImageRepository } from "@/repositories/interfaces/interface-images-rep
 import { IOrdersRepository } from "@/repositories/interfaces/interface-orders-repository"
 import { AppError } from "@/usecases/errors/AppError"
 import { makeCompressionImage } from "@/utils/comprresion-image"
+import { randomUUID } from "crypto"
 import * as fs from 'fs'
 
 interface IRequestUploadImage{
@@ -23,7 +26,7 @@ export class UploadImageToOrderUseCase {
         private storageProvider: IStorageProvider,
         private imageRepository: IImageRepository,
         private ordersRepository: IOrdersRepository,
-        private fileProvider: IFileProvider
+        private fileProvider: IFileProvider,
         ) {}
 
     async execute({
@@ -37,8 +40,10 @@ export class UploadImageToOrderUseCase {
             throw new AppError('Pedido não encontrado', 404)
         }
 
+        
         // lista de imagens
         let arrayImagesUploaded: IImageModel[] = []
+        let arrayUrlImages: string[] = []
         // criar for para fazer upload de mais de uma imagem no firebase storage
         // e salvar cada url na tabela de imagens
         for(let image of imageInfo){
@@ -63,10 +68,49 @@ export class UploadImageToOrderUseCase {
 
             // adicionar imagem no array de imagens
             arrayImagesUploaded.push(createImage)
+            arrayUrlImages.push(imageUrl)
+            
 
             // deletar imagem não comprimida no tmp
             this.fileProvider.deleteFileTmp(image.hashName as string, 'tmp', image.destination)
         }
+
+        let order: IOrderDTO = {
+            id: findOrderExists._id,
+            accessories: findOrderExists.accessories,
+            balcony: findOrderExists.balcony,
+            client: findOrderExists.client,
+            code: findOrderExists.code,
+            idUser: String(findOrderExists.idUser),
+            observation: findOrderExists.observation as string,
+            technician: findOrderExists.technician,
+            status: findOrderExists.status,
+            urlJSON: findOrderExists.urlJSON,
+            images: arrayUrlImages
+        }
+
+      
+        const jsonName = `${randomUUID()}-order.json`
+        const jsonPath = env.NODE_ENV === "development" ? './src/tmp' : './build/tmp'
+
+        fs.writeFile(`${jsonPath}/json/${jsonName}`, JSON.stringify(order, null, 2), 'utf8', (err) => {
+        if(err){
+            console.log(err);
+        }else{
+            console.log('Arquivo salvo com sucesso!');
+        }
+        });
+
+        // subir o json para o firebase storage
+        const urlJSON =await this.storageProvider.uploadFile(jsonName, `${jsonPath}/json/${jsonName}`, "jsons")
+        
+        order.urlJSON = urlJSON
+
+        // atualizar o pedido no banco de dados com a url do json
+        await this.ordersRepository.update(order.id, order)
+
+        // deletar o arquivo temporário
+        this.fileProvider.deleteFileTmp(jsonName, "json", jsonPath)
 
         // retornar array de imagens
         return arrayImagesUploaded

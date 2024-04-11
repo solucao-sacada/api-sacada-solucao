@@ -1,0 +1,175 @@
+{
+  "_id": "66170eaf55a5316b8c7b05b5",
+  "idUser": "6582f71b88dcbec1aedfc9ad",
+  "code": 1,
+  "accessories": {
+    "aparador_aluminio": false,
+    "aparador_inox": false,
+    "selante": false
+  },
+  "balcony": {
+    "aluminium": {
+      "color": {
+        "black": false,
+        "bz1001": false,
+        "bz1002": false,
+        "bz1003": false,
+        "mat": false,
+        "white": true,
+        "other": null
+      }
+    },
+    "aperture": {
+      "inside": true,
+      "locations": [
+        {
+          "distribution": "1 a 1",
+          "door_distance": "40",
+          "glasses": "1",
+          "piece": "1",
+          "stacking": "À Direita",
+          "tip": "Abertura"
+        }
+      ],
+      "outside": false
+    },
+    "beam": {
+      "position": {
+        "aligned": false,
+        "inside": false,
+        "outside": true
+      }
+    },
+    "dimensions": {
+      "data": [
+        [
+          "1",
+          "88.0",
+          "500",
+          "1"
+        ]
+      ],
+      "total": "88.0"
+    },
+    "glass": {
+      "color": {
+        "bronze": false,
+        "colorless": false,
+        "green": false,
+        "tinted": true,
+        "other": null
+      },
+      "laminated": false,
+      "tempered": false,
+      "thickness": {
+        "10mm": false,
+        "8mm": false
+      }
+    },
+    "levels": {
+      "full_aperture": "2400",
+      "measures": {
+        "data": [
+          [
+            "1200",
+            "1200"
+          ]
+        ],
+        "highest_ceiling": "1200",
+        "highest_floor": "1200",
+        "lower_ceiling": "1200",
+        "lower_floor": "1200"
+      }
+    },
+    "lock": {
+      "fechadura_para_porta": false,
+      "fechadura_vidro_vidro": true,
+      "pvc": true,
+      "ferro": false,
+      "1520/1531": false,
+      "3210/3211": false
+    },
+    "plumb": {
+      "left_wall": {
+        "bottom": "12",
+        "top": "12"
+      },
+      "right_wall": {
+        "bottom": "12",
+        "top": "12"
+      }
+    },
+    "rails": {
+      "lower_rail": {
+        "built_in": {
+          "ref": {
+            "A": false,
+            "B": false,
+            "C": false,
+            "other": false
+          }
+        },
+        "normal": {
+          "tip": {
+            "A": true,
+            "B": false,
+            "C": false
+          }
+        },
+        "tab": {
+          "inside": false,
+          "outside": false,
+          "tip": {
+            "A": false,
+            "B": false,
+            "C": false,
+            "D": false,
+            "E": false
+          }
+        },
+        "tip": {
+          "built_in": false,
+          "normal": true,
+          "tab": false
+        }
+      },
+      "upper_rail": {
+        "tab": {
+          "inside": false,
+          "outside": true
+        },
+        "tip": {
+          "normal": false,
+          "tab": false
+        }
+      }
+    },
+    "tip": {
+      "better_adjustment": true,
+      "defined": {
+        "glass_quantity": null,
+        "isDefined": false
+      }
+    },
+    "format": 1
+  },
+  "client": {
+    "address": "rua tiradentes 60",
+    "apartment": "Casa",
+    "building": "",
+    "city": "Guaiçara",
+    "name": "Kaio Moreira",
+    "neighborhood": "Centro",
+    "state": "estado"
+  },
+  "technician": "Super Admin",
+  "observation": "asdasdasd",
+  "status": "CREATED",
+  "images": [
+    null
+  ],
+  "createdAt": "2024-04-10T22:11:59.654Z",
+  "updatedAt": "2024-04-11T00:34:16.413Z",
+  "__v": 0,
+  "urlJSON": "https://storage.googleapis.com/sacada-d9a34.appspot.com/jsons%2Fa6ef7c80-f955-4ee7-9e5d-054b647f18b2-order.json"
+}

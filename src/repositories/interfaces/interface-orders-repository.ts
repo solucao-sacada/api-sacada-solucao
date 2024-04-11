@@ -6,4 +6,5 @@ export interface IOrdersRepository {
     findById(id: string): Promise<IOrdersModel | null>
     list(): Promise<IOrdersModel[]>
     listByUser(idUsers: string): Promise<IOrdersModel[]>
+    update(id: string, data?: IOrderDTO): Promise<IOrdersModel | null>
 }

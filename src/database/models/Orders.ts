@@ -11,7 +11,7 @@ export interface IOrdersModel extends Document {
     client: Client
     technician: string
     observation?: string
-    images?: IImageModel[]
+    images?: string[]
     createdAt: Date
     updatedAt: Date
     status: IStatusDTO

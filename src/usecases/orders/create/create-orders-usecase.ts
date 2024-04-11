@@ -23,8 +23,7 @@ export class CreateOrdersUseCase {
   constructor(
     private orderRepository: IOrdersRepository,
     private userRepository: IUsersRepository,
-    private storageProvider: IStorageProvider,
-    private fileProvider: IFileProvider
+    
     ) {}
 
   async execute({
@@ -52,27 +51,6 @@ export class CreateOrdersUseCase {
       technician,
       observation,
     })
-
-    const jsonName = `${randomUUID()}-order.json`
-    const jsonPath = env.NODE_ENV === "development" ? './src/tmp' : './build/tmp'
-
-    fs.writeFile(`${jsonPath}/json/${jsonName}`, JSON.stringify(order, null, 2), 'utf8', (err) => {
-     if(err){
-        console.log(err);
-     }else{
-        console.log('Arquivo salvo com sucesso!');
-     }
-    });
-
-    // subir o json para o firebase storage
-    const urlJSON =await this.storageProvider.uploadFile(jsonName, `${jsonPath}/json/${jsonName}`, "jsons")
-
-    order.urlJSON = urlJSON
-
-    order.save()
-
-    // deletar o arquivo temporário
-    this.fileProvider.deleteFileTmp(jsonName, "json", jsonPath)
 
     // retornar o pedido
     return order
