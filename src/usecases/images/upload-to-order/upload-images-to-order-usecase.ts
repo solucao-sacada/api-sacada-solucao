@@ -58,21 +58,22 @@ export class UploadImageToOrderUseCase {
             // fazer upload do exame dentro firebase através do nome do arquivo
             let imageUrl = await this.storageProvider.uploadFile(formatHashName, formatPath, 'orders') as string
             // criar imagem no banco de dados
-            
+
             const createImage = await this.imageRepository.upload({
                idOrder,
                name: formatName,
                hashName: formatHashName,
                url: imageUrl
             })
-
+ 
             // adicionar imagem no array de imagens
             arrayImagesUploaded.push(createImage)
             arrayUrlImages.push(imageUrl)
             
-
             // deletar imagem não comprimida no tmp
-            this.fileProvider.deleteFileTmp(image.hashName as string, 'tmp', image.destination)
+            this.fileProvider.deleteFileTmp(image.hashName as string, image.destination)
+            // deletar imagem comprimida no tmp
+            this.fileProvider.deleteFileTmp(formatHashName, `${image.destination}/orders` )
         }
 
         let order: IOrderDTO = {
@@ -110,7 +111,7 @@ export class UploadImageToOrderUseCase {
         await this.ordersRepository.update(order.id, order)
 
         // deletar o arquivo temporário
-        this.fileProvider.deleteFileTmp(jsonName, "json", jsonPath)
+        this.fileProvider.deleteFileTmp(jsonName, `${jsonPath}/json`)
 
         // retornar array de imagens
         return arrayImagesUploaded
