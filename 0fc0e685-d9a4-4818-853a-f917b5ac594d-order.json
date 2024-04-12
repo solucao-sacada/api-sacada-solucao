@@ -1,0 +1,152 @@
+{
+  "id": "66174509b76f7d23d387db41",
+  "accessories": {
+    "aparador_aluminio": false,
+    "aparador_inox": false,
+    "selante": false
+  },
+  "balcony": {
+    "aluminium": {
+      "color": {
+        "black": false,
+        "bz1001": false,
+        "bz1002": false,
+        "bz1003": false,
+        "mat": false,
+        "white": false,
+        "other": null
+      }
+    },
+    "aperture": {
+      "inside": false,
+      "locations": [],
+      "outside": false
+    },
+    "beam": {
+      "position": {
+        "aligned": false,
+        "inside": false,
+        "outside": false
+      }
+    },
+    "dimensions": {
+      "data": [],
+      "total": ""
+    },
+    "glass": {
+      "color": {
+        "bronze": false,
+        "colorless": false,
+        "green": false,
+        "tinted": false,
+        "other": null
+      },
+      "laminated": false,
+      "tempered": false,
+      "thickness": {
+        "10mm": false,
+        "8mm": false
+      }
+    },
+    "levels": {
+      "full_aperture": "",
+      "measures": {
+        "data": [],
+        "highest_ceiling": "",
+        "highest_floor": "",
+        "lower_ceiling": "",
+        "lower_floor": ""
+      }
+    },
+    "lock": {
+      "fechadura_para_porta": false,
+      "fechadura_vidro_vidro": false,
+      "pvc": false,
+      "ferro": false,
+      "1520/1531": false,
+      "3210/3211": false
+    },
+    "plumb": {
+      "left_wall": {
+        "bottom": null,
+        "top": null
+      },
+      "right_wall": {
+        "bottom": null,
+        "top": null
+      }
+    },
+    "rails": {
+      "lower_rail": {
+        "built_in": {
+          "ref": {
+            "A": false,
+            "B": false,
+            "C": false,
+            "other": false
+          }
+        },
+        "normal": {
+          "tip": {
+            "A": false,
+            "B": false,
+            "C": false,
+            "other": false
+          }
+        },
+        "tab": {
+          "inside": false,
+          "outside": false,
+          "tip": {
+            "A": false,
+            "B": false,
+            "C": false,
+            "D": false,
+            "E": false
+          }
+        },
+        "tip": {
+          "built_in": false,
+          "normal": false,
+          "tab": false
+        }
+      },
+      "upper_rail": {
+        "tab": {
+          "inside": false,
+          "outside": false
+        },
+        "tip": {
+          "normal": false,
+          "tab": false
+        }
+      }
+    },
+    "tip": {
+      "better_adjustment": false,
+      "defined": {
+        "glass_quantity": null,
+        "isDefined": false
+      }
+    },
+    "format": 0
+  },
+  "client": {
+    "address": "",
+    "apartment": "",
+    "building": "",
+    "city": "",
+    "name": "Sem nome",
+    "neighborhood": "",
+    "state": ""
+  },
+  "code": 1,
+  "idUser": "6582f71b88dcbec1aedfc9ad",
+  "observation": "asdasdasd",
+  "technician": "Super Admin",
+  "status": "CREATED",
+  "urlJSON": "https://storage.googleapis.com/sacada-d9a34.appspot.com/undefined%2Ff32c13f8-2b39-4916-9092-bee8727cffcb-order.json",
+  "images": [
+    "https://storage.googleapis.com/sacada-d9a34.appspot.com/e3daad2a-3562-4261-ac32-282929339cc8-camping-por-do-sol.webp"
+  ]
+}

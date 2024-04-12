@@ -11,21 +11,27 @@ import { makeCompressionImage } from "@/utils/comprresion-image"
 import { randomUUID } from "crypto"
 import * as fs from 'fs'
 
-interface IRequestUploadImage{
+interface IRequestUploadFile{
     idOrder: string
-    fileName: string
 }
 
-export class UploadImageToOrderUseCase {
+export class DownloadJSONUseCase {
     constructor(
         private storageProvider: IStorageProvider,
-        private imageRepository: IImageRepository,
+        private ordersRepository: IOrdersRepository,
         ) {}
 
     async execute({
-        idOrder,
-        fileName
-    }: IRequestUploadImage): Promise<any>{
-        const findExistImage = await this.imageRepository.findByHashName(fileName)
+        idOrder
+    }: IRequestUploadFile): Promise<Buffer>{
+        const findExistImage = await this.ordersRepository.findById(idOrder)
+
+        if(!findExistImage){
+            throw new AppError('Imagem não encontrada', 404)
+        }
+        
+        const file = await this.storageProvider.downloadFile(findExistImage.nameJSON as string)
+
+        return file
     }
 }

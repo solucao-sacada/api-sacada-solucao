@@ -2,22 +2,26 @@ import { IStorageProvider } from '../storage-provider.interface';
 import 'dotenv/config';
 import { Bucket } from '@google-cloud/storage';
 import { firebaseApp } from '@/config/firebase-connection';
-import { AppError } from '@/usecases/errors/AppError';
-import { env } from '@/env';
 
 export class FirebaseStorageProvider implements IStorageProvider {
-    private readonly storage: Bucket;
+    private readonly bucket: Bucket;
 
     constructor() {
-        this.storage = firebaseApp as unknown as Bucket;
+        this.bucket = firebaseApp.storage().bucket();
     }
     async downloadFile(fileName: string){
         try {
-            const file = this.storage.file(fileName);
-            const fileReponse = await file.download({destination: `${env.FIREBASE_BUCKET}/jsons/${fileName}`})
 
-            return fileReponse
+            const destination = `jsons/${fileName}`;
+            const [file] = await this.bucket.file(destination).download();
+
+            console.log('Arquivo baixado com sucesso.');
+
+             return file
+
         } catch (error) {
+            console.log(error)
+
             console.log('Error ao baixar a imagem');
         }
     }
@@ -28,7 +32,7 @@ export class FirebaseStorageProvider implements IStorageProvider {
                return
             }
 
-            await this.storage.file(`${folderStorage}/${fileName}`).delete()
+            await this.bucket.file(`${folderStorage}/${fileName}`).delete()
 
         } catch (error) {
             console.log('Error ao deletar a imagem');
@@ -43,7 +47,7 @@ export class FirebaseStorageProvider implements IStorageProvider {
             // Inicia uma Promise
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    this.storage.upload(filePath, {
+                    this.bucket.upload(filePath, {
                         destination,
                     }, (err, file) => {
                         if (err) {
