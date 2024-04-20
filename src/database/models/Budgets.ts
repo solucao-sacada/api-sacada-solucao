@@ -15,6 +15,13 @@ export interface IBudGetModel extends Document {
   qtdAparador: number
   qtdProlongador: number
   qtdSelante: number
+  area: number
+  pricePlates: number
+  priceGlasses: number
+  priceAcessories: number
+  priceProlongador: number
+  priceKitSolutions: number
+  tehnician: string
 }
 
 export const BudGetSchema = new Schema<IBudGetModel>({
@@ -66,6 +73,34 @@ export const BudGetSchema = new Schema<IBudGetModel>({
     },
     qtdSelante: {
         type: Number,
+        required: true
+    },
+    area: {
+        type: Number,
+        required: true
+    },
+    pricePlates: {
+        type: Number,
+        required: true
+    },
+    priceGlasses: {
+        type: Number,
+        required: true
+    },
+    priceAcessories: {
+        type: Number,
+        required: true
+    },
+    priceProlongador: {
+        type: Number,
+        required: true
+    },
+    priceKitSolutions: {
+        type: Number,
+        required: true
+    },
+    tehnician: {
+        type: String,
         required: true
     }
 },{timestamps: true});

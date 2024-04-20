@@ -14,4 +14,11 @@ export interface IBudgetDTO{
   qtdAparador: number
   qtdProlongador: number
   qtdSelante: number
+  area: number
+  pricePlates: number
+  priceGlasses: number
+  priceAcessories: number
+  priceProlongador: number
+  priceKitSolutions: number
+  tehnician: string
 }

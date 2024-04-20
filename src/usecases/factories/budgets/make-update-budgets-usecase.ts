@@ -1,14 +1,11 @@
 import { MongooseBudgetRepository } from "@/repositories/mongoose/mongoose-budget-repository";
-import { MongooseUsersRepository } from "@/repositories/mongoose/mongoose-users-repository";
-import { CreateBudgetsUseCase } from "@/usecases/budgets/create/create-budgets-usecase";
+import { UpdateBudgetsUseCase } from "@/usecases/budgets/update/update-budgets-usecase";
 
-export async function makeCreateBudget(): Promise<CreateBudgetsUseCase> {
+export async function makeUpdateBudget(): Promise<UpdateBudgetsUseCase> {
     const budgetRepository = new MongooseBudgetRepository()
-    const userRepository = new MongooseUsersRepository()
-    const createBudgetsUseCase = new CreateBudgetsUseCase(
+    const updateBudgetsUseCase = new UpdateBudgetsUseCase(
         budgetRepository,
-        userRepository
     )
 
-    return createBudgetsUseCase
+    return updateBudgetsUseCase
 }

@@ -1,4 +1,4 @@
-import { makeCreateBudget } from '@/usecases/factories/budgets/make-update-budgets-usecase'
+import { makeCreateBudget } from '@/usecases/factories/budgets/make-create-budgets-usecase'
 import { Request, Response } from 'express'
 import { z } from 'zod'
 
@@ -18,6 +18,13 @@ export class CreateBudgetController {
               qtdProlongador: z.number().positive().nonnegative(),
               chapaSuperior: z.boolean(),
               chapaInferior: z.boolean(),
+              area: z.number().positive().nonnegative(),
+              pricePlates: z.number().positive().nonnegative(),
+              priceGlasses: z.number().positive().nonnegative(),
+              priceAcessories: z.number().positive().nonnegative(),
+              priceProlongador: z.number().positive().nonnegative(),
+              priceKitSolutions: z.number().positive().nonnegative(),
+              tehnician: z.string().min(4)
             })
 
             const {
@@ -32,7 +39,14 @@ export class CreateBudgetController {
                 qtdSelante,
                 qtdProlongador,
                 chapaSuperior,
-                chapaInferior
+                chapaInferior,
+                area,
+                pricePlates,
+                priceGlasses,
+                priceAcessories,
+                priceProlongador,
+                priceKitSolutions,
+                tehnician
             } = budgetSchema.parse(request.body)
           
             const createBudgetUseCase = await makeCreateBudget()
@@ -49,7 +63,14 @@ export class CreateBudgetController {
                 qtdSelante,
                 qtdProlongador,
                 chapaSuperior,
-                chapaInferior
+                chapaInferior,
+                area,
+                pricePlates,
+                priceGlasses,
+                priceAcessories,
+                priceProlongador,
+                priceKitSolutions,
+                tehnician
             })
             return response.status(201).send(budget)
             

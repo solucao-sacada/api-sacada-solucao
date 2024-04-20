@@ -1,4 +1,6 @@
 import { IBudGetModel } from "@/database/models/Budgets";
+import { env } from "@/env";
+import { IMailProvider } from "@/providers/MailProvider/interface-mail-provider";
 import { IBudgetRepository } from "@/repositories/interfaces/interface-budget-repository";
 import { IUsersRepository } from "@/repositories/interfaces/interface-users-repository";
 import { AppError } from "@/usecases/errors/AppError";
@@ -6,8 +8,15 @@ import { AppError } from "@/usecases/errors/AppError";
 interface IRequestCreateBudget {
   idUser: string
   client: string
-  emailClient: string          
+  emailClient: string  
+
+  area: number
   price: number
+  pricePlates: number
+  priceGlasses: number
+  priceAcessories: number
+  priceProlongador: number
+  priceKitSolutions: number
 
   aparador?: boolean
   selante?: boolean
@@ -16,13 +25,15 @@ interface IRequestCreateBudget {
   chapaInferior: boolean
   qtdAparador: number
   qtdProlongador: number
-  qtdSelante: number
+  qtdSelante: number  
+  tehnician: string
 }
 
 export class CreateBudgetsUseCase {
   constructor(
     private budgetRepository: IBudgetRepository,
-    private userRepository: IUsersRepository
+    private userRepository: IUsersRepository,
+    private mailProvider: IMailProvider
     ) {}
 
   async execute({
@@ -37,7 +48,14 @@ export class CreateBudgetsUseCase {
     qtdProlongador,
     qtdSelante,
     chapaInferior,
-    chapaSuperior
+    chapaSuperior,
+    area,
+    pricePlates,
+    priceGlasses,
+    priceAcessories,
+    priceKitSolutions,
+    tehnician,
+    priceProlongador
   }:IRequestCreateBudget): Promise<IBudGetModel> {
     // buscar o usuario pelo id
     const findUserExist = await this.userRepository.findById(idUser)
@@ -46,6 +64,11 @@ export class CreateBudgetsUseCase {
     if(!findUserExist) {
       throw new AppError('Usuário não encontrado', 404)
     }
+    
+    // pegar template de verificaçao de email
+    let pathTemplate = env.NODE_ENV === "development" ? 
+    './views/emails/budget-approved.hbs':
+    './build/views/emails/budget-approved.hbs' 
 
     // criar o pedido
     const budget = await this.budgetRepository.create({
@@ -60,8 +83,43 @@ export class CreateBudgetsUseCase {
       prolongador,
       qtdAparador,
       qtdProlongador,
-      qtdSelante  
+      qtdSelante,
+      area,
+      pricePlates,
+      priceGlasses,
+      priceAcessories,
+      priceKitSolutions,
+      tehnician,
+      priceProlongador
+        
     }) as IBudGetModel
+  
+    // enviar verificação de email
+    await this.mailProvider.sendEmail(
+        emailClient, 
+        client,
+        "Orçamento Sacada", 
+        null, 
+        pathTemplate,
+        {
+          price,
+          aparador,
+          selante,
+          prolongador,
+          qtdAparador,
+          qtdProlongador,
+          qtdSelante,
+          chapaInferior: chapaInferior ? 'Sim' : 'Não', 
+          chapaSuperior: chapaSuperior ? 'Sim' : 'Não',
+          area,
+          pricePlates,
+          priceGlasses,
+          priceAcessories,
+          priceKitSolutions,
+          tehnician,
+          priceProlongador
+        }
+    )
 
     // retornar o pedido
     return budget

@@ -4,7 +4,7 @@ import 'dotenv/config'
 import fs from 'node:fs'
 import { readFile } from 'fs/promises'
 import handlebars from "handlebars";
-import { IMailProvider} from '../interface-mail-provider';
+import { IMailProvider, IPedidoJSON} from '../interface-mail-provider';
 import { Message } from '../in-memory/in-memory-mail-provider';
 
 export class MailProvider implements IMailProvider{
@@ -21,6 +21,7 @@ export class MailProvider implements IMailProvider{
         subject:string, 
         link:string | null, 
         pathTemplate:string,
+        pedido: IPedidoJSON
         ) {
         try {
             // ler arquivo handlebars
@@ -28,11 +29,11 @@ export class MailProvider implements IMailProvider{
             // compilar o arquivo handlebars
             const compileTemplate = handlebars.compile(readTemplate);
             // passar variables for template
-            const htmlTemplate = compileTemplate({name, link, email});
+            const htmlTemplate = compileTemplate({name, link, email, pedido});
 
             const msg = {
                 to: `${email}`, // Para 
-                from: 'nao-responder@ocularlaserbrasil.com.br', // De
+                from: '4codesolutionss@gmail.com', // De
                 subject: subject, // Assunto
                 html: htmlTemplate,
               };
