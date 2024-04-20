@@ -12,8 +12,8 @@ export async function makeCreateOrder(): Promise<CreateOrdersUseCase> {
     const createOrdersUseCase = new CreateOrdersUseCase(
         orderRepository,
         userRepository,
+        fileProvider,
         firebaseStorage,
-        fileProvider
     )
 
     return createOrdersUseCase
