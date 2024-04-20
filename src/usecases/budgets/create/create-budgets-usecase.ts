@@ -99,7 +99,7 @@ export class CreateBudgetsUseCase {
         null, 
         pathTemplate,
         {
-          price: parseFloat(price.toFixed(2)).toString(),
+          price,
           aparador,
           selante,
           prolongador,
@@ -109,11 +109,11 @@ export class CreateBudgetsUseCase {
           chapaInferior: chapaInferior ? 'Sim' : 'Não', 
           chapaSuperior: chapaSuperior ? 'Sim' : 'Não',
           area,
-          pricePlates: parseFloat(pricePlates.toFixed(2)).toString(),
-          priceGlasses: parseFloat(priceGlasses.toFixed(2)).toString(),
-          priceAcessories: parseFloat(priceAcessories.toFixed(2)).toString(),
-          priceKitSolutions: parseFloat(priceKitSolutions.toFixed(2)).toString(),
-          priceProlongador: parseFloat(priceProlongador.toFixed(2)).toString()
+          pricePlates,
+          priceGlasses,
+          priceAcessories,
+          priceKitSolutions,
+          priceProlongador
         }
     )
 
