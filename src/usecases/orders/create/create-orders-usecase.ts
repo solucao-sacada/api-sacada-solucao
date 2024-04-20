@@ -64,6 +64,7 @@ export class CreateOrdersUseCase {
       idUser: String(order.idUser),
       observation: order.observation as string,
       technician: order.technician,
+      urlJSON: order.urlJSON,
       status: order.status,
     }
 
