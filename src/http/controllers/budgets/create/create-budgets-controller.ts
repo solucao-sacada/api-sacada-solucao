@@ -24,7 +24,6 @@ export class CreateBudgetController {
               priceAcessories: z.number().positive().nonnegative(),
               priceProlongador: z.number().positive().nonnegative(),
               priceKitSolutions: z.number().positive().nonnegative(),
-              tehnician: z.string().min(4)
             })
 
             const {
@@ -46,7 +45,6 @@ export class CreateBudgetController {
                 priceAcessories,
                 priceProlongador,
                 priceKitSolutions,
-                tehnician
             } = budgetSchema.parse(request.body)
           
             const createBudgetUseCase = await makeCreateBudget()
@@ -70,7 +68,6 @@ export class CreateBudgetController {
                 priceAcessories,
                 priceProlongador,
                 priceKitSolutions,
-                tehnician
             })
             return response.status(201).send(budget)
             
