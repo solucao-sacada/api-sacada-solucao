@@ -26,7 +26,6 @@ interface IRequestCreateBudget {
   qtdAparador: number
   qtdProlongador: number
   qtdSelante: number  
-  tehnician: string
 }
 
 export class CreateBudgetsUseCase {
@@ -54,7 +53,6 @@ export class CreateBudgetsUseCase {
     priceGlasses,
     priceAcessories,
     priceKitSolutions,
-    tehnician,
     priceProlongador
   }:IRequestCreateBudget): Promise<IBudGetModel> {
     // buscar o usuario pelo id
@@ -89,7 +87,6 @@ export class CreateBudgetsUseCase {
       priceGlasses,
       priceAcessories,
       priceKitSolutions,
-      tehnician,
       priceProlongador
         
     }) as IBudGetModel
@@ -116,7 +113,6 @@ export class CreateBudgetsUseCase {
           priceGlasses,
           priceAcessories,
           priceKitSolutions,
-          tehnician,
           priceProlongador
         }
     )

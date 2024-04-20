@@ -20,5 +20,4 @@ export interface IBudgetDTO{
   priceAcessories: number
   priceProlongador: number
   priceKitSolutions: number
-  tehnician: string
 }

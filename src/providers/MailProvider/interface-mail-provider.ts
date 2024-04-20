@@ -17,7 +17,6 @@ export interface IPedidoJSON {
     qtdAparador: number
     qtdProlongador: number
     qtdSelante: number
-    tehnician: string
 }
 
 export interface IMailProvider {
