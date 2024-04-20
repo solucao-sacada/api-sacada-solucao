@@ -69,7 +69,7 @@ export class CreateOrdersUseCase {
     }
 
 
-    const jsonName = `${order.code} - ${order.client.name}.json`
+    const jsonName = `${order.code}-${order.client.name}.json`
     const jsonPath = env.NODE_ENV === "development" ? './src/tmp' : './build/tmp'
 
     fs.writeFile(`${jsonPath}/json/${jsonName}`, JSON.stringify(order, null, 2), 'utf8', (err) => {
@@ -83,16 +83,18 @@ export class CreateOrdersUseCase {
     // subir o json para o firebase storage
     const urlJSON =await this.storageProvider.uploadFile(jsonName, `${jsonPath}/json/${jsonName}`, "jsons")
     
+    orderJSON.urlJSON = urlJSON
+    orderJSON.nameJSON = jsonName
+
+    // atualizar o pedido no banco de dados com a url do json
     order.urlJSON = urlJSON
     order.nameJSON = jsonName
 
-    // atualizar o pedido no banco de dados com a url do json
-    await this.orderRepository.update(order.id as string, orderJSON)
-
+    order.save()
     // deletar o arquivo temporário
     this.fileProvider.deleteFileTmp(jsonName, `${jsonPath}/json`)
 
     // retornar o pedido
-    return order
+    return order 
   }
 }
