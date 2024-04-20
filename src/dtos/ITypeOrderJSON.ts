@@ -9,6 +9,11 @@ export interface Accessories {
     aparador_aluminio: boolean;
     aparador_inox: boolean;
     selante: boolean;
+    aparador: boolean
+    prolongador: boolean
+    qtdAparador: number
+    qtdProlongador: number
+    qtdSelante: number 
 }
 
 export interface Balcony {

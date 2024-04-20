@@ -68,7 +68,7 @@ export class CreateOrdersUseCase {
     }
 
 
-    const jsonName = `${randomUUID()}-order.json`
+    const jsonName = `${order.code} - ${order.client.name}.json`
     const jsonPath = env.NODE_ENV === "development" ? './src/tmp' : './build/tmp'
 
     fs.writeFile(`${jsonPath}/json/${jsonName}`, JSON.stringify(order, null, 2), 'utf8', (err) => {

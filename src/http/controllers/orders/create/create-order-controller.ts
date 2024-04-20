@@ -30,6 +30,10 @@ export class CreateOrderController {
                     aparador_aluminio: z.boolean(),
                     aparador_inox: z.boolean(),
                     selante: z.boolean(),
+                    prolongador: z.boolean(),
+                    qtdAparador:  z.number().nonnegative(),
+                    qtdProlongador: z.number().nonnegative(),
+                    qtdSelante: z.number().nonnegative(), 
                 }),
                 balcony: z.object({
                     aluminium: z.object({

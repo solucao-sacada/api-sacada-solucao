@@ -1,5 +1,4 @@
 import { IImageModel } from "@/database/models/Images"
-import { IOrdersModel } from "@/database/models/Orders"
 import { IOrderDTO } from "@/dtos/IOrderDTO"
 import { env } from "@/env"
 import { IFileProvider } from "@/providers/StorageProvider/file-provider.interface"
@@ -7,7 +6,6 @@ import { IStorageProvider } from "@/providers/StorageProvider/storage-provider.i
 import { IImageRepository } from "@/repositories/interfaces/interface-images-repository"
 import { IOrdersRepository } from "@/repositories/interfaces/interface-orders-repository"
 import { AppError } from "@/usecases/errors/AppError"
-import { makeCompressionImage } from "@/utils/comprresion-image"
 import { randomUUID } from "crypto"
 import * as fs from 'fs'
 
@@ -92,7 +90,7 @@ export class UploadImageToOrderUseCase {
             }
     
           
-            const jsonName = `${randomUUID()}-order.json`
+            const jsonName = `${order.code} - ${order.client.name}.json`
             const jsonPath = env.NODE_ENV === "development" ? './src/tmp' : './build/tmp'
     
             fs.writeFile(`${jsonPath}/json/${jsonName}`, JSON.stringify(order, null, 2), 'utf8', (err) => {
