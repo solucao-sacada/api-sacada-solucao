@@ -1,6 +1,8 @@
 import { IBudGetModel } from "@/database/models/Budgets";
 import { env } from "@/env";
 import { IMailProvider } from "@/providers/MailProvider/interface-mail-provider";
+import { IFileProvider } from "@/providers/StorageProvider/file-provider.interface";
+import { IStorageProvider } from "@/providers/StorageProvider/storage-provider.interface";
 import { IBudgetRepository } from "@/repositories/interfaces/interface-budget-repository";
 import { IUsersRepository } from "@/repositories/interfaces/interface-users-repository";
 import { AppError } from "@/usecases/errors/AppError";
@@ -32,7 +34,7 @@ export class CreateBudgetsUseCase {
   constructor(
     private budgetRepository: IBudgetRepository,
     private userRepository: IUsersRepository,
-    private mailProvider: IMailProvider
+    private mailProvider: IMailProvider,
     ) {}
 
   async execute({
@@ -90,6 +92,8 @@ export class CreateBudgetsUseCase {
       priceProlongador
         
     }) as IBudGetModel
+
+    
   
     // enviar verificação de email
     await this.mailProvider.sendEmail(

@@ -76,43 +76,45 @@ export class UploadImageToOrderUseCase {
             this.fileProvider.deleteFileTmp(formatHashName, `${image.destination}/orders` )
         }
 
-        let order: IOrderDTO = {
-            id: findOrderExists._id,
-            accessories: findOrderExists.accessories,
-            balcony: findOrderExists.balcony,
-            client: findOrderExists.client,
-            code: findOrderExists.code,
-            idUser: String(findOrderExists.idUser),
-            observation: findOrderExists.observation as string,
-            technician: findOrderExists.technician,
-            status: findOrderExists.status,
-            urlJSON: findOrderExists.urlJSON,
-            images: arrayUrlImages
+        if(findOrderExists.urlJSON){
+            let order: IOrderDTO = {
+                id: findOrderExists._id,
+                accessories: findOrderExists.accessories,
+                balcony: findOrderExists.balcony,
+                client: findOrderExists.client,
+                code: findOrderExists.code,
+                idUser: String(findOrderExists.idUser),
+                observation: findOrderExists.observation as string,
+                technician: findOrderExists.technician,
+                status: findOrderExists.status,
+                urlJSON: findOrderExists.urlJSON,
+                images: arrayUrlImages
+            }
+    
+          
+            const jsonName = `${randomUUID()}-order.json`
+            const jsonPath = env.NODE_ENV === "development" ? './src/tmp' : './build/tmp'
+    
+            fs.writeFile(`${jsonPath}/json/${jsonName}`, JSON.stringify(order, null, 2), 'utf8', (err) => {
+            if(err){
+                console.log(err);
+            }else{
+                console.log('Arquivo salvo com sucesso!');
+            }
+            });
+    
+            // subir o json para o firebase storage
+            const urlJSON =await this.storageProvider.uploadFile(jsonName, `${jsonPath}/json/${jsonName}`, "jsons")
+            
+            order.urlJSON = urlJSON
+            order.nameJSON = jsonName
+    
+            // atualizar o pedido no banco de dados com a url do json
+            await this.ordersRepository.update(order.id as string, order)
+    
+            // deletar o arquivo temporário
+            this.fileProvider.deleteFileTmp(jsonName, `${jsonPath}/json`)
         }
-
-      
-        const jsonName = `${randomUUID()}-order.json`
-        const jsonPath = env.NODE_ENV === "development" ? './src/tmp' : './build/tmp'
-
-        fs.writeFile(`${jsonPath}/json/${jsonName}`, JSON.stringify(order, null, 2), 'utf8', (err) => {
-        if(err){
-            console.log(err);
-        }else{
-            console.log('Arquivo salvo com sucesso!');
-        }
-        });
-
-        // subir o json para o firebase storage
-        const urlJSON =await this.storageProvider.uploadFile(jsonName, `${jsonPath}/json/${jsonName}`, "jsons")
-        
-        order.urlJSON = urlJSON
-        order.nameJSON = jsonName
-
-        // atualizar o pedido no banco de dados com a url do json
-        await this.ordersRepository.update(order.id as string, order)
-
-        // deletar o arquivo temporário
-        this.fileProvider.deleteFileTmp(jsonName, `${jsonPath}/json`)
 
         // retornar array de imagens
         return arrayImagesUploaded
