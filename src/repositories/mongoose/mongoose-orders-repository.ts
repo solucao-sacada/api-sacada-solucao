@@ -32,10 +32,7 @@ export class MongooseOrdersRepository implements IOrdersRepository {
     }
     async listByUser(idUser: string){
         try {
-            return await this.Orders.find({
-                idUser
-            })
-            .sort({code: -1})
+            return await this.Orders.find({idUser})
         } catch (error) {
             console.error(error)
             throw new Error("Error list orders by user")

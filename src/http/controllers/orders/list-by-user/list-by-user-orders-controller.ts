@@ -8,15 +8,7 @@ export class ListOrdersByUserController {
     async handle(request: Request, response: Response): Promise<Response> {
         try {
             const orderSchema = z.object({
-                id: z.string().refine((value)=>{
-                    try {
-                        if(isValidObjectId(value)){
-                            return true
-                        }
-                    } catch {
-                        return false                        
-                    }
-                },{message: 'Id do usuário inválido'}),
+                id: z.string()
             })
 
             const {id} = orderSchema.parse(request.params)
