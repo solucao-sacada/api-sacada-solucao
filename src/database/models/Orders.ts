@@ -20,7 +20,7 @@ export interface IOrdersModel extends Document {
 }
 
 export const OrdersSchema = new Schema<IOrdersModel>({
-    idUser: { type: Schema.Types.ObjectId, ref: "Users", required: true },
+    idUser: { type: String, ref: "Users", required: true },
     code: {
         type: Number,
         unique: true,

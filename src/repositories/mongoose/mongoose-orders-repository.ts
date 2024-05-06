@@ -1,7 +1,7 @@
 import { IOrderDTO } from "@/dtos/IOrderDTO";
 import { IOrdersRepository } from "../interfaces/interface-orders-repository";
 import Orders, { IOrdersModel } from "@/database/models/Orders";
-import { Model } from "mongoose";
+import mongoose, { Model } from "mongoose";
 
 export class MongooseOrdersRepository implements IOrdersRepository {
     private Orders: Model<IOrdersModel> = Orders;
