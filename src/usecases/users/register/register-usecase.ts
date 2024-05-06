@@ -76,6 +76,18 @@ export class RegisterUseCase{
             image,
         })
 
+        const findCompanyCpnj = await this.companyRepository.findByCNPJ(company.cnpj)
+
+        if(findCompanyCpnj){
+            throw new AppError('CNPJ ja cadastrado', 409)
+        }
+
+        const findCompanyLegalName = await this.companyRepository.findByLegalName(company.tradingName)
+
+        if(findCompanyLegalName){
+            throw new AppError('Razão social já cadastrado', 409)
+        }
+
         try {
             const createCompany = await this.companyRepository.create({
                 city: company.city,
@@ -150,7 +162,7 @@ export class RegisterUseCase{
             return userInfo
         } catch (error) {
             await this.usersRepository.deleteById(user.id)
-            return 'Error creating user'
+            throw error
         }
     }
 }
