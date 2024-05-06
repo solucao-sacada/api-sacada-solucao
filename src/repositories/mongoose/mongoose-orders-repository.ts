@@ -36,7 +36,6 @@ export class MongooseOrdersRepository implements IOrdersRepository {
                 idUser
             })
             .sort({code: -1})
-            .select('_id createdAt updatedAt idUser code accessories balcony client technician observation status urlJSON nameJSON');
         } catch (error) {
             console.error(error)
             throw new Error("Error list orders by user")
