@@ -3,5 +3,6 @@ export enum IStatusDTO {
     PENDING = 'PENDING',
     CANCELED = 'CANCELED',
     WAIT_ANSWER = 'WAIT_ANSWER',
-    DONE = 'DONE'
+    DONE = 'DONE',
+    APPROVED = 'APPROVED'
 }
