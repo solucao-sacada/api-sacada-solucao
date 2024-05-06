@@ -2,11 +2,22 @@ import { IOrderDTO } from "@/dtos/IOrderDTO";
 import { IOrdersRepository } from "../interfaces/interface-orders-repository";
 import Orders, { IOrdersModel } from "@/database/models/Orders";
 import mongoose, { Model } from "mongoose";
+import { IStatusDTO } from "@/dtos/IStatusDTO";
 
 export class MongooseOrdersRepository implements IOrdersRepository {
     private Orders: Model<IOrdersModel> = Orders;
 
     constructor(){}
+    async alterStatus(idOrder: string, status: IStatusDTO){
+        try {
+            return await this.Orders.findByIdAndUpdate(idOrder, {
+                status
+            })
+        } catch (error) {
+            console.error(error)
+            throw new Error("Error alter status order")
+        }
+    }
     async update(id: string, data?: IOrderDTO | undefined) {
         try {
             return await this.Orders.findByIdAndUpdate(id, {
