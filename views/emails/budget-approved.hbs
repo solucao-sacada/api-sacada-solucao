@@ -14,6 +14,23 @@
             width: 25rem;
             color: black;
         }
+
+        #btn-ok{
+            background-color: #35a8e0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: #ffff;
+            font-weight: bold;
+            margin: 1.3rem 0;
+            display: block;
+            width: 7rem;
+            text-align: center;
+
+        }
+        #btn-ok:hover{
+            background-color: #299fd9;
+        }
         
         .details > span{
             margin: 0.5rem 0px;
@@ -131,7 +148,7 @@
                     </p>
                 </span>
 
-                <span>
+                {{!-- <span>
                     <strong>Entenda os diferenciais do  Sistema Blindex® Sacadas</strong>
                 </span>
                 <span></span>
@@ -175,7 +192,8 @@
                     <p>
                         Mais eficiência na vedação. Calha interna  de coleta de água (A). Drenagem mais  eficiente (G e H). Mais eficiência em barrar  água (C, F, B). Escovas no perfil de vidro.
                     </p>
-                </span>
+                </span> --}}
+                <button id="btn-ok" onclick="window.print()">Imprimir</button>
                 <span></span>
             </span>
         </div>
