@@ -10,19 +10,20 @@ export class RegisterUserController {
               email: z.string().email(), 
               password: z.string().min(6),
               phone: z.string().optional(), 
-              cpfCnpj: z.string(),
               image: z.string().optional(),
-              address: z.object({
-                street: z.string(),
+              company: z.object({
+                tradingName: z.string(),
+                legalName: z.string(),
+                stateRegistration: z.string(),
+                streetAddress: z.string(),
+                cnpj: z.string(),
                 num: z.number().positive().int(),
                 city: z.string(),
                 state: z.string(),
-                country: z.string(),
                 zipCode: z.number().positive().int(),
-                district: z.string(),
-                complement: z.string().optional(),
-                reference: z.string().optional(),
-              }).optional(),
+                neighborhood: z.string(),
+                complement: z.string(),
+              }),
             })
 
             const { 
@@ -30,9 +31,8 @@ export class RegisterUserController {
                 password,
                 name,
                 phone,
-                cpfCnpj,
                 image,
-                address
+                company
             } = userSchema.parse(request.body)
           
             const registerUseCase = await makeRegisterUser()
@@ -42,9 +42,8 @@ export class RegisterUserController {
                 password,
                 name,
                 phone,
-                cpfCnpj,
                 image,
-                address
+                company
             })
             return response.status(201).send(user)
             

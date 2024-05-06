@@ -8,23 +8,38 @@ import { IUserModel } from '@/database/models/Users';
 import { ITokensRepository } from '@/repositories/interfaces/interface-tokens-repository';
 import { hash } from 'bcrypt'
 import { env } from '@/env';
+import { ICompanyRepository } from '@/repositories/interfaces/interface-companies-repository';
+import { ICompanyDTO } from '@/dtos/Company';
+import { ICompanyModel } from '@/database/models/Companies';
 interface IRequestRegisterAccount {
     email: string,
     name: string,
     password: string,
     phone?: string,
     image?: string,
-    cpfCnpj: string,
-    address?: {
-        street: string;
+    company:{
+        cnpj: string,
+        tradingName: string	
+        legalName: string	
+        stateRegistration: string	
+        streetAddress: string	
         num: number
-        district: string;
-        city: string;
-        state: string;
-        country: string;
-        zipCode: number
-        complement?: string;
-        reference?: string;
+        complement: string	
+        zipCode: number	
+        neighborhood: string	
+        city: string	
+        state: string
+    }	
+}
+
+interface IResponseCreateUser{
+    user: {
+        id: string,
+        email: string,
+        name: string,
+        phone: string,
+        image: string
+        company: ICompanyModel
     }
 }
 
@@ -33,6 +48,7 @@ export class RegisterUseCase{
         private usersRepository: IUsersRepository,
         private dayjsDateProvider: IDateProvider,
         private usersTokensRepository: ITokensRepository,
+        private companyRepository: ICompanyRepository,
         private sendMailProvider: IMailProvider
     ) {}
 
@@ -41,10 +57,9 @@ export class RegisterUseCase{
         name,
         password,
         phone,
-        cpfCnpj,
         image,
-        address
-    }:IRequestRegisterAccount):Promise<IUserModel>{
+        company
+    }:IRequestRegisterAccount):Promise<IResponseCreateUser>{
         const findEmailAlreadyExists = await this.usersRepository.findByEmail(email)
 
         if(findEmailAlreadyExists){
@@ -58,9 +73,29 @@ export class RegisterUseCase{
             name,
             password: criptingPassword,
             phone,
-            cpfCnpj,
             image,
         })
+
+        const createCompany = await this.companyRepository.create({
+            city: company.city,
+            complement: company.complement,
+            cnpj: company.cnpj,
+            legalName: company.legalName,
+            neighborhood: company.neighborhood,
+            num: company.num,
+            state: company.state,
+            stateRegistration: company.stateRegistration,
+            streetAddress: company.streetAddress,
+            tradingName: company.tradingName,
+            zipCode: company.zipCode,
+            idUser: user.id
+        })
+
+        console.log(createCompany)
+        if(!createCompany){
+            await this.usersRepository.deleteById(user.id)
+        }
+
          // pegar template de verificaçao de email
          let pathTemplate = env.NODE_ENV === "development" ? 
          './views/emails/verify-email.hbs':
@@ -68,7 +103,6 @@ export class RegisterUseCase{
         
         // gerar token valido por 3h
         const token = randomUUID()
-        console.log(token)
         // gerar data em horas
         const expireDateHours = this.dayjsDateProvider.addHours(3)
 
@@ -84,14 +118,40 @@ export class RegisterUseCase{
         `${env.APP_URL_PRODUCTION}/users/verify-email?token=${token}`
 
         // enviar verificação de email
-        // await this.sendMailProvider.sendEmail(
-        //     email, 
-        //     name,
-        //     "Confirmação de email", 
-        //     link, 
-        //     pathTemplate
-        // )
+        await this.sendMailProvider.sendEmail(
+            email, 
+            name,
+            "Confirmação de email", 
+            link, 
+            pathTemplate,
+            null
+        )
 
-        return user
+        const userInfo = {
+            user:{
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                image: user.image,
+                company: {
+                    id: createCompany.id,
+                    tradingName: createCompany.tradingName,
+                    cnpj: createCompany.cnpj,
+                    legalName: createCompany.legalName,
+                    stateRegistration: createCompany.stateRegistration,
+                    streetAddress: createCompany.streetAddress,
+                    num: createCompany.num,
+                    complement: createCompany.complement,
+                    zipCode: createCompany.zipCode,
+                    neighborhood: createCompany.neighborhood,
+                    city: createCompany.city,
+                    state: createCompany.state
+                }
+            },
+            
+        } as unknown as IResponseCreateUser
+
+        return userInfo
     }
 }

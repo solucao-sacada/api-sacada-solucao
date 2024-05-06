@@ -1,7 +1,5 @@
-import { IOrdersModel } from "@/database/models/Orders"
 import { IStatusDTO } from "./IStatusDTO"
 import { Accessories, Balcony, Client } from "./ITypeOrderJSON"
-import { IImageModel } from "@/database/models/Images"
 
 export interface IOrderDTO {
     id?: string

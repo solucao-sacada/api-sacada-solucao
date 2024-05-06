@@ -26,7 +26,7 @@ export interface IMailProvider {
         subject:string, 
         link:string | null, 
         pathTemplate:string,
-        pedido: IPedidoJSON
+        pedido?: IPedidoJSON | null
     ): Promise<void>
 
     findMessageSent(email: string): Promise<Message>

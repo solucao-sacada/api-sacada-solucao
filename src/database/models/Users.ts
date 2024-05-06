@@ -5,8 +5,6 @@ export interface IUserModel extends Document {
     email: string;
     password: string | undefined;
     phone: string;
-    address: string;
-    cpfCnpj: string;
     image: string;
     role: 'ADMIN' | 'COSTUMER' | 'SUPER';
     firstAcess: boolean;
@@ -24,8 +22,6 @@ export const UserSchema = new Schema<IUserModel>({
     },
     phone: { type: String, required: true },
     password: { type: String, required: true },
-    address: { type: String, required: false },
-    cpfCnpj: { type: String, required: false },
     image: { type: String, required: false },
     firstAcess: { type: Boolean, default: true },
     role: { type: String, default: "COSTUMER" },

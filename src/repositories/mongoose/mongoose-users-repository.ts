@@ -51,20 +51,16 @@ export class MongooseUsersRepository implements IUsersRepository {
         name,
         email,
         password,
-        address,
         phone,
         image,
-        cpfCnpj,     
     }: IUserDTO) {
         try {
             const user = await this.User.create({
                 name,
                 email,
                 password,
-                address,
                 phone,
                 image,
-                cpfCnpj
             });
             
             user.password = undefined;
@@ -108,22 +104,18 @@ export class MongooseUsersRepository implements IUsersRepository {
     async updateById({
         id,
         name,
-        address,
         email,
         password,
         phone,
         image,
-        cpfCnpj,
     }: IUserDTO) {
         try {
             const user = await this.User.findByIdAndUpdate(id, {
                 name,
-                address,
                 email,
                 password,
                 phone,
                 image,
-                cpfCnpj,
             }) as IUserModel;
 
             return user;
