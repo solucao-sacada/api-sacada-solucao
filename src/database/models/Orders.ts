@@ -4,7 +4,7 @@ import { IImageModel } from "./Images";
 import { IStatusDTO } from "@/dtos/IStatusDTO";
 
 export interface IOrdersModel extends Document {
-    idUser: Schema.Types.ObjectId;
+    idUser: string
     code: number;
     accessories: Accessories
     balcony: Balcony

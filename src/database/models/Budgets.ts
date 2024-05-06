@@ -1,7 +1,7 @@
 import { Schema, model, Document } from "mongoose";
 
 export interface IBudGetModel extends Document {
-  idUser: Schema.Types.ObjectId
+  idUser: string
   code: number;
   client: string
   emailClient: string          
@@ -24,7 +24,7 @@ export interface IBudGetModel extends Document {
 }
 
 export const BudGetSchema = new Schema<IBudGetModel>({
-    idUser: { type: Schema.Types.ObjectId, ref: "Users", required: true},
+    idUser: { type: String, ref: "Users", required: true},
     code: {
         type: Number,
         unique: true,
