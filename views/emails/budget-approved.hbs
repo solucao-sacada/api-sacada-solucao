@@ -15,7 +15,7 @@
             color: black;
         }
 
-        #btn-ok{
+        #printButton{
             background-color: #35a8e0;
             padding: 1rem;
             border-radius: 0.5rem;
@@ -28,7 +28,7 @@
             text-align: center;
 
         }
-        #btn-ok:hover{
+        #printButton:hover{
             background-color: #299fd9;
         }
         
@@ -117,95 +117,17 @@
                 <p>
                     • Valor Total: R$ {{pedido.price}}
                 </p>
-
-                <span>
-                    <strong>Saiba mais:</strong>
-                </span>
-
-                <button id="btn-ok" onclick="window.print()">Imprimir</button>
-
-                <!-- Seu script JavaScript -->
-                <script>
-                    document.getElementById('btn-ok').addEventListener('click', function() {
-                        window.print();
-                    });
-                </script>
-                {{!-- <a href="#" id="btn-ok" onclick="window.print(); return false;">Imprimir</a> --}}
-
-                {{!-- <strong>Blindex® Sistema Sacadas</strong>
-                <span></span>
-
-                <span>
-                    <p>
-                        O Blindex® Sistema Sacadas é uma solução  completa, que inclui todos os componentes  necessários para a melhor execução do projeto  de envidraçamento, além do vidro de segurança  Blindex®, que garante elegância e transparência  para preservar a luminosidade do ambientecom  a segurança que só a marca que é sinônimo de  vidro temperado oferece.
-                    </p>
-                </span>
-
-                <strong>Testado e homologado</strong>
-                <span></span>
-
-                <span>
-                    <p>
-                        &#10003; Impacto Pressão de vento
-                    </p>
-
-                    <p>
-                        &#10003; Corrosão
-                    </p>
-
-                    <p>
-                        &#10003; Ciclos de abertura
-                    </p>
-                </span> --}}
-
-                {{!-- <span>
-                    <strong>Entenda os diferenciais do  Sistema Blindex® Sacadas</strong>
-                </span>
-                <span></span>
-
-                <span>
-                    <img src="https://firebasestorage.googleapis.com/v0/b/sacada-d9a34.appspot.com/o/assets%2FScreenshot%20from%202024-04-20%2009-01-54.png?alt=media&token=e7225753-2a81-49b6-b6e9-21316cb7f228" alt="">
-                    <p>
-                        Trilho inferior mais reduzido, apenas  38 mm. Menos aluminio mais vidro.
-                    </p>
-                </span>
-                <span></span>
-
-                <span>
-                    <img src="https://firebasestorage.googleapis.com/v0/b/sacada-d9a34.appspot.com/o/assets%2FScreenshot%20from%202024-04-20%2009-02-22.png?alt=media&token=41661b5b-3c11-4467-900e-63942e240215" alt="">
-                    <p>
-                        Acabamentos perfil de vidro. Sistema  anticorte, trazendo mais segurança ao  usuário, nenhuma parte do perfil fica  exposto.
-                    </p>
-                </span>
-                <span></span>
-
-                <span>
-                    <img src="https://firebasestorage.googleapis.com/v0/b/sacada-d9a34.appspot.com/o/assets%2FScreenshot%20from%202024-04-20%2009-02-29.png?alt=media&token=7101388b-ac9c-40d0-87ba-477a5af1672d" alt="">
-                    <p>
-                        Trilho superior e Roldana Superior. Trilho  com mais área de sustentação da Roldana  (A e B), distribuindo melhor o peso do  vidro proporcionando mais segurança.
-                    </p>
-                </span>
-                <span></span>
-                
-                <span>
-                    <img src="https://firebasestorage.googleapis.com/v0/b/sacada-d9a34.appspot.com/o/assets%2FScreenshot%20from%202024-04-20%2009-02-46.png?alt=media&token=4afd8cfe-1e4e-4db3-ba71-fc5f84fec368" alt="">
-                    <p>
-                        Sistema exclusivo de quebra de fluxo
-                        de água pelo lado externo (A e B). Tripla  vedação com escovas, sendo a superior  pelo lado externo com barreira (C).
-                    </p>
-                </span>
-                <span></span>
-
-
-                <span>
-                    <img src="https://firebasestorage.googleapis.com/v0/b/sacada-d9a34.appspot.com/o/assets%2FScreenshot%20from%202024-04-20%2009-03-09.png?alt=media&token=93aa9a1d-cd1a-423b-a272-a74064f3f2d1" alt="">
-                    <p>
-                        Mais eficiência na vedação. Calha interna  de coleta de água (A). Drenagem mais  eficiente (G e H). Mais eficiência em barrar  água (C, F, B). Escovas no perfil de vidro.
-                    </p>
-                </span> --}}
-               
-                <span></span>
             </span>
+
+            <button id="printButton">Imprimir</button>
+
+            <!-- Seu script JavaScript -->
+            <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+            <script>
+                document.getElementById('printButton').addEventListener('click', function() {
+                    window.print();
+                });
+            </script>
         </div>
     </div>
 </body>
