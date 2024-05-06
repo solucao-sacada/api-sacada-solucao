@@ -7,7 +7,7 @@ export interface IBudgetRepository{
     delete(id: string): Promise<void>
     list(): Promise<IBudGetModel[] | []>
     findById(id: string): Promise<IBudGetModel | null>
-    // listByCliente(client: string): Promise<IBudGetModel[]>
+    listByClient(idUser: string): Promise<IBudGetModel[]>
     // findByUser(idUser: string): Promise<IBudgetDTO[]>
     // findByClient(client: string): Promise<IBudgetDTO[]>
     // findByEmail(email: string): Promise<IBudgetDTO[]>

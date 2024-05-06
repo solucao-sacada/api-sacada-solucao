@@ -4,6 +4,7 @@ import { UpdateBudgetController } from "../budgets/update/update-budgets-control
 import { DeleteBudgetController } from "../budgets/delete/delete-budgets-controller";
 import { FindBudgetByIdController } from "../budgets/find-by-id/find-by-id-budgets-controller";
 import { ListBudgetsController } from "../budgets/list/list-budgets-controller";
+import { ListBudgetsByClientController } from "../budgets/list-by-client/list-by-client-budgets-controller";
 
 export const budgetsRoutes = Router();
 
@@ -12,7 +13,7 @@ const updateBudgetController = new UpdateBudgetController();
 const deleteBudgetController = new DeleteBudgetController();
 const findBudgetByIdController = new FindBudgetByIdController();
 const listBudgetsController = new ListBudgetsController();
-
+const listBudgetsByClientController = new ListBudgetsByClientController();
 
 // criar um orçamento
 budgetsRoutes.post("/", createBudgetController.handle)
@@ -28,3 +29,6 @@ budgetsRoutes.get("/:id", findBudgetByIdController.handle)
 
 // listar todos os orçamentos
 budgetsRoutes.get("/", listBudgetsController.handle)
+
+// buscar todos os orçamentos de um cliente
+budgetsRoutes.get("/client/:id", listBudgetsByClientController.handle)

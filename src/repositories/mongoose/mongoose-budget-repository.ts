@@ -8,6 +8,17 @@ export class MongooseBudgetRepository implements IBudgetRepository{
     private Budget: Model<IBudGetModel> = Budgets;
 
     constructor(){}
+    async listByClient(idUser: string) {
+        try {
+            const list = await this.Budget.find({idUser}).sort({code: -1})
+
+            return list
+        } catch (error) {
+            console.error(error);
+            return []
+        }   
+    }
+
     async create(data: IBudgetDTO) {
         try {
              // contar quantos pedidos existem
