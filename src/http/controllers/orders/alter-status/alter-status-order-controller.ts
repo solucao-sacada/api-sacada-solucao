@@ -10,7 +10,7 @@ export class AlterStatusOrderController {
         try {
             const orderSchemaBody = z.object({
               idOrder: z.string(),
-              status: z.enum(['CANCELED', 'WAIT_ANSWER', 'DONE', 'PENDING', 'APRROVED']),
+              status: z.enum(['CANCELED', 'WAIT_ANSWER', 'DONE', 'PENDING', 'APPROVED', 'IN_PROGRESS']),
             })
 
             const orderJSON = orderSchemaBody.parse(request.body)
