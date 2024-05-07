@@ -30,7 +30,7 @@ export async function editarPDF({
     const { width, height } = page.getSize();
     
     const fontSize = 12;
-    const lineHeight = 22;
+    const lineHeight = 25;
     const textOptions = {
         x: 155,
         size: fontSize,
@@ -44,7 +44,7 @@ export async function editarPDF({
         });
     };
     
-    let currentY = height - 310;
+    let currentY = height - 285;
     const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
     const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
     
@@ -55,7 +55,7 @@ export async function editarPDF({
     };
     // ENDERECO
     drawText(`\u2022 ${company.tradingName}`, 720);
-    drawText(`\u2022 ${company.streetAddress}, ${company.num} - ${company.neighborhood}, ${company.city} - ${company.state} - ${company.zipCode}`, 698);
+    drawText(`\u2022 ${company.streetAddress}, ${company.num} - ${company.neighborhood}, ${company.city} - ${company.state} - ${company.zipCode}`, 695);
     currentY -= lineHeight;
     
     // ORÇAMENTO
@@ -105,7 +105,7 @@ export async function editarPDF({
     
     drawTextWithBold(`\u2022 Total: `, true, currentY);
     page.drawText(`${price}`, { ...textOptions, x: 198, y: currentY });
-    currentY -= lineHeight * 4.5;
+    currentY -= lineHeight * 2.5;
     
     // EMPRESA
     drawText(`\u2022 ${company.legalName}`, currentY);
