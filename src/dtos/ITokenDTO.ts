@@ -1,7 +1,7 @@
 export interface ITokenDTO{
-    id?: string
+    id?: string;
+    token: string;
     idUser: string;
-    refreshToken: string;
     expireDate: Date;
     createdAt?: Date;
 }

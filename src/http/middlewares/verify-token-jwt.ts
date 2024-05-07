@@ -5,6 +5,7 @@ import { Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 
 export interface Role{
+    COSTUMER: "COSTUMER";
     ADMIN: "ADMIN";
     SUPER: "SUPER";
 }

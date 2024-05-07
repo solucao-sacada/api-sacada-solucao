@@ -61,7 +61,7 @@ export class LoginUseCase{
         await this.usersTokensRepository.create({
             idUser: findUserExists.id,
             expireDate: expireDateRefreshToken,
-            refreshToken,
+            token: refreshToken
         })
 
         const getSafeUser = await this.usersRepository.getUserSecurity(findUserExists.id) as IUserModel

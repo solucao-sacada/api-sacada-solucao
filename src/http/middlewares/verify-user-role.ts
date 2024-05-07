@@ -1,14 +1,13 @@
-import { Role } from "@prisma/client"
-import { FastifyReply, FastifyRequest } from "fastify"
-
+import { Request, Response } from "express"
+import { Role } from "./verify-token-jwt"
 
 export function verifyUserRole(
-    verifyToleRoleOne: Role, 
-    verifyToleRoleTwo?: Role,
-    verifyToleRoleThree?: Role,
-    verifyToleRoleFour?: Role    
+    verifyToleRoleOne: string, 
+    verifyToleRoleTwo?: string,
+    verifyToleRoleThree?: string,
+    verifyToleRoleFour?: string    
     ){
-    return async (request: FastifyRequest, reply: FastifyReply) => {
+    return async (request: Request, reply: Response) => {
         const {role} = request.user
 
         if(role !== verifyToleRoleOne && 

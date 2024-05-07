@@ -68,13 +68,12 @@ export class RegisterUseCase{
 
         const criptingPassword = await hash(password, 8)
 
-        const user = await this.usersRepository.create({
-            email,
-            name,
-            password: criptingPassword,
-            phone,
-            image,
-        })
+        // buscar company por tranding name
+        const findCompanyTradingName = await this.companyRepository.findByTradingName(company.tradingName)
+
+        if(findCompanyTradingName){
+            throw new AppError('Razão social ja cadastrada', 409)
+        }
 
         const findCompanyCpnj = await this.companyRepository.findByCNPJ(company.cnpj)
 
@@ -88,81 +87,84 @@ export class RegisterUseCase{
             throw new AppError('Razão social já cadastrado', 409)
         }
 
-        try {
-            const createCompany = await this.companyRepository.create({
-                city: company.city,
-                complement: company.complement,
-                cnpj: company.cnpj,
-                legalName: company.legalName,
-                neighborhood: company.neighborhood,
-                num: company.num,
-                state: company.state,
-                stateRegistration: company.stateRegistration,
-                streetAddress: company.streetAddress,
-                tradingName: company.tradingName,
-                zipCode: company.zipCode,
-                idUser: user.id
-            })
-             // pegar template de verificaçao de email
-             let pathTemplate = env.NODE_ENV === "development" ? 
-             './views/emails/verify-email.hbs':
-             './build/views/emails/verify-email.hbs' 
+        const user = await this.usersRepository.create({
+            email,
+            name,
+            password: criptingPassword,
+            phone,
+            image,
+        })
+
+        const createCompany = await this.companyRepository.create({
+            city: company.city,
+            complement: company.complement,
+            cnpj: company.cnpj,
+            legalName: company.legalName,
+            neighborhood: company.neighborhood,
+            num: company.num,
+            state: company.state,
+            stateRegistration: company.stateRegistration,
+            streetAddress: company.streetAddress,
+            tradingName: company.tradingName,
+            zipCode: company.zipCode,
+            idUser: user.id
+        })
+            // pegar template de verificaçao de email
+            let pathTemplate = env.NODE_ENV === "development" ? 
+            './views/emails/verify-email.hbs':
+            './build/views/emails/verify-email.hbs' 
+        
+        // gerar token valido por 3h
+        const token = randomUUID()
+        // gerar data em horas
+        const expireDateHours = this.dayjsDateProvider.addHours(3)
+
+        // salvar token no banco
+        await this.usersTokensRepository.create({
+            idUser: user.id,
+            expireDate: expireDateHours,
+            token
+        })
+        // formatar link com token
+        let link = env.NODE_ENV === "development" ?
+        `${env.APP_URL_DEVLOPMENT}/users/verify-email?token=${token}`:
+        `${env.APP_URL_PRODUCTION}/users/verify-email?token=${token}`
+
+        // enviar verificação de email
+        await this.sendMailProvider.sendEmail(
+            email, 
+            name,
+            "Confirmação de email", 
+            link, 
+            pathTemplate,
+            null
+        )
+
+        const userInfo = {
+            user:{
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                image: user.image,
+                company: {
+                    id: createCompany.id,
+                    tradingName: createCompany.tradingName,
+                    cnpj: createCompany.cnpj,
+                    legalName: createCompany.legalName,
+                    stateRegistration: createCompany.stateRegistration,
+                    streetAddress: createCompany.streetAddress,
+                    num: createCompany.num,
+                    complement: createCompany.complement,
+                    zipCode: createCompany.zipCode,
+                    neighborhood: createCompany.neighborhood,
+                    city: createCompany.city,
+                    state: createCompany.state
+                }
+            },
             
-            // gerar token valido por 3h
-            const token = randomUUID()
-            // gerar data em horas
-            const expireDateHours = this.dayjsDateProvider.addHours(3)
+        } as unknown as IResponseCreateUser
     
-            // salvar token no banco
-           await this.usersTokensRepository.create({
-                idUser: user.id,
-                expireDate: expireDateHours,
-                refreshToken: token
-            })
-            // formatar link com token
-            let link = env.NODE_ENV === "development" ?
-            `${env.APP_URL_DEVLOPMENT}/users/verify-email?token=${token}`:
-            `${env.APP_URL_PRODUCTION}/users/verify-email?token=${token}`
-    
-            // enviar verificação de email
-            await this.sendMailProvider.sendEmail(
-                email, 
-                name,
-                "Confirmação de email", 
-                link, 
-                pathTemplate,
-                null
-            )
-    
-            const userInfo = {
-                user:{
-                    id: user.id,
-                    name: user.name,
-                    email: user.email,
-                    phone: user.phone,
-                    image: user.image,
-                    company: {
-                        id: createCompany.id,
-                        tradingName: createCompany.tradingName,
-                        cnpj: createCompany.cnpj,
-                        legalName: createCompany.legalName,
-                        stateRegistration: createCompany.stateRegistration,
-                        streetAddress: createCompany.streetAddress,
-                        num: createCompany.num,
-                        complement: createCompany.complement,
-                        zipCode: createCompany.zipCode,
-                        neighborhood: createCompany.neighborhood,
-                        city: createCompany.city,
-                        state: createCompany.state
-                    }
-                },
-                
-            } as unknown as IResponseCreateUser
-    
-            return userInfo
-        } catch (error) {
-            await this.usersRepository.deleteById(user.id)
-            throw error
-        }
+        return userInfo
     }
 }

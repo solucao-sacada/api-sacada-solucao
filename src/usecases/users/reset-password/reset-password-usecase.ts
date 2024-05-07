@@ -1,7 +1,10 @@
-import { IUsersRepository } from "@/repositories/interface-users-repository";
 import 'dotenv/config'
 import { IDateProvider } from "@/providers/DateProvider/interface-date-provider";
 import { hash } from "bcrypt";
+import { ITokensRepository } from "@/repositories/interfaces/interface-tokens-repository";
+import { IUsersRepository } from '@/repositories/interfaces/interface-users-repository';
+import { AppError } from '@/usecases/errors/AppError';
+import { IUserModel } from '@/database/models/Users';
 
 interface IRequestResetPassword {
     token: string
@@ -38,9 +41,9 @@ export class ResetPasswordUseCase{
             {
                 throw new AppError('Token expirado', 401)
             }
-
+        const userId = String(findToken.idUser)
         // buscar usuário no banco
-        const user = await this.usersRepository.findById(findToken.idUser) as User
+        const user = await this.usersRepository.findById(userId) as IUserModel
         
         // criptografar senha
         const newPassword = await hash(password, 8)
@@ -49,6 +52,6 @@ export class ResetPasswordUseCase{
         await this.usersRepository.changePassword(user.id, newPassword)
         
         // deletar token do banco
-        await this.usersTokensRepository.delete(findToken.id)
+        await this.usersTokensRepository.deleteById(findToken.id)
     }
 }

@@ -3,6 +3,9 @@ import { IDateProvider } from "@/providers/DateProvider/interface-date-provider"
 import { randomUUID } from "crypto";
 import { env } from "@/env";
 import { IMailProvider } from "@/providers/MailProvider/interface-mail-provider";
+import { IUsersRepository } from '@/repositories/interfaces/interface-users-repository';
+import { ITokensRepository } from '@/repositories/interfaces/interface-tokens-repository';
+import { AppError } from '@/usecases/errors/AppError';
 
 interface IRequestForgotPasswordEmail {
     email: string
