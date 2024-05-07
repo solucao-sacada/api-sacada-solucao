@@ -105,8 +105,30 @@ export class CreateBudgetsUseCase {
         
     }) as IBudGetModel
 
+    let priceGlassesFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(priceGlasses);
+    let pricePlatesFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(pricePlates);
+    let priceAcessoriesFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(priceAcessories);
+    let priceKitSolutionsFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(priceKitSolutions);
+    let priceProlongadorFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(priceProlongador);
+    let areaFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(area);
+    let totalFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price);
+
+    const budgetFormmated = {
+      ...budget,
+      qtdAparador: budget.qtdAparador,
+      qtdProlongador: budget.qtdProlongador,
+      qtdSelante: budget.qtdSelante,
+      priceGlasses: priceGlassesFormmated,
+      pricePlates: pricePlatesFormmated,
+      priceAcessories: priceAcessoriesFormmated,
+      priceKitSolutions: priceKitSolutionsFormmated,
+      priceProlongador: priceProlongadorFormmated,
+      area: areaFormmated,
+      price: totalFormmated
+    } as unknown as IBudGetModel 
+
     // CRIAR PDF COM O ORÇAMENTO
-    const {filePath: pathPdf, namePdf} = await editarPDF(budget, findCompany)    // enviar verificação de email
+    const {filePath: pathPdf, namePdf} = await editarPDF(budgetFormmated, findCompany)    // enviar verificação de email
     await this.mailProvider.sendEmail(
         emailClient, 
         client,
@@ -114,7 +136,7 @@ export class CreateBudgetsUseCase {
         null, 
         pathTemplate,
         {
-          price,
+          price: totalFormmated,
           aparador,
           selante,
           prolongador,
@@ -123,12 +145,12 @@ export class CreateBudgetsUseCase {
           qtdSelante,
           chapaInferior: chapaInferior ? 'Sim' : 'Não', 
           chapaSuperior: chapaSuperior ? 'Sim' : 'Não',
-          area,
-          pricePlates,
-          priceGlasses,
-          priceAcessories,
-          priceKitSolutions,
-          priceProlongador
+          area: areaFormmated,
+          pricePlates: pricePlatesFormmated,
+          priceGlasses: priceGlassesFormmated,
+          priceAcessories: priceAcessoriesFormmated,
+          priceKitSolutions: priceKitSolutionsFormmated,
+          priceProlongador: priceProlongadorFormmated
         },
         `${pathPdf}/${namePdf}`
     )

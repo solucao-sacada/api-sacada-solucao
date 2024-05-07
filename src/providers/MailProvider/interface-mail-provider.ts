@@ -1,13 +1,13 @@
 import { Message } from "./in-memory/in-memory-mail-provider";
 
 export interface IPedidoJSON {
-    area: number
-    price: number
-    pricePlates: number
-    priceGlasses: number 
-    priceAcessories: number
-    priceProlongador: number
-    priceKitSolutions: number
+    area: string
+    price: string
+    pricePlates: string
+    priceGlasses: string 
+    priceAcessories: string
+    priceProlongador: string
+    priceKitSolutions: string
   
     aparador?: boolean
     selante?: boolean

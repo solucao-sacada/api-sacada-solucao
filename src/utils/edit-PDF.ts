@@ -29,14 +29,6 @@ export async function editarPDF({
     const page = pdfDoc.getPage(3); // O índice começa em 0, então a quarta página é o índice 3
     const { width, height } = page.getSize();
     
-    let priceGlassesFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(priceGlasses);
-    let pricePlatesFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(pricePlates);
-    let priceAcessoriesFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(priceAcessories);
-    let priceKitSolutionsFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(priceKitSolutions);
-    let priceProlongadorFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(priceProlongador);
-    let areaFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(area);
-    let totalFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price);
-
     const fontSize = 12;
     const lineHeight = 22;
     const textOptions = {
@@ -61,7 +53,6 @@ export async function editarPDF({
         const font = isBold ? boldFont : helveticaFont; // Usando a fonte bold ou regular
         page.drawText(text, { ...textOptions, y, font });
     };
-    
     // ENDERECO
     drawText(`\u2022 ${company.tradingName}`, 720);
     
@@ -87,31 +78,31 @@ export async function editarPDF({
     currentY -= lineHeight;
     
     drawTextWithBold(`\u2022 Custo do vidro: `, true, currentY);
-    page.drawText(`${priceGlassesFormmated}`, { ...textOptions, x: 255, y: currentY });
+    page.drawText(`${priceGlasses}`, { ...textOptions, x: 255, y: currentY });
     currentY -= lineHeight;
     
     drawTextWithBold(`\u2022 Kit solução: `, true, currentY);
-    page.drawText(`${priceKitSolutionsFormmated}`, { ...textOptions, x: 234, y: currentY });
+    page.drawText(`${priceKitSolutions}`, { ...textOptions, x: 234, y: currentY });
     currentY -= lineHeight;
     
     drawTextWithBold(`\u2022 Valor Prolongador: `, true, currentY);
-    page.drawText(`${priceProlongadorFormmated}`, { ...textOptions, x: 275, y: currentY });
+    page.drawText(`${priceProlongador}`, { ...textOptions, x: 275, y: currentY });
     currentY -= lineHeight;
     
     drawTextWithBold(`\u2022 Custo dos acessórios: `, true, currentY);
-    page.drawText(`${priceAcessoriesFormmated}`, { ...textOptions, x: 295, y: currentY });
+    page.drawText(`${priceAcessories}`, { ...textOptions, x: 295, y: currentY });
     currentY -= lineHeight;
     
     drawTextWithBold(`\u2022 Custo das chapas: `, true, currentY);
-    page.drawText(`${pricePlatesFormmated}`, { ...textOptions, x: 272, y: currentY });
+    page.drawText(`${pricePlates}`, { ...textOptions, x: 272, y: currentY });
     currentY -= lineHeight;
     
     drawTextWithBold(`\u2022 Área: `, true, currentY);
-    page.drawText(`${areaFormmated}`, { ...textOptions, x: 196, y: currentY });
+    page.drawText(`${area}`, { ...textOptions, x: 196, y: currentY });
     currentY -= lineHeight;
     
     drawTextWithBold(`\u2022 Total: `, true, currentY);
-    page.drawText(`${totalFormmated}`, { ...textOptions, x: 198, y: currentY });
+    page.drawText(`${price}`, { ...textOptions, x: 198, y: currentY });
     currentY -= lineHeight * 4.5;
     
     // EMPRESA
