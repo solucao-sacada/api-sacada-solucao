@@ -5,6 +5,15 @@ import { ICompanyDTO } from "@/dtos/Company";
 
 export class MongooseCompanyRepository implements ICompanyRepository {
     private Company: Model<ICompanyModel> = Companies;
+    
+    async findByUser(idUser: string) {
+        try {
+            return await this.Company.findOne({ idUser });
+        } catch (error) {
+            console.error(error);
+            return null
+        }
+    }
     async findByTradingName(tradingName: string){
         try {
             return await this.Company.findOne({ tradingName });

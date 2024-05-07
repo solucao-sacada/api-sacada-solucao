@@ -4,8 +4,10 @@ import { IMailProvider } from "@/providers/MailProvider/interface-mail-provider"
 import { IFileProvider } from "@/providers/StorageProvider/file-provider.interface";
 import { IStorageProvider } from "@/providers/StorageProvider/storage-provider.interface";
 import { IBudgetRepository } from "@/repositories/interfaces/interface-budget-repository";
+import { ICompanyRepository } from "@/repositories/interfaces/interface-companies-repository";
 import { IUsersRepository } from "@/repositories/interfaces/interface-users-repository";
 import { AppError } from "@/usecases/errors/AppError";
+import { editarPDF } from "@/utils/edit-PDF";
 
 interface IRequestCreateBudget {
   idUser: string
@@ -35,6 +37,8 @@ export class CreateBudgetsUseCase {
     private budgetRepository: IBudgetRepository,
     private userRepository: IUsersRepository,
     private mailProvider: IMailProvider,
+    private fileProvider: IFileProvider,
+    private companyRepository: ICompanyRepository
     ) {}
 
   async execute({
@@ -65,6 +69,14 @@ export class CreateBudgetsUseCase {
       throw new AppError('Usuário não encontrado', 404)
     }
     
+    // buscar a empresa pelo id
+    const findCompany = await this.companyRepository.findByUser(findUserExist.id)
+    
+    // verificar se a empresa existe
+    if(!findCompany) {
+      throw new AppError('Empresa não encontrada', 404)
+    }
+
     // pegar template de verificaçao de email
     let pathTemplate = env.NODE_ENV === "development" ? 
     './views/emails/budget-approved.hbs':
@@ -93,33 +105,35 @@ export class CreateBudgetsUseCase {
         
     }) as IBudGetModel
 
-    
-  
-    // enviar verificação de email
-    await this.mailProvider.sendEmail(
-        emailClient, 
-        client,
-        "Orçamento Sacada", 
-        null, 
-        pathTemplate,
-        {
-          price,
-          aparador,
-          selante,
-          prolongador,
-          qtdAparador,
-          qtdProlongador,
-          qtdSelante,
-          chapaInferior: chapaInferior ? 'Sim' : 'Não', 
-          chapaSuperior: chapaSuperior ? 'Sim' : 'Não',
-          area,
-          pricePlates,
-          priceGlasses,
-          priceAcessories,
-          priceKitSolutions,
-          priceProlongador
-        }
-    )
+    // CRIAR PDF COM O ORÇAMENTO
+    const {filePath: pathPdf, namePdf} = await editarPDF(budget, findCompany)    // enviar verificação de email
+    // await this.mailProvider.sendEmail(
+    //     emailClient, 
+    //     client,
+    //     "Orçamento Sacada", 
+    //     null, 
+    //     pathTemplate,
+    //     {
+    //       price,
+    //       aparador,
+    //       selante,
+    //       prolongador,
+    //       qtdAparador,
+    //       qtdProlongador,
+    //       qtdSelante,
+    //       chapaInferior: chapaInferior ? 'Sim' : 'Não', 
+    //       chapaSuperior: chapaSuperior ? 'Sim' : 'Não',
+    //       area,
+    //       pricePlates,
+    //       priceGlasses,
+    //       priceAcessories,
+    //       priceKitSolutions,
+    //       priceProlongador
+    //     },
+    //     `${pathPdf}/${namePdf}`
+    // )
+    // // deletar o arquivo PDF criado
+    // this.fileProvider.deleteFileTmp(namePdf, pathPdf)
 
     // retornar o pedido
     return budget

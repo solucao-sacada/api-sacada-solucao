@@ -21,7 +21,8 @@ export class MailProvider implements IMailProvider{
         subject:string, 
         link:string | null, 
         pathTemplate:string,
-        pedido: IPedidoJSON
+        pedido: IPedidoJSON,
+        attachmentPath?: string | null
         ) {
         try {
             // ler arquivo handlebars
@@ -31,13 +32,21 @@ export class MailProvider implements IMailProvider{
             // passar variables for template
             const htmlTemplate = compileTemplate({name, link, email, pedido});
 
-            const msg = {
-                to: `${email}`, // Para 
-                from: '4codesolutionss@gmail.com', // De
-                subject: subject, // Assunto
-                html: htmlTemplate,
-              };
-           await sgMail.send(msg);
+            // enviar email
+           await sgMail.send({
+            to: `${email}`, // Para 
+            from: '4codesolutionss@gmail.com', // De
+            subject: subject, // Assunto
+            html: htmlTemplate,
+            attachments: [
+                {
+                    content: fs.readFileSync(attachmentPath as string).toString('base64'), // Ler o arquivo PDF e converter para base64
+                    filename: 'Proposta_Comercial_Modelo.pdf',
+                    type: 'application/pdf',
+                    disposition: 'attachment'
+                }
+            ]
+          });
         } catch (error) {
             console.log('Error to send email')
             console.log(error);
