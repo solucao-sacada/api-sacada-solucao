@@ -55,6 +55,8 @@ export async function editarPDF({
     };
     // ENDERECO
     drawText(`\u2022 ${company.tradingName}`, 720);
+    drawText(`\u2022 ${company.streetAddress}, ${company.num} - ${company.neighborhood}, ${company.city} - ${company.state} - ${company.zipCode}`, 698);
+    currentY -= lineHeight;
     
     // ORÇAMENTO
     drawTextWithBold(`\u2022 Aparador Inox:`, true, currentY);
