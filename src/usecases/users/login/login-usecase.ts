@@ -53,7 +53,6 @@ export class LoginUseCase{
             subject: findUserExists.id,
             expiresIn: env.JWT_EXPIRES_IN_REFRESH_TOKEN
         })
-
         // criar data de expiração do refresh token
         const expireDateRefreshToken = this.dayjsDateProvider.addDays(10)
 

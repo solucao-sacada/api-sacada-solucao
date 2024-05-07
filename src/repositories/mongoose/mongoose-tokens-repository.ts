@@ -28,13 +28,13 @@ export class MongooseTokensRepository implements ITokensRepository {
     async create({
         idUser,
         expireDate,
-        refreshToken,
+        token
     }: ITokenDTO) {
         try {
             const createRefreshToken = await this.Token.create({
                 idUser,
-                refreshToken,
-                expireDate
+                expireDate,
+                token
             });
 
             return createRefreshToken;
