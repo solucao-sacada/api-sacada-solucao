@@ -15,8 +15,8 @@ const alterStatusOrderController = new AlterStatusOrderController();
 
 ordersRoutes.post("/", verifyTokenJWT, createOrderUserController.handle);
 
-ordersRoutes.get("/", verifyTokenJWT, listOrdersController.handle);
+ordersRoutes.get("/", verifyTokenJWT, ensureAdmin, listOrdersController.handle);
 
-ordersRoutes.get("/user/:id", verifyTokenJWT, ensureAdmin, listOrdersByUserController.handle);
+ordersRoutes.get("/user/:id", verifyTokenJWT, listOrdersByUserController.handle);
 
 ordersRoutes.patch("/status", verifyTokenJWT, ensureAdmin, alterStatusOrderController.handle);
