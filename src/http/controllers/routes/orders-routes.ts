@@ -4,7 +4,7 @@ import { ListOrdersController } from "../orders/list/list-orders-controller";
 import { ListOrdersByUserController } from "../orders/list-by-user/list-by-user-orders-controller";
 import { AlterStatusOrderController } from "../orders/alter-status/alter-status-order-controller";
 import { verifyTokenJWT } from "@/http/middlewares/verify-token-jwt";
-import { verifyUserRole } from "@/http/middlewares/verify-user-role";
+import { ensureAdmin } from "@/http/middlewares/verify-user-role";
 
 export const ordersRoutes = Router();
 
@@ -17,6 +17,6 @@ ordersRoutes.post("/", verifyTokenJWT, createOrderUserController.handle);
 
 ordersRoutes.get("/", verifyTokenJWT, listOrdersController.handle);
 
-ordersRoutes.get("/user/:id", verifyTokenJWT, listOrdersByUserController.handle);
+ordersRoutes.get("/user/:id", verifyTokenJWT, ensureAdmin, listOrdersByUserController.handle);
 
-ordersRoutes.patch("/status", verifyTokenJWT, verifyUserRole("ADMIN" || "SUPER"), alterStatusOrderController.handle);
+ordersRoutes.patch("/status", verifyTokenJWT, ensureAdmin, alterStatusOrderController.handle);

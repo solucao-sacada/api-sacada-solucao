@@ -6,7 +6,7 @@ import { FindBudgetByIdController } from "../budgets/find-by-id/find-by-id-budge
 import { ListBudgetsController } from "../budgets/list/list-budgets-controller";
 import { ListBudgetsByClientController } from "../budgets/list-by-client/list-by-client-budgets-controller";
 import { verifyTokenJWT } from "@/http/middlewares/verify-token-jwt";
-import { verifyUserRole } from "@/http/middlewares/verify-user-role";
+import { ensureAdmin } from "@/http/middlewares/verify-user-role";
 
 export const budgetsRoutes = Router();
 
@@ -21,16 +21,16 @@ const listBudgetsByClientController = new ListBudgetsByClientController();
 budgetsRoutes.post("/",verifyTokenJWT, createBudgetController.handle)
 
 // atualizar um orçamento
-budgetsRoutes.put("/:id",verifyTokenJWT, verifyUserRole("ADMIN" || "SUPER"), updateBudgetController.handle)
+budgetsRoutes.put("/:id",verifyTokenJWT, ensureAdmin, updateBudgetController.handle)
 
 // deletar um orçamento
-budgetsRoutes.delete("/:id",verifyTokenJWT, verifyUserRole("ADMIN" || "SUPER"), deleteBudgetController.handle)
+budgetsRoutes.delete("/:id",verifyTokenJWT, ensureAdmin, deleteBudgetController.handle)
 
 // buscar um orçamento pelo id
 budgetsRoutes.get("/:id",verifyTokenJWT, findBudgetByIdController.handle)
 
 // listar todos os orçamentos
-budgetsRoutes.get("/",verifyTokenJWT, verifyUserRole("ADMIN" || "SUPER"), listBudgetsController.handle)
+budgetsRoutes.get("/",verifyTokenJWT, ensureAdmin, listBudgetsController.handle)
 
 // buscar todos os orçamentos de um cliente
 budgetsRoutes.get("/client/:id",verifyTokenJWT, listBudgetsByClientController.handle)

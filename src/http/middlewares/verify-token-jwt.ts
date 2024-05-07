@@ -1,7 +1,7 @@
 import { env } from "@/env";
 import { RedisInMemoryProvider } from "@/providers/CacheProvider/implementations/provider-redis-in-memory";
 import { AppError } from "@/usecases/errors/AppError";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 
 export interface Role{
@@ -18,6 +18,7 @@ export interface IPayload {
 export async function verifyTokenJWT(
     request: Request,
     response: Response,
+    next: NextFunction
 ) {
     // destruturar do headers o toke
     const authHeader = request.headers.authorization;
@@ -48,6 +49,8 @@ export async function verifyTokenJWT(
             role: role,
             token,
         };
+
+        next();
     } catch(error) {
         throw error
     }

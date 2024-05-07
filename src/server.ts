@@ -3,6 +3,7 @@ import "reflect-metadata";
 import { app } from "./app";
 import { env } from "./env";
 import connectionMongoDB from "./database/mongo-connection";
+import './config/redis-connection';
 
 connectionMongoDB();
 
