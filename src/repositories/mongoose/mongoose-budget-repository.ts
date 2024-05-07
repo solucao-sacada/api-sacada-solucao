@@ -15,7 +15,7 @@ export class MongooseBudgetRepository implements IBudgetRepository{
             return list
         } catch (error) {
             console.error(error);
-            return []
+            throw new Error("Error list budget by client")
         }   
     }
 
@@ -31,7 +31,7 @@ export class MongooseBudgetRepository implements IBudgetRepository{
             return newBudget 
         } catch (error) {
             console.error(error);
-            return null
+            throw new Error("Error create budget")
         }
     }
     async update(budget: IBudgetDTO) {
@@ -41,7 +41,7 @@ export class MongooseBudgetRepository implements IBudgetRepository{
             return newBudget
         } catch (error) {
             console.error(error);
-            return null
+            throw new Error("Error update budget")
         }
     }
     async delete(id: string) {
@@ -49,6 +49,7 @@ export class MongooseBudgetRepository implements IBudgetRepository{
             await this.Budget.findByIdAndDelete(id)
         } catch (error) {
             console.error(error);
+            throw new Error("Error delete budget by id")
         }
     }
     async list() {
@@ -58,7 +59,7 @@ export class MongooseBudgetRepository implements IBudgetRepository{
         return list
        } catch (error) {
             console.error(error);
-            return []
+            throw new Error("Error list budgets")
        }
     }
     async findById(id: string){
@@ -68,7 +69,7 @@ export class MongooseBudgetRepository implements IBudgetRepository{
             return budget
         } catch (error) {
             console.error(error);
-            return null
+            throw new Error("Error find budget by id")
         }
     }
 }

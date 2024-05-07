@@ -10,6 +10,8 @@ export class ListBudgetsUseCase {
     // buscar todos os budgets
     const listBudgets = await this.budgetRepository.list()
 
+    console.log(listBudgets)
+
     // retorna todos os budgets
     return listBudgets
   }
