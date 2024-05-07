@@ -107,33 +107,33 @@ export class CreateBudgetsUseCase {
 
     // CRIAR PDF COM O ORÇAMENTO
     const {filePath: pathPdf, namePdf} = await editarPDF(budget, findCompany)    // enviar verificação de email
-    // await this.mailProvider.sendEmail(
-    //     emailClient, 
-    //     client,
-    //     "Orçamento Sacada", 
-    //     null, 
-    //     pathTemplate,
-    //     {
-    //       price,
-    //       aparador,
-    //       selante,
-    //       prolongador,
-    //       qtdAparador,
-    //       qtdProlongador,
-    //       qtdSelante,
-    //       chapaInferior: chapaInferior ? 'Sim' : 'Não', 
-    //       chapaSuperior: chapaSuperior ? 'Sim' : 'Não',
-    //       area,
-    //       pricePlates,
-    //       priceGlasses,
-    //       priceAcessories,
-    //       priceKitSolutions,
-    //       priceProlongador
-    //     },
-    //     `${pathPdf}/${namePdf}`
-    // )
-    // // deletar o arquivo PDF criado
-    // this.fileProvider.deleteFileTmp(namePdf, pathPdf)
+    await this.mailProvider.sendEmail(
+        emailClient, 
+        client,
+        "Orçamento Sacada", 
+        null, 
+        pathTemplate,
+        {
+          price,
+          aparador,
+          selante,
+          prolongador,
+          qtdAparador,
+          qtdProlongador,
+          qtdSelante,
+          chapaInferior: chapaInferior ? 'Sim' : 'Não', 
+          chapaSuperior: chapaSuperior ? 'Sim' : 'Não',
+          area,
+          pricePlates,
+          priceGlasses,
+          priceAcessories,
+          priceKitSolutions,
+          priceProlongador
+        },
+        `${pathPdf}/${namePdf}`
+    )
+    // deletar o arquivo PDF criado
+    this.fileProvider.deleteFileTmp(namePdf, pathPdf)
 
     // retornar o pedido
     return budget
