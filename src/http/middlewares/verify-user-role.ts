@@ -13,9 +13,9 @@ export async function ensureAdmin(
     const userRepository = new MongooseUsersRepository();
 
     const user = await userRepository.findById(id);
-    
+
     if (user?.role !== "ADMIN" && user?.role !== "SUPER") {
-        throw new AppError("Permission denied!");
+        throw new AppError("Permissão negada!");
     }
 
     return next();
