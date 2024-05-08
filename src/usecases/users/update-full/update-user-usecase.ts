@@ -1,15 +1,16 @@
+import { IUserModel } from '@/database/models/Users'
+import { IUsersRepository } from '@/repositories/interfaces/interface-users-repository'
+import { AppError } from '@/usecases/errors/AppError'
 import 'dotenv/config'
 
 interface IRequestUpdateUser {
-    id: string,
-    name: string,
-    phone: string,
-    dateBirth: Date,
-    cpf?: string,
-    passport?: string,
+    id: string
+    name: string
+    email: string
+    phone: string
 }
 interface IResponseUpdateUser {
-    user: User
+    user: IUserModel
 }
 
 export class UpdateUserUseCase{
@@ -21,38 +22,24 @@ export class UpdateUserUseCase{
         id,
         name,
         phone,
-        dateBirth,
-        cpf,
-        passport
+        email
     }:IRequestUpdateUser):Promise<IResponseUpdateUser>{
         const findUserExists = await this.usersRepository.getUserSecurity(id)
         if(!findUserExists){
             throw new AppError('Usuário não encontrado', 404)
         }
-
         
-        if(cpf){
-            const findUserByCPF = await this.usersRepository.findByCPF(cpf)
-        //[x] verificar se cpf ja existe
-            if(findUserByCPF){
-                throw new AppError('CPF já cadastrado', 409)
-            }
+        const findEmailExist = await this.usersRepository.findByEmail(email)
+        
+        if(findEmailExist && findEmailExist.id !== findUserExists.id){
+            throw new AppError('Email ja existe', 409)
+        }
 
-        }
-        if(passport){
-            const findUserByPassport = await this.usersRepository.findByPassport(passport)
-            //[x] verificar se passport ja existe
-            if(findUserByPassport){
-                throw new AppError('Passaporte já cadastrado', 409)
-            }
-        }
-       const userUpdated = await this.usersRepository.update({
+        const userUpdated = await this.usersRepository.updateById({
             id,
             name,
             phone,
-            dateBirth,
-            cpf,
-            passport
+            email,
         })
         
         return {

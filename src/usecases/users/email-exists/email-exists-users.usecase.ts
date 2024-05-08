@@ -1,4 +1,4 @@
-import { IUsersRepository } from "@/repositories/interface-users-repository";
+import { IUsersRepository } from '@/repositories/interfaces/interface-users-repository'
 import 'dotenv/config'
 
 interface IRequestFindUser {

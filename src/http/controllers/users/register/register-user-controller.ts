@@ -37,7 +37,7 @@ export class RegisterUserController {
           
             const registerUseCase = await makeRegisterUser()
             
-            const user = await registerUseCase.execute({
+            await registerUseCase.execute({
                 email, 
                 password,
                 name,
@@ -45,7 +45,7 @@ export class RegisterUserController {
                 image,
                 company
             })
-            return response.status(201).send(user)
+            return response.status(201).send({ message: 'Usuário criado com sucesso' })
             
           } catch (error) {
             throw error

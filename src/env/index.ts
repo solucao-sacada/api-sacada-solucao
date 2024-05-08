@@ -22,6 +22,8 @@ const envSchema = z.object({
     FIREBASE_BUCKET: z.string().optional(),
     FOLDER_TMP_DEVELOPMENT: z.string(),
     FOLDER_TMP_PRODUCTION: z.string(),
+    APP_URL_FRONTEND_DEVELOPMENT: z.string().optional(),
+    APP_URL_FRONTEND_PRODUCTION: z.string().optional(),
 })
 
 const _env = envSchema.safeParse(process.env)

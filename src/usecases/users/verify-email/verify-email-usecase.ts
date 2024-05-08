@@ -1,3 +1,7 @@
+import { IDateProvider } from '@/providers/DateProvider/interface-date-provider'
+import { ITokensRepository } from '@/repositories/interfaces/interface-tokens-repository'
+import { IUsersRepository } from '@/repositories/interfaces/interface-users-repository'
+import { AppError } from '@/usecases/errors/AppError'
 import 'dotenv/config'
 
 interface IRequestVerifyEmail {

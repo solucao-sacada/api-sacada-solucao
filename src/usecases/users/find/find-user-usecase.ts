@@ -1,5 +1,4 @@
 import { IUserModel } from '@/database/models/Users'
-import { IUserDTO } from '@/dtos/IUserDTO'
 import { IUsersRepository } from '@/repositories/interfaces/interface-users-repository'
 import { AppError } from '@/usecases/errors/AppError'
 import 'dotenv/config'

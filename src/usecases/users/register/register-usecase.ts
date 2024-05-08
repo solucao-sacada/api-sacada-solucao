@@ -4,12 +4,10 @@ import { IDateProvider } from "@/providers/DateProvider/interface-date-provider"
 import { IMailProvider } from "@/providers/MailProvider/interface-mail-provider";
 import { AppError } from "@/usecases/errors/AppError";
 import { IUsersRepository } from '@/repositories/interfaces/interface-users-repository';
-import { IUserModel } from '@/database/models/Users';
 import { ITokensRepository } from '@/repositories/interfaces/interface-tokens-repository';
 import { hash } from 'bcrypt'
 import { env } from '@/env';
 import { ICompanyRepository } from '@/repositories/interfaces/interface-companies-repository';
-import { ICompanyDTO } from '@/dtos/Company';
 import { ICompanyModel } from '@/database/models/Companies';
 interface IRequestRegisterAccount {
     email: string,
@@ -59,7 +57,7 @@ export class RegisterUseCase{
         phone,
         image,
         company
-    }:IRequestRegisterAccount):Promise<IResponseCreateUser | string>{
+    }:IRequestRegisterAccount):Promise<void>{
         const findEmailAlreadyExists = await this.usersRepository.findByEmail(email)
 
         if(findEmailAlreadyExists){
@@ -109,11 +107,7 @@ export class RegisterUseCase{
             zipCode: company.zipCode,
             idUser: user.id
         })
-            // pegar template de verificaçao de email
-            let pathTemplate = env.NODE_ENV === "development" ? 
-            './views/emails/verify-email.hbs':
-            './build/views/emails/verify-email.hbs' 
-        
+      
         // gerar token valido por 3h
         const token = randomUUID()
         // gerar data em horas
@@ -125,46 +119,27 @@ export class RegisterUseCase{
             expireDate: expireDateHours,
             token
         })
+         // enviar email de verificação
         // formatar link com token
-        let link = env.NODE_ENV === "development" ?
-        `${env.APP_URL_DEVLOPMENT}/users/verify-email?token=${token}`:
-        `${env.APP_URL_PRODUCTION}/users/verify-email?token=${token}`
+        const link =
+        env.NODE_ENV === 'development'
+        ? `${env.APP_URL_FRONTEND_DEVELOPMENT}/verification/${token}/${email}`
+        : `${env.APP_URL_FRONTEND_PRODUCTION}/verification/${token}/${email}`
+
+        // pegar template de verificaçao de email
+        const pathTemplate =
+            env.NODE_ENV === 'development'
+            ? './views/emails/verify-email.hbs'
+            : './build/views/emails/verify-email.hbs'
 
         // enviar verificação de email
         await this.sendMailProvider.sendEmail(
-            email, 
-            name,
-            "Confirmação de email", 
-            link, 
+            email,
+            user.name,
+            'Confirmação de email',
+            link,
             pathTemplate,
-            null
+            null,
         )
-
-        const userInfo = {
-            user:{
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                phone: user.phone,
-                image: user.image,
-                company: {
-                    id: createCompany.id,
-                    tradingName: createCompany.tradingName,
-                    cnpj: createCompany.cnpj,
-                    legalName: createCompany.legalName,
-                    stateRegistration: createCompany.stateRegistration,
-                    streetAddress: createCompany.streetAddress,
-                    num: createCompany.num,
-                    complement: createCompany.complement,
-                    zipCode: createCompany.zipCode,
-                    neighborhood: createCompany.neighborhood,
-                    city: createCompany.city,
-                    state: createCompany.state
-                }
-            },
-            
-        } as unknown as IResponseCreateUser
-    
-        return userInfo
     }
 }

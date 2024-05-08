@@ -3,13 +3,13 @@ import { Schema, model, Document } from "mongoose";
 export interface IUserModel extends Document {
     name: string;
     email: string;
-    password: string | undefined;
+    password?: string | null;
     phone: string;
     image: string;
     role: 'ADMIN' | 'COSTUMER' | 'SUPER';
     firstAcess: boolean;
     createdAt: Date;
-    emailActive: boolean;
+    emailActive?: boolean | null;
 }
 
 export const UserSchema = new Schema<IUserModel>({

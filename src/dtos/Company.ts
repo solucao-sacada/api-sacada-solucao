@@ -1,6 +1,6 @@
 export interface ICompanyDTO {
     id?:string
-    idUser: string;
+    idUser?: string | null;
     tradingName: string;
     legalName: string;
     cnpj: string;
