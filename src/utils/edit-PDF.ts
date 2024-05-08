@@ -6,9 +6,6 @@ import { ICompanyDTO } from '@/dtos/Company';
 export async function editarPDF({
     id,
     price,
-    aparador,
-    selante,
-    prolongador,
     qtdAparador,
     qtdProlongador,
     qtdSelante,
@@ -30,7 +27,7 @@ export async function editarPDF({
     const { width, height } = page.getSize();
     
     const fontSize = 12;
-    const lineHeight = 25;
+    const lineHeight = 24;
     const textOptions = {
         x: 155,
         size: fontSize,
@@ -45,6 +42,7 @@ export async function editarPDF({
     };
     
     let currentY = height - 285;
+    
     const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
     const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
     
@@ -53,6 +51,7 @@ export async function editarPDF({
         const font = isBold ? boldFont : helveticaFont; // Usando a fonte bold ou regular
         page.drawText(text, { ...textOptions, y, font });
     };
+
     // ENDERECO
     drawText(`\u2022 ${company.tradingName}`, 720);
     drawText(`\u2022 ${company.streetAddress}, ${company.num} - ${company.neighborhood}, ${company.city} - ${company.state} - ${company.zipCode}`, 695);
@@ -105,7 +104,7 @@ export async function editarPDF({
     
     drawTextWithBold(`\u2022 Total: `, true, currentY);
     page.drawText(`${price}`, { ...textOptions, x: 198, y: currentY });
-    currentY -= lineHeight * 2.5;
+    currentY -= lineHeight * 3;
     
     // EMPRESA
     drawText(`\u2022 ${company.legalName}`, currentY);
