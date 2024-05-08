@@ -121,25 +121,25 @@ export class RegisterUseCase{
         })
          // enviar email de verificação
         // formatar link com token
-        const link =
-        env.NODE_ENV === 'development'
-        ? `${env.APP_URL_FRONTEND_DEVELOPMENT}/verification/${token}/${email}`
-        : `${env.APP_URL_FRONTEND_PRODUCTION}/verification/${token}/${email}`
+        // const link =
+        // env.NODE_ENV === 'development'
+        // ? `${env.APP_URL_FRONTEND_DEVELOPMENT}/verification/${token}/${email}`
+        // : `${env.APP_URL_FRONTEND_PRODUCTION}/verification/${token}/${email}`
 
-        // pegar template de verificaçao de email
-        const pathTemplate =
-            env.NODE_ENV === 'development'
-            ? './views/emails/verify-email.hbs'
-            : './build/views/emails/verify-email.hbs'
+        // // pegar template de verificaçao de email
+        // const pathTemplate =
+        //     env.NODE_ENV === 'development'
+        //     ? './views/emails/verify-email.hbs'
+        //     : './build/views/emails/verify-email.hbs'
 
-        // enviar verificação de email
-        await this.sendMailProvider.sendEmail(
-            email,
-            user.name,
-            'Confirmação de email',
-            link,
-            pathTemplate,
-            null,
-        )
+        // // enviar verificação de email
+        // await this.sendMailProvider.sendEmail(
+        //     email,
+        //     user.name,
+        //     'Confirmação de email',
+        //     link,
+        //     pathTemplate,
+        //     null,
+        // )
     }
 }
