@@ -108,8 +108,11 @@ export class RegisterUseCase{
             idUser: user.id
         })
 
+        console.log(createCompany.id)
+        const idCompany = String(createCompany.id)
+
         // atualizar idCompany no user
-        await this.usersRepository.updateIdCompany(user.id, createCompany.id)
+        await this.usersRepository.updateIdCompany(user.id, idCompany)
         
         // gerar token valido por 3h
         const token = randomUUID()

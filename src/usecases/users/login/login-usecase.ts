@@ -74,7 +74,6 @@ export class LoginUseCase{
         })
 
         const getSafeUser = await this.usersRepository.getUserSecurity(findUserExists.id) as IUserModel
-
         const findCompany = await this.companyRepository.findById(getSafeUser.idCompany as string) as ICompanyModel
 
         return {
