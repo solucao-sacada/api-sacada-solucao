@@ -38,14 +38,14 @@ export class MailProvider implements IMailProvider{
             from: '4codesolutionss@gmail.com', // De
             subject: subject, // Assunto
             html: htmlTemplate,
-            attachments: [
+            attachments: attachmentPath ? [
                 {
                     content: fs.readFileSync(attachmentPath as string).toString('base64'), // Ler o arquivo PDF e converter para base64
                     filename: 'Proposta_Comercial_Modelo.pdf',
                     type: 'application/pdf',
                     disposition: 'attachment'
                 }
-            ]
+            ] : undefined
           });
         } catch (error) {
             console.log('Error to send email')
