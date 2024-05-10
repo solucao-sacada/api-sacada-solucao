@@ -29,7 +29,7 @@ export class MongooseCompanyRepository implements ICompanyRepository {
             return newCompany
         } catch (error) {
             console.error(error);
-            throw new Error("Error creating company");
+            throw error
         }
     }
     
