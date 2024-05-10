@@ -107,7 +107,10 @@ export class RegisterUseCase{
             zipCode: company.zipCode,
             idUser: user.id
         })
-      
+
+        // atualizar idCompany no user
+        await this.usersRepository.updateIdCompany(user.id, createCompany.id)
+        
         // gerar token valido por 3h
         const token = randomUUID()
         // gerar data em horas
@@ -119,27 +122,27 @@ export class RegisterUseCase{
             expireDate: expireDateHours,
             token
         })
-         // enviar email de verificação
+        //  enviar email de verificação
         // formatar link com token
-        // const link =
-        // env.NODE_ENV === 'development'
-        // ? `${env.APP_URL_FRONTEND_DEVELOPMENT}/verification/${token}/${email}`
-        // : `${env.APP_URL_FRONTEND_PRODUCTION}/verification/${token}/${email}`
+        const link =
+        env.NODE_ENV === 'development'
+        ? `${env.APP_URL_FRONTEND_DEVELOPMENT}/verification/${token}/${email}`
+        : `${env.APP_URL_FRONTEND_PRODUCTION}/verification/${token}/${email}`
 
-        // // pegar template de verificaçao de email
-        // const pathTemplate =
-        //     env.NODE_ENV === 'development'
-        //     ? './views/emails/verify-email.hbs'
-        //     : './build/views/emails/verify-email.hbs'
+        // pegar template de verificaçao de email
+        const pathTemplate =
+            env.NODE_ENV === 'development'
+            ? './views/emails/verify-email.hbs'
+            : './build/views/emails/verify-email.hbs'
 
-        // // enviar verificação de email
-        // await this.sendMailProvider.sendEmail(
-        //     email,
-        //     user.name,
-        //     'Confirmação de email',
-        //     link,
-        //     pathTemplate,
-        //     null,
-        // )
+        // enviar verificação de email
+        await this.sendMailProvider.sendEmail(
+            email,
+            user.name,
+            'Confirmação de email',
+            link,
+            pathTemplate,
+            null,
+        )
     }
 }

@@ -1,5 +1,6 @@
 export interface IUserDTO{
     id?: string
+    idCompany?: string | null
     name: string;
     email: string;
     password?: string | null;

@@ -13,6 +13,7 @@ export interface IUsersRepository {
     activeEmail(id:string, activate?: boolean): Promise<void | null>
     changePassword(id:string, password:string): Promise<void | null>
     updateById(data:IUserDTO): Promise<IUserModel>
+    updateIdCompany(id:string, idCompany:string): Promise<void>
     updateIdCostumerPayment(idUser:string, idCustomerPayment:string): Promise<IUserModel> 
     turnAdmin(id:string): Promise<IUserModel | null>
     deleteById(id:string): Promise<void>

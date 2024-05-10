@@ -1,6 +1,8 @@
+import { ICompanyModel } from "@/database/models/Companies";
 import { IUserModel } from "@/database/models/Users";
 import { env } from "@/env";
 import { IDateProvider } from "@/providers/DateProvider/interface-date-provider";
+import { ICompanyRepository } from "@/repositories/interfaces/interface-companies-repository";
 import { ITokensRepository } from "@/repositories/interfaces/interface-tokens-repository";
 import { IUsersRepository } from "@/repositories/interfaces/interface-users-repository";
 import { AppError } from "@/usecases/errors/AppError";
@@ -15,14 +17,22 @@ interface IRequestLoginAccount {
 interface IResponseLoginAccount {
     accessToken: string
     refreshToken: string
-    user: IUserModel
+    user: {
+        id: string
+        name: string
+        email: string
+        phone: string
+        image: string
+        company: ICompanyModel
+    }
 }
 
 export class LoginUseCase{
     constructor(
         private usersRepository: IUsersRepository,
         private usersTokensRepository: ITokensRepository,
-        private dayjsDateProvider: IDateProvider
+        private dayjsDateProvider: IDateProvider,
+        private companyRepository: ICompanyRepository,
     ) {}
 
     async execute({
@@ -65,8 +75,30 @@ export class LoginUseCase{
 
         const getSafeUser = await this.usersRepository.getUserSecurity(findUserExists.id) as IUserModel
 
+        const findCompany = await this.companyRepository.findById(getSafeUser.idCompany as string) as ICompanyModel
+
         return {
-            user: getSafeUser,
+            user: {
+                id: findUserExists.id,
+                email: findUserExists.email,
+                name: findUserExists.name,
+                phone: findUserExists.phone,
+                image: findUserExists.image,
+                company: {
+                    id: findCompany.id,
+                    cnpj: findCompany.cnpj,
+                    tradingName: findCompany.tradingName,
+                    legalName: findCompany.legalName,
+                    stateRegistration: findCompany.stateRegistration,
+                    streetAddress: findCompany.streetAddress,
+                    num: findCompany.num,
+                    complement: findCompany.complement,
+                    zipCode: findCompany.zipCode,
+                    neighborhood: findCompany.neighborhood,
+                    city: findCompany.city,
+                    state: findCompany.state
+                } as ICompanyModel
+            },
             accessToken,
             refreshToken,
         }

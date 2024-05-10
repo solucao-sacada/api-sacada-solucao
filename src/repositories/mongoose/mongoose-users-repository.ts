@@ -7,6 +7,16 @@ import { IUserDTO } from "@/dtos/IUserDTO";
 
 export class MongooseUsersRepository implements IUsersRepository {
     private User: Model<IUserModel> = Users;
+    async updateIdCompany(id: string, idCompany: string){
+        try {
+            await this.User.findByIdAndUpdate(id, {
+                idCompany
+            })
+        } catch (error) {
+            console.error(error)
+            throw new AppError('Error find user')
+        }
+    }
 
     findByIdCostumerPayment(id: string): Promise<IUserModel | null> {
         throw new Error("Method not implemented.");

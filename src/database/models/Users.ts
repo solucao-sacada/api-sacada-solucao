@@ -10,9 +10,11 @@ export interface IUserModel extends Document {
     firstAcess: boolean;
     createdAt: Date;
     emailActive?: boolean | null;
+    idCompany?: string | null;
 }
 
 export const UserSchema = new Schema<IUserModel>({
+    idCompany: { type: String, ref: "Companies", required: false },
     name: { type: String, required: true },
     email: {
         type: String,
