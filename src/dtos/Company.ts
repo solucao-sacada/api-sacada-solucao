@@ -7,7 +7,7 @@ export interface ICompanyDTO {
     stateRegistration: string;
     streetAddress: string;
     num: number;
-    complement: string;
+    complement?: string | null;
     zipCode: number;
     neighborhood: string;
     city: string;

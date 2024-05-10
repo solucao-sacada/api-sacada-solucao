@@ -22,7 +22,7 @@ export class RegisterUserController {
                 state: z.string(),
                 zipCode: z.number().positive().int(),
                 neighborhood: z.string(),
-                complement: z.string(),
+                complement: z.string().optional().nullable(),
               }),
             })
 

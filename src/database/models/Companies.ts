@@ -8,7 +8,7 @@ export interface ICompanyModel extends Document {
     stateRegistration: string;
     streetAddress: string;
     num: number;
-    complement: string;
+    complement?: string | null;
     zipCode: number;
     neighborhood: string;
     city: string;
@@ -23,7 +23,7 @@ export const CompanySchema = new Schema<ICompanyModel>({
     stateRegistration: { type: String, required: true},
     streetAddress: { type: String, required: true},
     num: { type: Number, required: true},
-    complement: { type: String, required: true},
+    complement: { type: String, required: false},
     zipCode: { type: Number, required: true},
     neighborhood: { type: String, required: true},
     city: { type: String, required: true},
