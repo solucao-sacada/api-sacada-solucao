@@ -37,7 +37,7 @@ export class UpdateCompanyController {
           
             const updateCompanyUseCase = await makeUpdateCompany()
             
-            await updateCompanyUseCase.execute({
+            const company = await updateCompanyUseCase.execute({
               id,
               tradingName,
               legalName,
@@ -51,7 +51,7 @@ export class UpdateCompanyController {
               neighborhood,
               complement,
             })
-            return response.status(201).send({ message: 'Empresa atualizada com sucesso' })
+            return response.status(201).send(company)
             
           } catch (error) {
             throw error
