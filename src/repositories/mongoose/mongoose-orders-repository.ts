@@ -15,7 +15,7 @@ export class MongooseOrdersRepository implements IOrdersRepository {
             })
         } catch (error) {
             console.error(error)
-            throw new Error("Error alter status order")
+            throw error
         }
     }
     async update(id: string, data?: IOrderDTO | undefined) {
@@ -27,7 +27,7 @@ export class MongooseOrdersRepository implements IOrdersRepository {
             })
         } catch (error) {
             console.error(error)
-            throw new Error("Error update order")
+            throw error
         }
     }
 
@@ -38,7 +38,7 @@ export class MongooseOrdersRepository implements IOrdersRepository {
             return order
         } catch (error) {
             console.error(error)
-            throw new Error("Error find order by id")
+            throw error
         }
     }
     async listByUser(idUser: string){
@@ -46,7 +46,7 @@ export class MongooseOrdersRepository implements IOrdersRepository {
             return await this.Orders.find({idUser}).sort({code: -1})
         } catch (error) {
             console.error(error)
-            throw new Error("Error list orders by user")
+            throw error
         }
     }
 
@@ -73,7 +73,7 @@ export class MongooseOrdersRepository implements IOrdersRepository {
             return order
         } catch (error) {
             console.error(error)
-            throw new Error("Error create order")
+            throw error
         }
     }
 
@@ -82,7 +82,7 @@ export class MongooseOrdersRepository implements IOrdersRepository {
             return await this.Orders.find().sort({code: -1})
         } catch (error) {
             console.error(error)
-            throw new Error("Error list orders")
+            throw error
         }
     }
   

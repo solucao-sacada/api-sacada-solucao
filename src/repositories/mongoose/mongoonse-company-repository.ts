@@ -38,7 +38,7 @@ export class MongooseCompanyRepository implements ICompanyRepository {
             return await this.Company.findById(id)
         } catch (error) {
             console.error(error);
-            return null
+            throw error
         }
     }
     async findByLegalName(legalName: string) {
@@ -46,7 +46,7 @@ export class MongooseCompanyRepository implements ICompanyRepository {
             return await this.Company.findOne({ legalName });
         } catch (error) {
             console.error(error);
-            return null
+            throw error
         }
     }
     async findByCNPJ(cnpj: string) {
@@ -54,7 +54,7 @@ export class MongooseCompanyRepository implements ICompanyRepository {
             return await this.Company.findOne({ cnpj });
         } catch (error) {
             console.error(error);
-            return null
+            throw error
         }
     }
 
@@ -65,7 +65,7 @@ export class MongooseCompanyRepository implements ICompanyRepository {
             return newCompany
         } catch (error) {
             console.error(error);
-            return null
+            throw error
         }
     }
     async delete(id: string){
@@ -73,6 +73,7 @@ export class MongooseCompanyRepository implements ICompanyRepository {
             await this.Company.findByIdAndDelete(id)
         } catch (error) {
             console.error(error);
+            throw error
         }
     }
 }

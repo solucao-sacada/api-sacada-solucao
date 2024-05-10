@@ -14,7 +14,7 @@ export class MongooseUsersRepository implements IUsersRepository {
             })
         } catch (error) {
             console.error(error)
-            throw new AppError('Error find user')
+            throw error
         }
     }
 
@@ -29,7 +29,7 @@ export class MongooseUsersRepository implements IUsersRepository {
             return user
         } catch (error) {
             console.error(error)
-            throw new AppError('Error find user')
+            throw error
         }
     }
     findByCPF(cpf: string): Promise<IUserModel | null> {
@@ -53,7 +53,7 @@ export class MongooseUsersRepository implements IUsersRepository {
             return await this.User.find();
         } catch (error) {
             console.error(error);
-            throw new AppError("Error finding user");
+            throw error
         }
     }
 
@@ -78,7 +78,7 @@ export class MongooseUsersRepository implements IUsersRepository {
             return user;
         } catch (error) {
             console.error(error);
-            throw new AppError("Error creating user");
+            throw error
         }
     }
 
@@ -87,7 +87,7 @@ export class MongooseUsersRepository implements IUsersRepository {
             return this.User.findById(id);
         } catch (error) {
             console.error(error);
-            throw new AppError("Error find user");
+            throw error
         }
     }
 
@@ -96,7 +96,7 @@ export class MongooseUsersRepository implements IUsersRepository {
             return this.User.findOne({ email });
         } catch (error) {
             console.error(error);
-            throw new AppError("Error find user");
+            throw error
         }
     }
 
@@ -107,7 +107,7 @@ export class MongooseUsersRepository implements IUsersRepository {
             });
         } catch (error) {
             console.error(error);
-            throw new AppError("Error find company");
+            throw error
         }
     }
 
@@ -131,7 +131,7 @@ export class MongooseUsersRepository implements IUsersRepository {
             return user;
         } catch (error) {
             console.error(error);
-            throw new AppError("Error updating user");
+            throw error
         }
     }
 
@@ -143,7 +143,7 @@ export class MongooseUsersRepository implements IUsersRepository {
             );
         } catch (error) {
             console.error(error);
-            throw new AppError("Error updating companysIds");
+            throw error
         }
     }
 
@@ -152,7 +152,7 @@ export class MongooseUsersRepository implements IUsersRepository {
             await this.User.findByIdAndDelete(id);
         } catch (error) {
             console.error(error);
-            throw new AppError("Error deleting user");
+            throw error
         }
     }
 }

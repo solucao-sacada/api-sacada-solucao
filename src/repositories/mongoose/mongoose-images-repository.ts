@@ -13,7 +13,7 @@ export class MongooseImagesRepository implements IImageRepository{
             return images
         } catch (error) {
             console.error(error)
-            throw new Error("Error list images by order")
+            throw error
         }
     }
     
@@ -23,7 +23,7 @@ export class MongooseImagesRepository implements IImageRepository{
             return image
         } catch (error) {
             console.error(error)
-            throw new Error("Error upload image")
+            throw error
         }
     }
     async findById(id: string) {
@@ -32,7 +32,7 @@ export class MongooseImagesRepository implements IImageRepository{
             return image
         } catch (error) {
             console.error(error)
-            throw new Error("Error find image by id")
+            throw error
         }
     }
     async findByHashName(name: string) {
@@ -41,7 +41,7 @@ export class MongooseImagesRepository implements IImageRepository{
             return image
         } catch (error) {
             console.error(error)
-            throw new Error("Error find image by hash name")
+            throw error
         }
     }
     async deleteById(id: string) {
@@ -49,7 +49,7 @@ export class MongooseImagesRepository implements IImageRepository{
             await this.Image.findByIdAndDelete(id)
         } catch (error) {
             console.error(error)
-            throw new Error("Error delete image by id")
+            throw error
         }
     }
 }

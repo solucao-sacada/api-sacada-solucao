@@ -16,7 +16,7 @@ export class MongooseTokensRepository implements ITokensRepository {
             });
         } catch (error) {
             console.log(error);
-            throw new AppError("Error finding refresh tokens");
+            throw error
         }
     }
     findByUserId(idUser: string): Promise<ITokensModel | null> {
@@ -40,7 +40,7 @@ export class MongooseTokensRepository implements ITokensRepository {
             return createRefreshToken;
         } catch (error) {
             console.log(error);
-            throw new AppError("Error creating refresh tokens");
+            throw error
         }
     }
     async findRefreshTokenByUserIdAndRefreshToken(
@@ -54,7 +54,7 @@ export class MongooseTokensRepository implements ITokensRepository {
             });
         } catch (error) {
             console.log(error);
-            throw new AppError("Error finding refresh tokens");
+            throw error
         }
     }
     async deleteById(id: string): Promise<void> {
@@ -62,7 +62,7 @@ export class MongooseTokensRepository implements ITokensRepository {
             await this.Token.findByIdAndDelete(id);
         } catch (error) {
             console.log(error);
-            throw new AppError("Error deleting refresh tokens");
+            throw error
         }
     }
 }
