@@ -9,6 +9,7 @@ import { SendForgotPasswordController } from "../users/send-forgot-password/send
 import { SendVerificationEmailController } from "../users/send-verification-email/send-verification-email-user-controller";
 import { UpdateUserController } from "../users/update/update-user-controller";
 import { VerifyEmailController } from "../users/verify-email/verify-email-user-controller";
+import { VerifyTokenIsExistsController } from "../users/verify-token-is-valid/verify-token-is-valid-users-controller";
 
 export const usersRoutes = Router();
 
@@ -21,6 +22,7 @@ const sendForgotPasswordController = new SendForgotPasswordController();
 const sendVerificationEmailController = new SendVerificationEmailController();
 const updateUserController = new UpdateUserController();
 const verifyEmailUser = new VerifyEmailController();
+const veirifyTokenExistsController = new VerifyTokenIsExistsController();
 
 usersRoutes.post("/", registerUserController.handle);
 usersRoutes.get("/:id", verifyTokenJWT, findUserByIdController.handle);
@@ -31,4 +33,6 @@ usersRoutes.post("/forgot-password", sendForgotPasswordController.handle)
 usersRoutes.post("/verification-email", sendVerificationEmailController.handle)
 usersRoutes.put("/", verifyTokenJWT, updateUserController.handle)
 usersRoutes.put("/verify-email", verifyEmailUser.handle)
+usersRoutes.put("/verify-token", veirifyTokenExistsController.handle)
+
 
