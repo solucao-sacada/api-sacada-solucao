@@ -8,8 +8,7 @@ export class VerifyTokenIsExistsController {
       const tokenQuerySchema = z.object({
         token: z.string(),
       })
-    
-      const { token } = tokenQuerySchema.parse(request.query)
+      const { token } = tokenQuerySchema.parse(request.params)
     
       const verifyTokenIsValidUseCase = await makeVerifyTokenIsValid()
     
