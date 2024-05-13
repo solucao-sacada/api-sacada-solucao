@@ -30,7 +30,7 @@ export class CreateNewPasswordByOldPassword {
 
     // verificar se senha antiga é igual a senha do banco
     if (!passwordOldMatch) {
-      throw new AppError('Senha antiga não incorreta', 401)
+      throw new AppError('Senha antiga incorreta', 401)
     }
 
     // criptografar senha
