@@ -12,7 +12,7 @@ export class MongooseTokensRepository implements ITokensRepository {
     async findByToken(token: string){
         try {
             return this.Token.findOne({
-                refreshToken: token,
+                token
             });
         } catch (error) {
             console.log(error);
