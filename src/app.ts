@@ -2,8 +2,6 @@ import express from "express";
 
 import "dotenv/config";
 
-import {redisClient} from "./config/redis-connection";
-
 import "reflect-metadata";
 
 import "express-async-errors";

@@ -20,10 +20,10 @@ const envSchema = z.object({
     FIREBASE_BUCKET: z.string().optional(),
     FOLDER_TMP_DEVELOPMENT: z.string(),
     FOLDER_TMP_PRODUCTION: z.string(),
-    API_URL_DEVLOPMENT: z.string().optional(),
-    API_URL_PRODUCTION: z.string().optional(),
-    FRONTEND_URL_DEVELOPMENT: z.string().optional(),
-    FRONTEND_URL_PRODUCTION: z.string().optional(),
+    API_URL_DEVLOPMENT: z.string(),
+    API_URL_PRODUCTION: z.string(),
+    FRONTEND_URL_DEVELOPMENT: z.string(),
+    FRONTEND_URL_PRODUCTION: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)
