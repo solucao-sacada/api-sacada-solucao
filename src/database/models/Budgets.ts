@@ -21,6 +21,9 @@ export interface IBudGetModel extends Document {
   priceAcessories: number
   priceProlongador: number
   priceKitSolutions: number
+
+  width: number
+  height: number
 }
 
 export const BudGetSchema = new Schema<IBudGetModel>({
@@ -95,6 +98,14 @@ export const BudGetSchema = new Schema<IBudGetModel>({
         required: true
     },
     priceKitSolutions: {
+        type: Number,
+        required: true
+    },
+    width: {
+        type: Number,
+        required: true
+    },
+    height: {
         type: Number,
         required: true
     }

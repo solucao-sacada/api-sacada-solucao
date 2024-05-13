@@ -20,4 +20,7 @@ export interface IBudgetDTO{
   priceAcessories: number
   priceProlongador: number
   priceKitSolutions: number
+
+  width: number
+  height: number
 }
