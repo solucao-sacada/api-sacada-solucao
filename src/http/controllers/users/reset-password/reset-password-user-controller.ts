@@ -28,7 +28,7 @@ export class ResetPasswordController {
                 token
               })
             
-            return response.status(200).send('Usuário verificado com sucesso')
+            return response.status(200).send('Senha alterada com sucesso!')
             
         } catch (error) {
             throw error
