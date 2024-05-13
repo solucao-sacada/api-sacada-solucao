@@ -35,11 +35,15 @@ export class MongooseUsersRepository implements IUsersRepository {
     findByCPF(cpf: string): Promise<IUserModel | null> {
         throw new Error("Method not implemented.");
     }
-    activeEmail(id: string, activate?: boolean | undefined): Promise<void | null> {
-        throw new Error("Method not implemented.");
+    async activeEmail(id: string, activate?: boolean | undefined) {
+        await this.User.findByIdAndUpdate(id, {
+            activate
+        })
     }
-    changePassword(id: string, password: string): Promise<void | null> {
-        throw new Error("Method not implemented.");
+    async changePassword(id: string, password: string) {
+       await this.User.findByIdAndUpdate(id, {
+            password
+        })
     }
     updateIdCostumerPayment(idUser: string, idCustomerPayment: string): Promise<IUserModel> {
         throw new Error("Method not implemented.");
