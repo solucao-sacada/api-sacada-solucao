@@ -33,6 +33,6 @@ export class VerifyEmailUseCase{
         }
 
         //atualizar emailActive para true
-        await this.usersRepository.activeEmail(findUserByEmail.id)
+        await this.usersRepository.activeEmail(findUserByEmail.id, true)
     }
 }

@@ -35,7 +35,7 @@ export class MongooseUsersRepository implements IUsersRepository {
     findByCPF(cpf: string): Promise<IUserModel | null> {
         throw new Error("Method not implemented.");
     }
-    async activeEmail(id: string, activate?: boolean | undefined) {
+    async activeEmail(id: string, activate?: boolean) {
         await this.User.findByIdAndUpdate(id, {
             activate
         })
