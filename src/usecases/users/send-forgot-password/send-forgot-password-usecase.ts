@@ -52,7 +52,6 @@ export class SendForgotPasswordUseCase{
        let link = env.NODE_ENV === "development" ?
        `${env.FRONTEND_URL_DEVELOPMENT}/reset-password?token=${token}` :
        `${env.FRONTEND_URL_PRODUCTION}/reset-password?token=${token}`
-       console.log(link)
         // enviar email com link de recuperação de senha
         await this.sendMailProvider.sendEmail(
             findUserByEmail.email, 
