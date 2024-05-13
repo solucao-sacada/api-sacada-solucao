@@ -23,6 +23,7 @@ interface IResponseLoginAccount {
         email: string
         phone: string
         image: string
+        emailActive: boolean
         company: ICompanyModel
     }
 }
@@ -82,6 +83,7 @@ export class LoginUseCase{
                 name: findUserExists.name,
                 phone: findUserExists.phone,
                 image: findUserExists.image,
+                emailActive: findUserExists.emailActive as boolean,
                 company: {
                     id: findCompany.id,
                     cnpj: findCompany.cnpj,
