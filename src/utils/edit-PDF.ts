@@ -16,7 +16,9 @@ export async function editarPDF({
     priceGlasses,
     priceAcessories,
     priceKitSolutions,
-    priceProlongador
+    priceProlongador,
+    height,
+    width
 }: IBudGetModel, company: ICompanyDTO) {
     // Carregar o PDF
     const pdfBytes = await fs.readFile('./src/assets/Proposta_Comercial_Modelo.pdf');
@@ -24,7 +26,7 @@ export async function editarPDF({
 
     // Pegar a terceira página
     const page = pdfDoc.getPage(3); // O índice começa em 0, então a quarta página é o índice 3
-    const { width, height } = page.getSize();
+    const { width: pageWidth, height: pageHeight } = page.getSize();
     
     const fontSize = 12;
     const lineHeight = 24;
@@ -41,7 +43,7 @@ export async function editarPDF({
         });
     };
     
-    let currentY = height - 285;
+    let currentY = pageHeight - 255;
     
     const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
     const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
@@ -58,6 +60,17 @@ export async function editarPDF({
     currentY -= lineHeight;
     
     // ORÇAMENTO
+
+    // campo altura
+    drawTextWithBold(`\u2022 Altura:`, true, currentY);
+    page.drawText(`${height}`, { ...textOptions, x: 204, y: currentY });
+    currentY -= lineHeight;
+
+    // campo largura
+    drawTextWithBold(`\u2022 Largura:`, true, currentY);
+    page.drawText(`${width}`, { ...textOptions, x: 214, y: currentY });
+    currentY -= lineHeight;
+
     drawTextWithBold(`\u2022 Aparador Inox:`, true, currentY);
     page.drawText(`${qtdAparador}`, { ...textOptions, x: 252, y: currentY });
     currentY -= lineHeight;
@@ -99,12 +112,12 @@ export async function editarPDF({
     currentY -= lineHeight;
     
     drawTextWithBold(`\u2022 Área: `, true, currentY);
-    page.drawText(`${area}`, { ...textOptions, x: 196, y: currentY });
+    page.drawText(`${area} m²`, { ...textOptions, x: 196, y: currentY });
     currentY -= lineHeight;
     
     drawTextWithBold(`\u2022 Total: `, true, currentY);
     page.drawText(`${price}`, { ...textOptions, x: 198, y: currentY });
-    currentY -= lineHeight * 3;
+    currentY -= lineHeight * 4.5;
     
     // EMPRESA
     drawText(`\u2022 ${company.legalName}`, currentY);

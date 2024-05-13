@@ -117,16 +117,17 @@ export class CreateBudgetsUseCase {
     let priceAcessoriesFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(priceAcessories);
     let priceKitSolutionsFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(priceKitSolutions);
     let priceProlongadorFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(priceProlongador);
-    let areaFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(area);
+    let areaFormmated = new Intl.NumberFormat().format(area);
     let totalFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price);
-    let heightFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(height);
-    let widthFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(width);
+    let heightFormmated = new Intl.NumberFormat().format(height);
+    let widthFormmated = new Intl.NumberFormat().format(width);
 
     const budgetFormmated = {
       ...budget,
-      qtdAparador: budget.qtdAparador,
-      qtdProlongador: budget.qtdProlongador,
-      qtdSelante: budget.qtdSelante,
+      id: budget._id,
+      qtdAparador,
+      qtdProlongador,
+      qtdSelante,
       priceGlasses: priceGlassesFormmated,
       pricePlates: pricePlatesFormmated,
       priceAcessories: priceAcessoriesFormmated,
@@ -141,35 +142,32 @@ export class CreateBudgetsUseCase {
     // CRIAR PDF COM O ORÇAMENTO
     const {filePath: pathPdf, namePdf} = await editarPDF(budgetFormmated, findCompany)    // enviar verificação de email
     
-    await this.mailProvider.sendEmail(
-        emailClient, 
-        client,
-        "Orçamento Sacada", 
-        null, 
-        pathTemplate,
-        {
-          price: totalFormmated,
-          aparador,
-          selante,
-          prolongador,
-          qtdAparador,
-          qtdProlongador,
-          qtdSelante,
-          chapaInferior: chapaInferior ? 'Sim' : 'Não', 
-          chapaSuperior: chapaSuperior ? 'Sim' : 'Não',
-          area: areaFormmated,
-          pricePlates: pricePlatesFormmated,
-          priceGlasses: priceGlassesFormmated,
-          priceAcessories: priceAcessoriesFormmated,
-          priceKitSolutions: priceKitSolutionsFormmated,
-          priceProlongador: priceProlongadorFormmated,
-          width: widthFormmated,
-          height: heightFormmated
-        },
-        `${pathPdf}/${namePdf}`
-    )
-    // deletar o arquivo PDF criado
-    this.fileProvider.deleteFileTmp(namePdf, pathPdf)
+    // await this.mailProvider.sendEmail(
+    //     emailClient, 
+    //     client,
+    //     "Orçamento Sacada", 
+    //     null, 
+    //     pathTemplate,
+    //     {
+    //       price: totalFormmated,
+    //       qtdAparador,
+    //       qtdProlongador,
+    //       qtdSelante,
+    //       chapaInferior: chapaInferior ? 'Sim' : 'Não', 
+    //       chapaSuperior: chapaSuperior ? 'Sim' : 'Não',
+    //       area: areaFormmated,
+    //       pricePlates: pricePlatesFormmated,
+    //       priceGlasses: priceGlassesFormmated,
+    //       priceAcessories: priceAcessoriesFormmated,
+    //       priceKitSolutions: priceKitSolutionsFormmated,
+    //       priceProlongador: priceProlongadorFormmated,
+    //       width: widthFormmated,
+    //       height: heightFormmated
+    //     },
+    //     `${pathPdf}/${namePdf}`
+    // )
+    // // deletar o arquivo PDF criado
+    // this.fileProvider.deleteFileTmp(namePdf, pathPdf)
 
     // retornar o pedido
     return budget
