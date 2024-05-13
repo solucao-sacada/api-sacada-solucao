@@ -27,11 +27,11 @@ const veirifyTokenExistsController = new VerifyTokenIsExistsController();
 usersRoutes.post("/", registerUserController.handle);
 usersRoutes.get("/:id", verifyTokenJWT, findUserByIdController.handle);
 usersRoutes.get("/verify-token/:token", veirifyTokenExistsController.handle)
+usersRoutes.post("/send-verification-email/:email", sendVerificationEmailController.handle)
 usersRoutes.delete("/:id", verifyTokenJWT, deleteUserController.handle);
 usersRoutes.post("/email-exists", emailExistController.handle)
 usersRoutes.patch("/reset-password", resetPasswordController.handle)
 usersRoutes.post("/forgot-password", sendForgotPasswordController.handle)
-usersRoutes.post("/send-verification-email", sendVerificationEmailController.handle)
 usersRoutes.put("/", verifyTokenJWT, updateUserController.handle)
 usersRoutes.patch("/verify-email", verifyEmailUser.handle)
 
