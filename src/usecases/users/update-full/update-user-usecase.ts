@@ -43,7 +43,13 @@ export class UpdateUserUseCase{
         })
         
         return {
-            user: userUpdated
+            user: {
+                id: userUpdated.id,
+                name: userUpdated.name,
+                email: userUpdated.email,
+                phone: userUpdated.phone,
+                image: userUpdated.image
+            } as IUserModel
         }
     }
 }
