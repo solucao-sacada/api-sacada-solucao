@@ -142,32 +142,32 @@ export class CreateBudgetsUseCase {
     // CRIAR PDF COM O ORÇAMENTO
     const {filePath: pathPdf, namePdf} = await editarPDF(budgetFormmated, findCompany)    // enviar verificação de email
     
-    // await this.mailProvider.sendEmail(
-    //     emailClient, 
-    //     client,
-    //     "Orçamento Sacada", 
-    //     null, 
-    //     pathTemplate,
-    //     {
-    //       price: totalFormmated,
-    //       qtdAparador,
-    //       qtdProlongador,
-    //       qtdSelante,
-    //       chapaInferior: chapaInferior ? 'Sim' : 'Não', 
-    //       chapaSuperior: chapaSuperior ? 'Sim' : 'Não',
-    //       area: areaFormmated,
-    //       pricePlates: pricePlatesFormmated,
-    //       priceGlasses: priceGlassesFormmated,
-    //       priceAcessories: priceAcessoriesFormmated,
-    //       priceKitSolutions: priceKitSolutionsFormmated,
-    //       priceProlongador: priceProlongadorFormmated,
-    //       width: widthFormmated,
-    //       height: heightFormmated
-    //     },
-    //     `${pathPdf}/${namePdf}`
-    // )
-    // // deletar o arquivo PDF criado
-    // this.fileProvider.deleteFileTmp(namePdf, pathPdf)
+    await this.mailProvider.sendEmail(
+        emailClient, 
+        client,
+        "Orçamento Sacada", 
+        null, 
+        pathTemplate,
+        {
+          price: totalFormmated,
+          qtdAparador,
+          qtdProlongador,
+          qtdSelante,
+          chapaInferior: chapaInferior ? 'Sim' : 'Não', 
+          chapaSuperior: chapaSuperior ? 'Sim' : 'Não',
+          area: areaFormmated,
+          pricePlates: pricePlatesFormmated,
+          priceGlasses: priceGlassesFormmated,
+          priceAcessories: priceAcessoriesFormmated,
+          priceKitSolutions: priceKitSolutionsFormmated,
+          priceProlongador: priceProlongadorFormmated,
+          width: widthFormmated,
+          height: heightFormmated
+        },
+        `${pathPdf}/${namePdf}`
+    )
+    // deletar o arquivo PDF criado
+    this.fileProvider.deleteFileTmp(namePdf, pathPdf)
 
     // retornar o pedido
     return budget
