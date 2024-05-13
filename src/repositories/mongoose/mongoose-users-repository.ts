@@ -37,7 +37,7 @@ export class MongooseUsersRepository implements IUsersRepository {
     }
     async activeEmail(id: string, activate?: boolean) {
         await this.User.findByIdAndUpdate(id, {
-            activate
+            emailActive: activate
         })
     }
     async changePassword(id: string, password: string) {
