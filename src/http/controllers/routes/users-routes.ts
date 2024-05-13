@@ -31,7 +31,7 @@ usersRoutes.delete("/:id", verifyTokenJWT, deleteUserController.handle);
 usersRoutes.post("/email-exists", emailExistController.handle)
 usersRoutes.patch("/reset-password", resetPasswordController.handle)
 usersRoutes.post("/forgot-password", sendForgotPasswordController.handle)
-usersRoutes.post("/verification-email", sendVerificationEmailController.handle)
+usersRoutes.patch("/verification-email", sendVerificationEmailController.handle)
 usersRoutes.put("/", verifyTokenJWT, updateUserController.handle)
 usersRoutes.put("/verify-email", verifyEmailUser.handle)
 
