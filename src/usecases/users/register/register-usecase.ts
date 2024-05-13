@@ -123,8 +123,8 @@ export class RegisterUseCase{
         // formatar link com token
         const link =
         env.NODE_ENV === 'development'
-        ? `${env.FRONTEND_URL_DEVELOPMENT}/#/auth/verification/${token}/${email}`
-        : `${env.FRONTEND_URL_PRODUCTION}/#/auth/verification/${token}/${email}`
+        ? `${env.FRONTEND_URL_DEVELOPMENT}/#/verification/${token}/${email}`
+        : `${env.FRONTEND_URL_PRODUCTION}/#/verification/${token}/${email}`
 
         // pegar template de verificaçao de email
         const pathTemplate =
