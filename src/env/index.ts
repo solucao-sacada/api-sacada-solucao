@@ -12,8 +12,6 @@ const envSchema = z.object({
     JWT_EXPIRES_IN_REFRESH_TOKEN: z.string(),
     JWT_EXPIRES_IN_ACCESS_TOKEN: z.string(),
     SENDGRID_API_KEY: z.string(),
-    APP_URL_DEVLOPMENT: z.string().optional(),
-    APP_URL_PRODUCTION: z.string().optional(),
     REDIS: z.string(),
     CHARACTERS: z.string(),
     FIREBASE_PROJECT_ID: z.string().optional(),
@@ -22,8 +20,10 @@ const envSchema = z.object({
     FIREBASE_BUCKET: z.string().optional(),
     FOLDER_TMP_DEVELOPMENT: z.string(),
     FOLDER_TMP_PRODUCTION: z.string(),
-    APP_URL_FRONTEND_DEVELOPMENT: z.string().optional(),
-    APP_URL_FRONTEND_PRODUCTION: z.string().optional(),
+    API_URL_DEVLOPMENT: z.string().optional(),
+    API_URL_PRODUCTION: z.string().optional(),
+    FRONTEND_URL_DEVELOPMENT: z.string().optional(),
+    FRONTEND_URL_PRODUCTION: z.string().optional(),
 })
 
 const _env = envSchema.safeParse(process.env)
