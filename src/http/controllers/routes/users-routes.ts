@@ -33,6 +33,6 @@ usersRoutes.post("/forgot-password", sendForgotPasswordController.handle)
 usersRoutes.post("/verification-email", sendVerificationEmailController.handle)
 usersRoutes.put("/", verifyTokenJWT, updateUserController.handle)
 usersRoutes.put("/verify-email", verifyEmailUser.handle)
-usersRoutes.put("/verify-token", veirifyTokenExistsController.handle)
+usersRoutes.get("/verify-token", veirifyTokenExistsController.handle)
 
 
