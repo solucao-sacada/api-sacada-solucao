@@ -29,7 +29,7 @@ usersRoutes.get("/:id", verifyTokenJWT, findUserByIdController.handle);
 usersRoutes.get("/verify-token/:token", veirifyTokenExistsController.handle)
 usersRoutes.delete("/:id", verifyTokenJWT, deleteUserController.handle);
 usersRoutes.post("/email-exists", emailExistController.handle)
-usersRoutes.post("/reset-password", resetPasswordController.handle)
+usersRoutes.patch("/reset-password", resetPasswordController.handle)
 usersRoutes.post("/forgot-password", sendForgotPasswordController.handle)
 usersRoutes.post("/verification-email", sendVerificationEmailController.handle)
 usersRoutes.put("/", verifyTokenJWT, updateUserController.handle)
