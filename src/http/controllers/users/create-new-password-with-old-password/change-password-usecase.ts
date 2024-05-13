@@ -6,7 +6,7 @@ export class UpdatePasswordByOldPasswordController {
   async handle(request: Request, response: Response): Promise<Response> {
     try {
       const userSchemaBody = z.object({
-        idUser: z.string().uuid(),
+        idUser: z.string(),
         oldPassword: z.string().min(6, 'Mínimo 6 caracteres'),
         newPassword: z.string().min(6, 'Mínimo 6 caracteres'),
       })
