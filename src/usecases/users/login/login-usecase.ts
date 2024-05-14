@@ -66,16 +66,16 @@ export class LoginUseCase{
         })
         // criar data de expiração do refresh token
         const expireDateRefreshToken = this.dayjsDateProvider.addDays(10)
-
         // Salvar refresh token no banco
         await this.usersTokensRepository.create({
             idUser: findUserExists.id,
             expireDate: expireDateRefreshToken,
             token: refreshToken
         })
-
+        
         const getSafeUser = await this.usersRepository.getUserSecurity(findUserExists.id) as IUserModel
         const findCompany = await this.companyRepository.findByUser(getSafeUser.id) as ICompanyModel
+
         return {
             user: {
                 id: findUserExists.id,
