@@ -41,7 +41,7 @@ export class UpdateUserUseCase{
             phone,
             email,
         })
-        
+        console.log(userUpdated)
         return {
             user: {
                 id: userUpdated.id,

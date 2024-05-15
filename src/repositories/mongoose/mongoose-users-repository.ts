@@ -127,7 +127,6 @@ export class MongooseUsersRepository implements IUsersRepository {
             const user = await this.User.findByIdAndUpdate(id, {
                 name,
                 email,
-                password,
                 phone,
                 image,
             }) as IUserModel;
