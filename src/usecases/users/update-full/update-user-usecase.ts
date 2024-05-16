@@ -9,9 +9,6 @@ interface IRequestUpdateUser {
     email: string
     phone: string
 }
-interface IResponseUpdateUser {
-    user: IUserModel
-}
 
 export class UpdateUserUseCase{
     constructor(
@@ -23,7 +20,7 @@ export class UpdateUserUseCase{
         name,
         phone,
         email
-    }:IRequestUpdateUser):Promise<IResponseUpdateUser>{
+    }:IRequestUpdateUser):Promise<IUserModel>{
         const findUserExists = await this.usersRepository.getUserSecurity(id)
         if(!findUserExists){
             throw new AppError('Usuário não encontrado', 404)
@@ -41,15 +38,6 @@ export class UpdateUserUseCase{
             phone,
             email,
         })
-        console.log(userUpdated)
-        return {
-            user: {
-                id: userUpdated.id,
-                name: userUpdated.name,
-                email: userUpdated.email,
-                phone: userUpdated.phone,
-                image: userUpdated.image
-            } as IUserModel
-        }
+        return userUpdated
     }
 }

@@ -124,14 +124,22 @@ export class MongooseUsersRepository implements IUsersRepository {
         image,
     }: IUserDTO) {
         try {
-            const user = await this.User.findByIdAndUpdate(id, {
-                name,
-                email,
-                phone,
-                image,
-            }) as IUserModel;
+            const user = await this.User.findOneAndUpdate(
+                { _id: id },
+                { $set: { name, email, phone, image } },
+                { new: true }
+            ) as IUserModel;
 
-            return user;
+            user.password = undefined;
+            
+            return {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                image: user.image,
+                createdAt: user.createdAt,
+            } as IUserModel
         } catch (error) {
             console.error(error);
             throw error
