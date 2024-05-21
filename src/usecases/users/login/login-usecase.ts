@@ -1,6 +1,7 @@
 import { ICompanyModel } from "@/database/models/Companies";
 import { IUserModel } from "@/database/models/Users";
 import { env } from "@/env";
+import { Role } from "@/http/middlewares/verify-token-jwt";
 import { IDateProvider } from "@/providers/DateProvider/interface-date-provider";
 import { ICompanyRepository } from "@/repositories/interfaces/interface-companies-repository";
 import { ITokensRepository } from "@/repositories/interfaces/interface-tokens-repository";
@@ -23,6 +24,7 @@ interface IResponseLoginAccount {
         email: string
         phone: string
         image: string
+        role: string
         emailActive: boolean
         company: ICompanyModel
     }
@@ -84,6 +86,7 @@ export class LoginUseCase{
                 phone: findUserExists.phone,
                 image: findUserExists.image,
                 emailActive: findUserExists.emailActive as boolean,
+                role: findUserExists.role,
                 company: {
                     id: findCompany.id,
                     cnpj: findCompany.cnpj,
