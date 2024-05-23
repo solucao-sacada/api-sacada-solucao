@@ -6,17 +6,6 @@ import { ICompanyDTO } from '@/dtos/Company';
 export async function editarPDF({
     id,
     price,
-    qtdAparador,
-    qtdProlongador,
-    qtdSelante,
-    chapaInferior,
-    chapaSuperior,
-    area,
-    pricePlates,
-    priceGlasses,
-    priceAcessories,
-    priceKitSolutions,
-    priceProlongador,
     height,
     width
 }: IBudGetModel, company: ICompanyDTO) {
@@ -71,52 +60,8 @@ export async function editarPDF({
     page.drawText(`${width}`, { ...textOptions, x: 214, y: currentY });
     currentY -= lineHeight;
 
-    drawTextWithBold(`\u2022 Aparador Inox:`, true, currentY);
-    page.drawText(`${qtdAparador}`, { ...textOptions, x: 252, y: currentY });
-    currentY -= lineHeight;
-    
-    drawTextWithBold(`\u2022 Prolongador:`, true, currentY);
-    page.drawText(`${qtdProlongador}`, { ...textOptions, x: 242, y: currentY });
-    currentY -= lineHeight;
-    
-    drawTextWithBold(`\u2022 Selante:`, true, currentY);
-    page.drawText(`${qtdSelante}`, { ...textOptions, x: 212, y: currentY });
-    currentY -= lineHeight;
-    
-    drawTextWithBold(`\u2022 Chapa Inferior:`, true, currentY);
-    page.drawText(`${chapaInferior ? 'Sim' : 'Não'}`, { ...textOptions, x: 251, y: currentY });
-    currentY -= lineHeight;
-    
-    drawTextWithBold(`\u2022 Chapa Superior:`, true, currentY);
-    page.drawText(`${chapaSuperior ? 'Sim' : 'Não'}`, { ...textOptions, x: 259, y: currentY });
-    currentY -= lineHeight;
-    
-    drawTextWithBold(`\u2022 Custo do vidro: `, true, currentY);
-    page.drawText(`${priceGlasses}`, { ...textOptions, x: 255, y: currentY });
-    currentY -= lineHeight;
-    
-    drawTextWithBold(`\u2022 Kit solução: `, true, currentY);
-    page.drawText(`${priceKitSolutions}`, { ...textOptions, x: 234, y: currentY });
-    currentY -= lineHeight;
-    
-    drawTextWithBold(`\u2022 Valor Prolongador: `, true, currentY);
-    page.drawText(`${priceProlongador}`, { ...textOptions, x: 275, y: currentY });
-    currentY -= lineHeight;
-    
-    drawTextWithBold(`\u2022 Custo dos acessórios: `, true, currentY);
-    page.drawText(`${priceAcessories}`, { ...textOptions, x: 295, y: currentY });
-    currentY -= lineHeight;
-    
-    drawTextWithBold(`\u2022 Custo das chapas: `, true, currentY);
-    page.drawText(`${pricePlates}`, { ...textOptions, x: 272, y: currentY });
-    currentY -= lineHeight;
-    
-    drawTextWithBold(`\u2022 Área: `, true, currentY);
-    page.drawText(`${area} m²`, { ...textOptions, x: 196, y: currentY });
-    currentY -= lineHeight;
-    
     drawTextWithBold(`\u2022 Total: `, true, currentY);
-    page.drawText(`${price}`, { ...textOptions, x: 198, y: currentY });
+    page.drawText(`${price}`, { ...textOptions, x: 252, y: currentY });
     currentY -= lineHeight * 4.5;
     
     // EMPRESA

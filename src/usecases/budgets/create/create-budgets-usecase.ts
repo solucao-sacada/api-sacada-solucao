@@ -125,15 +125,6 @@ export class CreateBudgetsUseCase {
     const budgetFormmated = {
       ...budget,
       id: budget._id,
-      qtdAparador,
-      qtdProlongador,
-      qtdSelante,
-      priceGlasses: priceGlassesFormmated,
-      pricePlates: pricePlatesFormmated,
-      priceAcessories: priceAcessoriesFormmated,
-      priceKitSolutions: priceKitSolutionsFormmated,
-      priceProlongador: priceProlongadorFormmated,
-      area: areaFormmated,
       price: totalFormmated,
       height: heightFormmated,
       width: widthFormmated
