@@ -1,22 +1,22 @@
 import { Message } from "./in-memory/in-memory-mail-provider";
 
 export interface IPedidoJSON {
-    area: string
+    // area: string
     price: string
-    pricePlates: string
-    priceGlasses: string 
-    priceAcessories: string
-    priceProlongador: string
-    priceKitSolutions: string
+    // pricePlates: string
+    // priceGlasses: string 
+    // priceAcessories: string
+    // priceProlongador: string
+    // priceKitSolutions: string
   
-    aparador?: boolean
-    selante?: boolean
-    prolongador?: boolean
-    chapaSuperior: string 
-    chapaInferior: string
-    qtdAparador: number
-    qtdProlongador: number
-    qtdSelante: number
+    // aparador?: boolean
+    // selante?: boolean
+    // prolongador?: boolean
+    // chapaSuperior: string 
+    // chapaInferior: string
+    // qtdAparador: number
+    // qtdProlongador: number
+    // qtdSelante: number
 
     width: string
     height: string
