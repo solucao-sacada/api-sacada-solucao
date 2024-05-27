@@ -82,6 +82,8 @@ export class UploadImageToOrderUseCase {
                 observation: findOrderExists.observation as string,
                 technician: findOrderExists.technician,
                 urlJSON: findOrderExists.urlJSON,
+                status: findOrderExists.status,
+                images: arrayUrlImages,
             }
     
           
