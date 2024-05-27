@@ -2,6 +2,7 @@ import { IImageModel } from "@/database/models/Images";
 import { IOrdersModel } from "@/database/models/Orders";
 import { IStatusDTO } from "@/dtos/IStatusDTO";
 import { Accessories, Balcony, Client } from "@/dtos/ITypeOrderJSON";
+import { IResponseListOrder } from "@/dtos/order-relationsDTO";
 import { IImageRepository } from "@/repositories/interfaces/interface-images-repository";
 import { IOrdersRepository } from "@/repositories/interfaces/interface-orders-repository";
 import { IUsersRepository } from "@/repositories/interfaces/interface-users-repository";
@@ -10,23 +11,6 @@ import { ObjectId } from "mongoose";
 
 interface IRequestListOrder {
   idUser: string
-}
-
-interface IResponseListOrder {
-    _id: string;
-    idUser: ObjectId;
-    code: number;
-    accessories: Accessories
-    balcony: Balcony
-    client: Client
-    technician: string
-    observation?: string
-    status?: IStatusDTO
-    urlJSON?: string
-    nameJSON?: string
-    images: string[]
-    createdAt: Date
-    updatedAt: Date
 }
 
 export class ListOrdersByUserUseCase {
