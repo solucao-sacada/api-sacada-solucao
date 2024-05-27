@@ -75,6 +75,8 @@ export class UploadImageToOrderUseCase {
 
         if(findOrderExists.urlJSON){
             let order: IOrderDTO = {
+                idUser: findOrderExists.idUser,
+                code: findOrderExists.code,
                 accessories: findOrderExists.accessories,
                 balcony: findOrderExists.balcony,
                 client: findOrderExists.client,
