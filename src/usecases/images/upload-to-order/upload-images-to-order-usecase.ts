@@ -63,7 +63,7 @@ export class UploadImageToOrderUseCase {
                hashName: formatHashName,
                url: imageUrl
             })
- 
+            console.log(imageUrl)
             // adicionar imagem no array de imagens
             arrayImagesUploaded.push(createImage)
             arrayUrlImages.push(imageUrl)
@@ -85,7 +85,7 @@ export class UploadImageToOrderUseCase {
                 images: arrayUrlImages,
             }
     
-          
+            console.log(order)
             const jsonName = `${order.code}-${order.client.name}.json`
             const jsonPath = env.NODE_ENV === "development" ? './src/tmp' : './build/tmp'
     
