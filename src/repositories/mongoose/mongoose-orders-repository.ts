@@ -8,6 +8,16 @@ export class MongooseOrdersRepository implements IOrdersRepository {
     private Orders: Model<IOrdersModel> = Orders;
 
     constructor(){}
+    async updateUrlJSON(id: string, urlJSON: string){
+        try {
+            return await this.Orders.findByIdAndUpdate(id, {
+                urlJSON
+            })
+        } catch (error) {
+            console.error(error)
+            throw error
+        }
+    }
     async alterStatus(idOrder: string, status: IStatusDTO){
         try {
             return await this.Orders.findByIdAndUpdate(idOrder, {

@@ -53,7 +53,7 @@ export class UploadImageToOrderUseCase {
             const formatHashName = `${image.hashName.replace(/\..+$/, ".webp")}`
             const formatPath = `${image.path}`.replace(/\..+$/, ".webp").replace("/tmp", "/tmp/orders")
 
-            // fazer upload do exame dentro firebase através do nome do arquivo
+            // fazer upload do pedido dentro firebase através do nome do arquivo
             let imageUrl = await this.storageProvider.uploadFile(formatHashName, formatPath, 'orders') as string
             // criar imagem no banco de dados
 
@@ -102,7 +102,7 @@ export class UploadImageToOrderUseCase {
             order.nameJSON = jsonName
     
             // atualizar o pedido no banco de dados com a url do json
-            await this.ordersRepository.update(order.id as string, order)
+            await this.ordersRepository.update(findOrderExists.id, order)
     
             // deletar o arquivo temporário
             this.fileProvider.deleteFileTmp(jsonName, `${jsonPath}/json`)

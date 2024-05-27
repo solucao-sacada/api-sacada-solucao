@@ -8,5 +8,6 @@ export interface IOrdersRepository {
     list(): Promise<IOrdersModel[]>
     listByUser(idUsers: string): Promise<IOrdersModel[]>
     update(id: string, data?: IOrderDTO): Promise<IOrdersModel | null>
+    updateUrlJSON(id: string, urlJSON: string): Promise<IOrdersModel | null>
     alterStatus(idOrder: string, status: IStatusDTO): Promise<IOrdersModel | null>
 }
