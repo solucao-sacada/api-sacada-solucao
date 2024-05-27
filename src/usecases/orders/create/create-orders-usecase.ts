@@ -56,16 +56,15 @@ export class CreateOrdersUseCase {
     })
 
     let orderJSON: IOrderDTO = {
-      id: order._id,
+      idUser: String(order.idUser),
+      code: order.code,
       accessories: order.accessories,
       balcony: order.balcony,
       client: order.client,
-      code: order.code,
-      idUser: String(order.idUser),
       observation: order.observation as string,
       technician: order.technician,
-      urlJSON: order.urlJSON,
       status: order.status,
+      images: []
     }
 
 
