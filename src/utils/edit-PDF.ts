@@ -61,8 +61,8 @@ export async function editarPDF({
     currentY -= lineHeight;
 
     drawTextWithBold(`\u2022 Total: `, true, currentY);
-    page.drawText(`${price}`, { ...textOptions, x: 252, y: currentY });
-    currentY -= lineHeight * 4.5;
+    page.drawText(`${price}`, { ...textOptions, x: 198, y: currentY });
+    currentY -= lineHeight * 6.4;
     
     // EMPRESA
     drawText(`\u2022 ${company.legalName}`, currentY);
