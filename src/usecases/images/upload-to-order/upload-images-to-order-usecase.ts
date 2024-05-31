@@ -85,17 +85,22 @@ export class UploadImageToOrderUseCase {
                 status: findOrderExists.status,
                 images: arrayUrlImages,
             }
+
+            // Coloca o objeto orderJSON dentro de um array
+            let orderJSONArray = [order];
     
             const jsonName = `${order.code}-${order.client.name}.json`
             const jsonPath = env.NODE_ENV === "development" ? './src/tmp' : './build/tmp'
     
-            fs.writeFile(`${jsonPath}/json/${jsonName}`, JSON.stringify(order, null, 2), 'utf8', (err) => {
+            fs.writeFile(`${jsonPath}/json/${jsonName}`, JSON.stringify(orderJSONArray, null, 2), 'utf8', (err) => {
             if(err){
                 console.log(err);
             }else{
                 console.log('Arquivo salvo com sucesso!');
             }
             });
+
+            
     
             // subir o json para o firebase storage
             const urlJSON =await this.storageProvider.uploadFile(jsonName, `${jsonPath}/json/${jsonName}`, "jsons")
