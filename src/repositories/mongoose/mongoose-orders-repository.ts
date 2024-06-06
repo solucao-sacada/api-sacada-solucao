@@ -75,7 +75,7 @@ export class MongooseOrdersRepository implements IOrdersRepository {
                 accessories,
                 balcony,
                 client,
-                code: Number(countOrders) + 1,
+                code: `#${countOrders + 1}`,
                 idUser,
                 technician,
                 observation

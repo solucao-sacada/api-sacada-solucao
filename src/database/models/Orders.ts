@@ -5,7 +5,7 @@ import { IStatusDTO } from "@/dtos/IStatusDTO";
 
 export interface IOrdersModel extends Document {
     idUser: string
-    code: number;
+    code: string;
     accessories: Accessories
     balcony: Balcony
     client: Client
@@ -22,7 +22,7 @@ export interface IOrdersModel extends Document {
 export const OrdersSchema = new Schema<IOrdersModel>({
     idUser: { type: String, ref: "Users", required: true },
     code: {
-        type: Number,
+        type: String,
         unique: true,
         required: false
     },

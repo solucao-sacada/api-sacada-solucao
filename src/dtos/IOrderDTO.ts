@@ -4,7 +4,7 @@ import { Accessories, Balcony, Client } from "./ITypeOrderJSON"
 export interface IOrderDTO {
     id?: string
     idUser?: string
-    code?: number
+    code?: string
     accessories: Accessories
     balcony: Balcony
     client: Client
