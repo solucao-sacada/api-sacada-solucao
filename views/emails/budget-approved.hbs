@@ -66,7 +66,7 @@
             <span></span>
             <span>
                 <p>
-                    Prezado {{name}},
+                    Prezado {{pedido.client.name}},
                 </p>
             </span>
 
@@ -81,9 +81,24 @@
             </span>
 
             <span>
+                 <p>
+                    • Nome: {{pedido.client.name}}
+                </p>
+
+                <p>
+                    • Email: {{pedido.client.email}}
+                </p>
+
+                <p>
+                    • Endereço: {{pedido.client.address}}
+                </p>
+            </span>
+
+            <span>
                 <p>
                     • Altura: {{pedido.height}}
                 </p>
+                
                 <p>
                     • Largura: {{pedido.width}}
                 </p>
@@ -91,42 +106,6 @@
                 <p>
                     • Valor Total: R$ {{pedido.price}}
                 </p>
-                {{!-- <p>
-                    • Aparador Inox: {{pedido.qtdAparador}}
-                </p>
-                <p>
-                    • Prolongador: {{pedido.qtdProlongador}}
-                </p>
-                <p>
-                    • Selante: {{pedido.qtdSelante}}
-                </p>
-                <p>
-                    • Chapa Inferior: {{pedido.chapaInferior}}
-                </p>
-                <p>
-                    • Chapa Superior: {{pedido.chapaSuperior}}
-                </p>
-                <p>
-                    • Custo do vidro: R$ {{pedido.priceGlasses}}
-                </p>
-                <p>
-                    • Kit solução: R$ {{pedido.priceKitSolutions}}
-                </p>
-                 <p>
-                    • Valor Prolongador: R$ {{pedido.priceProlongador}}
-                </p>
-                <p>
-                    • Custo dos acessórios: R$ {{pedido.priceAcessories}}
-                </p>
-                <p>
-                    • Custo das chapas: R$ {{pedido.pricePlates}}
-                </p>
-                <p>
-                    • Área Total: R$ {{pedido.area}} m&sup2;
-                </p>
-                <p>
-                    • Valor Total: R$ {{pedido.price}}
-                </p> --}}
             </span>
         </div>
     </div>

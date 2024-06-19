@@ -3,8 +3,11 @@ import { Schema, model, Document } from "mongoose";
 export interface IBudGetModel extends Document {
   idUser: string
   code: number;
-  client: string
-  emailClient: string          
+  name: string
+  email: string  
+  address: string
+
+          
   price: number
 
   aparador?: boolean
@@ -33,13 +36,17 @@ export const BudGetSchema = new Schema<IBudGetModel>({
         unique: true,
         required: false
     },
-    client: {
+    name: {
         type: String,
         required: true
     },
-    emailClient: {
+    email: {
         type: String,
         required: true,
+    },
+    address:{
+        type: String,
+        required: true
     },
     price: {
         type: Number,

@@ -4,7 +4,7 @@ import 'dotenv/config'
 import fs from 'node:fs'
 import { readFile } from 'fs/promises'
 import handlebars from "handlebars";
-import { IMailProvider, IPedidoJSON} from '../interface-mail-provider';
+import { IAttachment, IMailProvider, IPedidoJSON} from '../interface-mail-provider';
 import { Message } from '../in-memory/in-memory-mail-provider';
 
 export class MailProvider implements IMailProvider{
@@ -22,7 +22,7 @@ export class MailProvider implements IMailProvider{
         link:string | null, 
         pathTemplate:string,
         pedido: IPedidoJSON,
-        attachmentPath?: string | null
+        attachmentPDF?: IAttachment[] | null
         ) {
         try {
             // ler arquivo handlebars
@@ -38,14 +38,17 @@ export class MailProvider implements IMailProvider{
             from: '4codesolutionss@gmail.com', // De
             subject: subject, // Assunto
             html: htmlTemplate,
-            attachments: attachmentPath ? [
-                {
-                    content: fs.readFileSync(attachmentPath as string).toString('base64'), // Ler o arquivo PDF e converter para base64
-                    filename: 'Proposta_Comercial_Modelo.pdf',
+            attachments: attachmentPDF ? attachmentPDF.map(({
+                filename,
+                path
+            }: IAttachment) =>{
+                return {
+                    content: fs.readFileSync(path).toString('base64'), // Ler o arquivo PDF e converter para base64
+                    filename,
                     type: 'application/pdf',
                     disposition: 'attachment'
                 }
-            ] : undefined
+            }) : undefined
           });
         } catch (error) {
             console.log('Error to send email')

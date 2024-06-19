@@ -2,8 +2,9 @@ export interface IBudgetDTO{
   id?: string
   idUser?: string
   code?: number
-  client: string
-  emailClient: string          
+  name: string
+  email: string 
+  address: string         
   price?: number
 
   aparador?: boolean

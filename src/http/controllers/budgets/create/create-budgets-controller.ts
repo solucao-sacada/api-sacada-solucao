@@ -7,8 +7,11 @@ export class CreateBudgetController {
         try {
             const budgetSchema = z.object({
               idUser: z.string(),
-              client: z.string().min(4), 
-              emailClient: z.string().email(), 
+              client: z.object({
+                name: z.string().min(4), 
+                email: z.string().email(), 
+                address: z.string(),
+              }),
               price: z.number().positive().nonnegative(),
               aparador: z.boolean(),
               selante: z.boolean(),
@@ -31,7 +34,6 @@ export class CreateBudgetController {
             const {
                 idUser,
                 client,
-                emailClient,
                 price,
                 aparador,
                 selante,
@@ -56,7 +58,6 @@ export class CreateBudgetController {
             const budget = await createBudgetUseCase.execute({
                 idUser,
                 client,
-                emailClient,
                 price,
                 aparador,
                 selante,

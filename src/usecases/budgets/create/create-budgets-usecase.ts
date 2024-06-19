@@ -11,8 +11,11 @@ import { editarPDF } from "@/utils/edit-PDF";
 
 interface IRequestCreateBudget {
   idUser: string
-  client: string
-  emailClient: string  
+  client:{
+    name: string
+    email: string
+    address: string
+  }
 
   area: number
   price: number
@@ -47,7 +50,6 @@ export class CreateBudgetsUseCase {
   async execute({
     idUser,
     client,
-    emailClient,
     price,
     aparador,
     selante,
@@ -90,8 +92,9 @@ export class CreateBudgetsUseCase {
     // criar o pedido
     const budget = await this.budgetRepository.create({
       idUser,
-      client,
-      emailClient,
+      name: client.name,
+      email: client.email,
+      address: client.address,
       price,
       aparador,
       selante,
@@ -108,16 +111,10 @@ export class CreateBudgetsUseCase {
       priceKitSolutions,
       priceProlongador,
       width,
-      height,
-        
+      height,    
     }) as IBudGetModel
     
-    let priceGlassesFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(priceGlasses);
-    let pricePlatesFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(pricePlates);
-    let priceAcessoriesFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(priceAcessories);
-    let priceKitSolutionsFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(priceKitSolutions);
-    let priceProlongadorFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(priceProlongador);
-    let areaFormmated = new Intl.NumberFormat().format(area);
+    // let areaFormmated = new Intl.NumberFormat().format(area);
     let totalFormmated = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price);
     let heightFormmated = new Intl.NumberFormat().format(height);
     let widthFormmated = new Intl.NumberFormat().format(width);
@@ -127,38 +124,40 @@ export class CreateBudgetsUseCase {
       id: budget._id,
       price: totalFormmated,
       height: heightFormmated,
-      width: widthFormmated
+      width: widthFormmated,
+      name: client.name,
+      email: client.email,
+      address: client.address
     } as unknown as IBudGetModel 
 
     // CRIAR PDF COM O ORÇAMENTO
-    const {filePath: pathPdf, namePdf} = await editarPDF(budgetFormmated, findCompany)    // enviar verificação de email
+    const pdfs = await editarPDF(budgetFormmated, findCompany)    // enviar verificação de email
     
     await this.mailProvider.sendEmail(
-        emailClient, 
-        client,
+        client.email, 
+        client.name,
         "Orçamento Sacada", 
         null, 
         pathTemplate,
         {
           price: totalFormmated,
-          // qtdAparador,
-          // qtdProlongador,
-          // qtdSelante,
-          // chapaInferior: chapaInferior ? 'Sim' : 'Não', 
-          // chapaSuperior: chapaSuperior ? 'Sim' : 'Não',
-          // area: areaFormmated,
-          // pricePlates: pricePlatesFormmated,
-          // priceGlasses: priceGlassesFormmated,
-          // priceAcessories: priceAcessoriesFormmated,
-          // priceKitSolutions: priceKitSolutionsFormmated,
-          // priceProlongador: priceProlongadorFormmated,
           width: widthFormmated,
-          height: heightFormmated
+          height: heightFormmated,
+          client:{
+            name: client.name,
+            email: client.email,
+            address: client.address
+          }
         },
-        `${pathPdf}/${namePdf}`
+        pdfs
     )
-    // deletar o arquivo PDF criado
-    this.fileProvider.deleteFileTmp(namePdf, pathPdf)
+
+    // criar loop para deletar todos os arquivos da pasta temporária
+    for(let pdf of pdfs) {
+      const { filename, path } = pdf
+      // deletar o arquivo PDF criado
+       this.fileProvider.deleteFileTmp(filename, path)
+    }
 
     // retornar o pedido
     return budget
