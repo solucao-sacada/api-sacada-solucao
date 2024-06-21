@@ -54,7 +54,7 @@ export async function editarPDF({
             });
         };
         
-        let currentY = pageHeight - 255;
+        let currentY = pageHeight - 125;
         
         const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
         const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
@@ -65,10 +65,17 @@ export async function editarPDF({
             page.drawText(text, { ...textOptions, y, font });
         };
 
-        // ENDERECO ================
-        drawText(`\u2022 ${company.tradingName}`, 720);
-        drawText(`\u2022 ${company.streetAddress}, ${company.num} - ${company.neighborhood}, ${company.city} - ${company.state} - ${company.zipCode}`, 695);
-        currentY -= lineHeight;
+        // drawText(`\u2022 ${company.tradingName}`, 720);
+         // CLIENTE ================
+         drawText(`\u2022 ${name}`, currentY);
+         currentY -= lineHeight;
+ 
+         drawText(`\u2022 ${email}`, currentY);
+         currentY -= lineHeight;
+ 
+         drawTextWithBold(`\u2022 Edifício:`, true, currentY);
+         page.drawText(`${address}`, { ...textOptions, x: 214, y: currentY });
+         currentY -= lineHeight * 4.5
         
         // ORÇAMENTO ================
 
@@ -88,17 +95,8 @@ export async function editarPDF({
         
         // EMPRESA ================
         drawText(`\u2022 ${company.legalName}`, currentY);
-        currentY -= lineHeight  * 4.55; ;
+        currentY -= lineHeight  * 10; ;
 
-        // CLIENTE ================
-        drawText(`\u2022 ${name}`, currentY);
-        currentY -= lineHeight;
-
-        drawText(`\u2022 ${email}`, currentY);
-        currentY -= lineHeight;
-
-        drawText(`\u2022 ${address}`, currentY);
-        currentY -= lineHeight * 3.55;
 
         // FORMA DE PAGAMENTO ================
         drawText(`\u2022 PIX`, currentY);
