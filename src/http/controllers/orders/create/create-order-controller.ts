@@ -174,6 +174,7 @@ export class CreateOrderController {
                         apartment: z.string().nullable().optional(),
                         building: z.string().nullable().optional(),
                         city: z.string().nullable().optional(),
+                        internal_id: z.number().positive().nullable().optional(),
                         name: z.string().nullable().optional(),
                         neighborhood: z.string().nullable().optional(),
                         state: z.string().nullable().optional(),
