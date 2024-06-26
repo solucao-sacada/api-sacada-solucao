@@ -73,7 +73,7 @@ export async function editarPDF({
          drawText(`\u2022 ${email}`, currentY);
          currentY -= lineHeight;
  
-         drawTextWithBold(`\u2022 Edifício:`, true, currentY);
+         drawTextWithBold(`\u2022 Endereço:`, true, currentY);
          page.drawText(`${address}`, { ...textOptions, x: 214, y: currentY });
          currentY -= lineHeight * 4.5
         
