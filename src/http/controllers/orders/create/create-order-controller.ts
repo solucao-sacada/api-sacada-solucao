@@ -121,7 +121,15 @@ export class CreateOrderController {
                                     B: z.boolean(),
                                     C: z.boolean(),
                                     other:  z.string().or(z.boolean()).nullable().optional(),
-                                })
+                                }),
+                                tip: z.object({
+                                    A: z.boolean(),
+                                    B: z.boolean(),
+                                    C: z.boolean(),
+                                    D: z.boolean(),
+                                    E: z.boolean(),
+                                    other:  z.string().or(z.boolean()).nullable().optional(),
+                                }),
                             }),
                             normal: z.object({
                                 tip: z.object({
