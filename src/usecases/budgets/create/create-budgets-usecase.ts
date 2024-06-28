@@ -152,6 +152,46 @@ export class CreateBudgetsUseCase {
         pdfs
     )
 
+    // Enviar email com orçamento para o Vidraceiro
+    await this.mailProvider.sendEmail(
+      findUserExist.email, 
+      findUserExist.name,
+      "Orçamento Sacada", 
+      null, 
+      pathTemplate,
+      {
+        price: totalFormmated,
+        width: widthFormmated,
+        height: heightFormmated,
+        client:{
+          name: client.name,
+          email: client.email,
+          address: client.address
+        }
+      },
+      pdfs
+  )
+
+  // Enviar email com orçamento para o Admin
+  await this.mailProvider.sendEmail(
+    'app@solucaointeligentes.com', 
+    'Administrador',
+    "Orçamento Sacada", 
+    null, 
+    pathTemplate,
+    {
+      price: totalFormmated,
+      width: widthFormmated,
+      height: heightFormmated,
+      client:{
+        name: client.name,
+        email: client.email,
+        address: client.address
+      }
+    },
+    pdfs
+)
+
     // criar loop para deletar todos os arquivos da pasta temporária
     for(let pdf of pdfs) {
       const { filename, path } = pdf
