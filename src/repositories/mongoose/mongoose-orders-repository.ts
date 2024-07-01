@@ -89,7 +89,7 @@ export class MongooseOrdersRepository implements IOrdersRepository {
 
     async list(){
         try {
-            return await this.Orders.find().sort({code: -1})
+            return await this.Orders.find().sort({createdAt: -1})
         } catch (error) {
             console.error(error)
             throw error
