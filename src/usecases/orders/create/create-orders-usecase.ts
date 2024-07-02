@@ -8,7 +8,6 @@ import { IStorageProvider } from "@/providers/StorageProvider/storage-provider.i
 import { IOrdersRepository } from "@/repositories/interfaces/interface-orders-repository";
 import { IUsersRepository } from "@/repositories/interfaces/interface-users-repository";
 import { AppError } from "@/usecases/errors/AppError";
-import { randomUUID } from "node:crypto";
 import fs from 'node:fs'
 
 interface IRequestCreateOrder {
@@ -71,7 +70,8 @@ export class CreateOrdersUseCase {
     let orderJSONArray = [orderJSON];
 
 
-    const jsonName = `${orderJSON.code}-${orderJSON.client.name}.json`
+    const jsonName = `Json_checklist-${orderJSON.code}.json`.replace('#', '')
+
     const jsonPath = env.NODE_ENV === "development" ? './src/tmp' : './build/tmp'
 
     fs.writeFile(`${jsonPath}/json/${jsonName}`, JSON.stringify(orderJSONArray, null, 2), 'utf8', (err) => {
